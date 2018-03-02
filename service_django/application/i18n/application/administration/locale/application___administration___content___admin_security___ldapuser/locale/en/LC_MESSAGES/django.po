@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERS"
+msgstr "LDAP users"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER"
+msgstr "LDAP user"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___NAME"
+msgstr "Name"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___IDENTIFIER"
+msgstr "Identifier"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___IS_ACTIVE"
+msgstr "Is active"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___ID"
+msgstr "ID"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IS_ACTIVE"
+msgstr "Is active"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IS_ACTIVE___HELP_TEXT"
+msgstr "Indicates whether this instance should be treated as active. Disable this option instead of deleting it."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___CREATED"
+msgstr "Created"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___MODIFIED"
+msgstr "Modified"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___AVATAR"
+msgstr "Avatar"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___FIRST_NAME"
+msgstr "First name"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___LAST_NAME"
+msgstr "Last name"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IDENTIFIER"
+msgstr "Identifier"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___EMAIL"
+msgstr "Email"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD"
+msgstr "Password"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD_CONFIRMATION"
+msgstr "Password confirmation"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___GROUPS"
+msgstr "Groups"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PERMISSIONS"
+msgstr "Permissions"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL"
+msgstr "Detail"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL___HELP_TEXT"
+msgstr "Write a brief summary."
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and the special character dot."
+msgstr "Only letters, numbers and the special character dot."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and the special character _."
+msgstr "Only letters, numbers and the special character _."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Only letters, numbers and special characters dot, -, _ and space."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The avatar should not be beggear than %(weight)s."
+msgstr "The avatar should not be beggear than %(weight)s."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This identifier has already been chosen."
+msgstr "This identifier has already been chosen."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This email has already been chosen."
+msgstr "This email has already been chosen."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match."
+msgstr "The password and your confirmation do not match."

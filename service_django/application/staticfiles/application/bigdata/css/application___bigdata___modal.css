@@ -1,0 +1,63 @@
+#application___bigdata___modal .modal-dialog,
+#application___bigdata___modal___modal .modal-dialog
+{
+}
+
+@media (max-width :767px)
+{
+    #application___bigdata___modal .modal-dialog,
+    #application___bigdata___modal___modal .modal-dialog
+    {
+        margin  :0;
+        padding :0;
+    }
+}
+
+#application___bigdata___modal .modal-dialog .modal-content,
+#application___bigdata___modal___modal .modal-dialog .modal-content
+{
+    border        :1px solid transparent;
+    border-radius :1px;
+    box-shadow    :none;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content.application___bigdata___modal_message,
+#application___bigdata___modal___modal .modal-dialog .modal-content.application___bigdata___modal_message
+{
+    background-color :transparent !important;
+    box-shadow       :none;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content .nav-tabs > li > a,
+#application___bigdata___modal___modal .modal-dialog .modal-content .nav-tabs > li > a
+{
+    border-radius :0;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content .modal-header,
+#application___bigdata___modal___modal .modal-dialog .modal-content .modal-header
+{
+    background-color :#2a3f54;
+    border           :none;
+    color            :#ffffff;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content .modal-header .close,
+#application___bigdata___modal___modal .modal-dialog .modal-content .modal-header .close
+{
+    width :25px;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content .modal-body,
+#application___bigdata___modal___modal .modal-dialog .modal-content .modal-body
+{
+    margin  :0;
+    padding :0;
+    border  :1px solid transparent;
+}
+
+#application___bigdata___modal .modal-dialog .modal-content .modal-footer,
+#application___bigdata___modal___modal .modal-dialog .modal-content .modal-footer
+{
+    border-top :1px solid #d9dee4;
+}

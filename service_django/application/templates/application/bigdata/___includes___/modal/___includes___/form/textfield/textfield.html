@@ -1,0 +1,19 @@
+<div class="form-group {% if ctx___field.errors %}has-error{% endif %}">
+    <label for="{{ ctx___field.field.widget.attrs.id }}">{{ ctx___field.field.label }}:{% if ctx___field.field.required %} *{% endif %}</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="{{ ctx___field.field.widget.attrs.id }}_icon">
+            <span class="{{ ctx___field.field.widget.attrs.icon }}" aria-hidden="true"></span>
+        </span>
+        {{ ctx___field }}
+    </div>
+    {% if ctx___field.help_text %}
+        <p class="help-block text-justify">{{ ctx___field.help_text }}</p>
+    {% endif %}
+    {% if ctx___field.errors %}
+        <ul>
+            {% for ctx___error in ctx___field.errors %}
+                <li><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> {{ ctx___error|escape }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

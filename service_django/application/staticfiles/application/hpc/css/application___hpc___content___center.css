@@ -1,0 +1,46 @@
+#application___hpc___content___center
+{
+    margin           :10px 10px 0 10px;
+    padding          :0;
+    background-color :#ffffff;
+    border           :1px solid #d9dee4;
+    color            :#73879c;
+}
+
+@media (max-width :767px)
+{
+    #application___hpc___content___center
+    {
+        margin       :0;
+        border-right :none;
+        border-left  :none;
+    }
+}
+
+#application___hpc___content___center #center___header
+{
+    overflow      :hidden;
+    margin        :15px;
+    padding       :0 0 5px 0;
+    border-bottom :1px solid #d9dee4;
+}
+
+#application___hpc___content___center #center___content
+{
+    margin  :15px 20px 20px 20px;
+    padding :0;
+}
+
+@media (max-width :767px)
+{
+    #application___hpc___content___center #center___header
+    {
+        margin  :10px 0;
+        padding :0 5px 5px 5px;
+    }
+
+    #application___hpc___content___center #center___content
+    {
+        margin :10px;
+    }
+}

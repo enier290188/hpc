@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___WEBSITE___CONTENT___WEBSITE"
+msgstr "Sitio web"
+
+
+
+msgid "APPLICATION___WEBSITE___CONTENT___FOOTER___TEXT_1"
+msgstr "Desarrollado por el Departamento de Informatización y Comunicaciones."
+
+msgid "APPLICATION___WEBSITE___CONTENT___FOOTER___TEXT_2 %(ctx___now_l)s %(ctx___now_F)s %(ctx___now_j)s %(ctx___now_Y)s"
+msgstr "Hoy es %(ctx___now_l)s, %(ctx___now_j)s de %(ctx___now_F)s del %(ctx___now_Y)s"

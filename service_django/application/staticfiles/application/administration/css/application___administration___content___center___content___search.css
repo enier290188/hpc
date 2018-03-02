@@ -1,0 +1,38 @@
+#center___content #content___search
+{
+    margin  :0;
+    padding :0;
+}
+
+#center___content #content___search .form-group .input-group
+{
+    margin  :0;
+    padding :0;
+}
+
+#center___content #content___search .form-group .input-group .input-group-addon
+{
+    background-color :#ffffff;
+    border-radius    :0;
+    border-color     :#d9dee4;
+    color            :#73879c;
+}
+
+#center___content #content___search .form-group .input-group .input-group-btn a
+{
+
+}
+
+#center___content #content___search .form-group .input-group .form-control
+{
+    border-radius :0;
+    border-color  :#d9dee4;
+    color         :#73879c;
+}
+
+#center___content #content___search .form-group .input-group .form-control::-moz-placeholder,
+#center___content #content___search .form-group .input-group .form-control::-webkit-input-placeholder
+{
+    color   :#73879c;
+    opacity :0.5;
+}

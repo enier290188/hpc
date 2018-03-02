@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUPS"
+msgstr "Grupos"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP"
+msgstr "Grupo"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___TABLE___NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___TABLE___IS_ACTIVE"
+msgstr "Es activo"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___ID"
+msgstr "ID"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___IS_ACTIVE"
+msgstr "Es activo"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___IS_ACTIVE___HELP_TEXT"
+msgstr "Indica si esta instancia debe tratarse como activa. Desactive esta opción en lugar de eliminarla."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___CREATED"
+msgstr "Creado"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___MODIFIED"
+msgstr "Modificado"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___PERMISSIONS"
+msgstr "Permisos"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___VALIDATION This instance is a branch of a non-active instance, so it can not be activated."
+msgstr "Esta instancia es una rama de una instancia no activa, por lo que no se puede activar."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___VALIDATION There are instances that are branches of this instance, so it can not be deleted."
+msgstr "Hay instancias que son ramas de esta instancia, por lo que no se puede eliminar."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Sólo letras, números y los carácteres especiales punto, - , _ y espacio."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___VALIDATION This name has already been chosen."
+msgstr "Este nombre ya ha sido elegido."

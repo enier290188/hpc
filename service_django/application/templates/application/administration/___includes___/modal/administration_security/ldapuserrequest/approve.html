@@ -1,0 +1,52 @@
+{% load application___security %}
+{% load i18n %}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___administration:modules:administration_security:ldapuserrequest:approve" pk=ctx___form.instance.pk %}" class="LINK___application___administration___modal___action_approve">
+            {% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___administration___modal___action_close" data-dismiss="modal" aria-label="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CLOSE" %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CLOSE" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span class="fa fa-user-plus" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_APPROVE" %} <strong>&OpenCurlyDoubleQuote;{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST" %}&CloseCurlyDoubleQuote;</strong></h4>
+            </div>
+            <div class="modal-body">
+                <!-- Modal Menssage -->
+                <div class="modal___message">
+                </div>
+                <!-- Modal Form Field -->
+                <div class="modal___form">
+                    <p class="lead text-center">
+                        <strong>&OpenCurlyDoubleQuote;{{ ctx___form.instance }}&CloseCurlyDoubleQuote;</strong>
+                    </p>
+
+                    <p class="lead text-center">
+                        {% trans "APPLICATION___ADMINISTRATION___CONTENT___QUESTION Are you sure you want to approve it?" %}
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-primary pull-left" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_APPROVE" %}">
+                    <span class="fa fa-user-plus" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_APPROVE" %}
+                </button>
+                <a class="btn btn-sm btn-default pull-left LINK___application___administration___modal___action_refresh" data-url="{% url "application___administration:modules:administration_security:ldapuserrequest:approve" pk=ctx___form.instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}</span>
+                </a>
+                <button type="button" class="btn btn-sm btn-default pull-left LINK___application___administration___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CLOSE" %}</span>
+                </button>
+                {% if request|___required___application___security___user___has_permission___:"application_security_ldapuserrequest_detail" %}
+                    <a class="btn btn-sm btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:ldapuserrequest:detail" pk=ctx___form.instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DETAIL" %}">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DETAIL" %}</span>
+                    </a>
+                {% endif %}
+                {% if request|___required___application___security___user___has_permission___:"application_security_ldapuserrequest_disapprove" %}
+                    <a class="btn btn-sm btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:ldapuserrequest:disapprove" pk=ctx___form.instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DISAPPROVE" %}">
+                        <span class="fa fa-user-times" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DISAPPROVE" %}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>

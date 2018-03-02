@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___HPC___HEADER___BRAND"
+msgstr "Aplicación"
+
+msgid "APPLICATION___HPC___HEADER___LEFT___WEBSITE"
+msgstr "Sitio web"
+
+msgid "APPLICATION___HPC___HEADER___LEFT___HPC"
+msgstr "HPC"
+
+msgid "APPLICATION___HPC___HEADER___LEFT___BIGDATA"
+msgstr "BIGDATA"
+
+msgid "APPLICATION___HPC___HEADER___LEFT___ADMINISTRATION"
+msgstr "Administración"
+
+msgid "APPLICATION___HPC___HEADER___RIGHT___LOGIN"
+msgstr "Iniciar sesión"
+
+msgid "APPLICATION___HPC___HEADER___RIGHT___USER___PROFILE"
+msgstr "Perfil"
+
+msgid "APPLICATION___HPC___HEADER___RIGHT___USER___LOGOUT"
+msgstr "Cerrar sesión"

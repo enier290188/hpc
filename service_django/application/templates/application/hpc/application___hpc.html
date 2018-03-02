@@ -1,0 +1,82 @@
+{% load i18n %}
+{% load staticfiles %}
+{% now "YmdHis" as ctx___now %}
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- Application HPC Title -->
+            <title data-url="{% url "application___hpc:index___title" %}">{% include "application/hpc/___includes___/title/title.html" %}</title>
+            <!-- favicon -->
+            <link rel="shortcut icon" href="{% static 'application/hpc/img/favicon/favicon.png' %}?{{ ctx___now }}" type="image/png">
+            <!-- Bootstrap -->
+            <link href="{% static "vendors/bootstrap/css/bootstrap.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- Font Awesome -->
+            <link href="{% static "vendors/font-awesome/css/font-awesome.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <link href="{% static "vendors/font-awesome/css/font-awesome-animation.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- CustomScrollbar -->
+            <link href="{% static "vendors/malihu-custom-scrollbar/jquery.mCustomScrollbar.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- Application HPC Custom Theme Style -->
+            <link href="{% static "application/hpc/css/application___hpc.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___header.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___leftside.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___content.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___content___center.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___content___footer.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___modal.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___modal___message.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___modal___form.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <!--[if lt IE 9]>
+                <script src="{% static "vendors/ie/js/ie8-responsive-file-warning.js" %}?{{ ctx___now }}"></script>
+            <![endif]-->
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+                <script src="{% static "vendors/html5shiv/html5shiv.min.js" %}?{{ ctx___now }}"></script>
+                <script src="{% static "vendors/respond/respond.min.js" %}?{{ ctx___now }}"></script>
+            <![endif]-->
+        </head>
+        <body>
+            <!-- Application HPC -->
+            <div id="application___hpc">
+                <!-- Application HPC Load -->
+                <div id="application___hpc___load" class="hidden" data-url="{% url "application___hpc:index___load" %}">
+                    {% include "application/hpc/___includes___/load/load.html" %}
+                </div>
+                <!-- Application HPC Header -->
+                <header id="application___hpc___header" class="navbar navbar-fixed-top" data-url="{% url "application___hpc:index___header" %}">
+                </header>
+                <!-- Application HPC Leftside -->
+                <aside id="application___hpc___leftside" data-url="{% url "application___hpc:index___leftside" %}">
+                </aside>
+                <!-- Application HPC Content -->
+                <section id="application___hpc___content">
+                    <!-- Application HPC Content Center -->
+                    <div id="application___hpc___content___center" data-url="{% url "application___hpc:index___content___center" %}">
+                    </div>
+                    <!-- Application HPC Content Footer -->
+                    <footer id="application___hpc___content___footer" data-url="{% url "application___hpc:index___content___footer" %}">
+                    </footer>
+                </section>
+                <!-- Application HPC Modal -->
+                <div id="application___hpc___modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="true">
+                </div>
+                <!-- Application HPC Modal Modal -->
+                <div id="application___hpc___modal___modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="true">
+                </div>
+            </div>
+            <!-- jQuery -->
+            <script src="{% static "vendors/jquery/jquery.min.js" %}?{{ ctx___now }}"></script>
+            <!-- Bootstrap -->
+            <script src="{% static "vendors/bootstrap/js/bootstrap.min.js" %}?{{ ctx___now }}"></script>
+            <!-- CustomScrollbar -->
+            <script src="{% static "vendors/malihu-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}?{{ ctx___now }}"></script>
+            <!-- Application HPC Custom Theme JavaScript -->
+            <script src="{% static "application/hpc/js/application___hpc.js" %}?{{ ctx___now }}"></script>
+        </body>
+    </html>
+{% endspaceless %}

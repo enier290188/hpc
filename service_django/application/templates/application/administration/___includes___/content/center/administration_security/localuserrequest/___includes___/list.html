@@ -1,0 +1,33 @@
+{% load application___security %}
+{% load i18n %}
+
+{% for ctx___instance in ctx___page.object_list %}
+    <tr>
+        <th>
+            {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequest_detail" %}
+                <a class="btn btn-xs btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:localuserrequest:detail" pk=ctx___instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DETAIL" %}" role="button">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                </a>&nbsp;
+            {% endif %}
+            {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequest_approve" %}
+                <a class="btn btn-xs btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:localuserrequest:approve" pk=ctx___instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_APPROVE" %}" role="button">
+                    <span class="fa fa-user-plus" aria-hidden="true"></span>
+                </a>&nbsp;
+            {% endif %}
+            {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequest_disapprove" %}
+                <a class="btn btn-xs btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:localuserrequest:disapprove" pk=ctx___instance.pk %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DISAPPROVE" %}" role="button">
+                    <span class="fa fa-user-times" aria-hidden="true"></span>
+                </a>
+            {% endif %}
+        </th>
+        <td>{{ ctx___instance }}</td>
+        <td>{{ ctx___instance.identifier }}</td>
+        <td>{{ ctx___instance.email }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center">
+            <span class="glyphicon glyphicon-hand-right"></span> {% trans "APPLICATION___ADMINISTRATION___CONTENT___OPTION_NOT_FOUND" %} <strong>&OpenCurlyDoubleQuote;{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LOCALUSERREQUESTS" %}&CloseCurlyDoubleQuote;</strong>.
+        </td>
+    </tr>
+{% endfor %}

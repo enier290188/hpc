@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENTS"
+msgstr "Documents"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT"
+msgstr "Document"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___TABLE___TITLE"
+msgstr "Title"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___TABLE___IS_ACTIVE"
+msgstr "Is active"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___LOCALE___EN"
+msgstr "English"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___LOCALE___ES"
+msgstr "Spanish"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___ID"
+msgstr "ID"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___IS_ACTIVE"
+msgstr "Is active"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___IS_ACTIVE___HELP_TEXT"
+msgstr "Indicates whether this instance should be treated as active. Disable this option instead of deleting it."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___CREATED"
+msgstr "Created"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___MODIFIED"
+msgstr "Modified"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___TITLE"
+msgstr "Title"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___CONTENT"
+msgstr "Content"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___VALIDATION This instance is a branch of a non-active instance, so it can not be activated."
+msgstr "This instance is a branch of a non-active instance, so it can not be activated."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___VALIDATION There are instances that are branches of this instance, so it can not be deleted."
+msgstr "There are instances that are branches of this instance, so it can not be deleted."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Only letters, numbers and special characters dot, -, _ and space."

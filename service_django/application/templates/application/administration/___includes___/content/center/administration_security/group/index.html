@@ -1,0 +1,34 @@
+{% load application___security %}
+{% load i18n %}
+
+<h3 id="center___header">
+    <span class="fa fa-list-ol fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUPS" %}
+    <a class="btn btn-sm btn-default pull-right LINK___application___administration___content___center___content___table___tbody___action_refresh" data-url="{% url "application___administration:modules:administration_security:group:list" %}{% if ctx___page.number %}?page={{ ctx___page.number }}{% endif %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}" role="button">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}</span>
+    </a>
+</h3>
+<div id="center___content">
+    <!-- Application Content Center Content Table -->
+    <div id="content___table" class="table-responsive">
+        <table class="table table-hover" data-url="{% url "application___administration:modules:administration_security:group:list___tree" %}">
+            <thead>
+            <tr>
+                <th class="{{ request|___get_string___user___th___width___:"application_security_group_create application_security_group_detail application_security_group_update application_security_group_delete" }}">
+                    {% if request|___required___application___security___user___has_permission___:"application_security_group_create" %}
+                        <a class="btn btn-sm btn-default LINK___application___administration___modal___reload" data-url="{% url "application___administration:modules:administration_security:group:create" %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CREATE" %}" role="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    {% endif %}
+                </th>
+                <th class="th___name">{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___TABLE___NAME" %}</th>
+                <th class="th___is_active">{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___GROUP___TABLE___IS_ACTIVE" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <!-- Application Content Center Content Pagination -->
+    <div id="content___pagination">
+    </div>
+</div>

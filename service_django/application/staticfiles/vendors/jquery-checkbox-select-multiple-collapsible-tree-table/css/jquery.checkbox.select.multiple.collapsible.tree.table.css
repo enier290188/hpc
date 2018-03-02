@@ -1,0 +1,49 @@
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander
+{
+    display        :inline-block;
+    position       :relative;
+    width          :24px;
+    margin-left    :-24px;
+    vertical-align :middle;
+    cursor         :default;
+}
+
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander::after
+{
+    content     :' ';
+    display     :block;
+    position    :absolute;
+    top         :50%;
+    left        :50%;
+    width       :0;
+    height      :0;
+    margin-left :-6px;
+    margin-top  :-6px;
+    border      :6px solid transparent;
+}
+
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander-expanded,
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander-collapsed
+{
+    cursor :pointer;
+}
+
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander-expanded::after
+{
+    border-top-color :#2a3f54;
+}
+
+td.jquerycheckboxselectmultiplecollapsibletreetable-sortable .jquerycheckboxselectmultiplecollapsibletreetable-container .jquerycheckboxselectmultiplecollapsibletreetable-expander-collapsed::after
+{
+    border-left-color :#2a3f54;
+}
+
+tr.loading > td > .jquerycheckboxselectmultiplecollapsibletreetable-container > .jquerycheckboxselectmultiplecollapsibletreetable-expander::after
+{
+    width       :16px;
+    height      :16px;
+    margin-left :-8px;
+    margin-top  :-8px;
+    background  :url('../images/loader.gif') center center no-repeat;
+    border      :0;
+}

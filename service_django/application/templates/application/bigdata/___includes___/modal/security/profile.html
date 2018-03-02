@@ -1,0 +1,66 @@
+{% load i18n %}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___bigdata:profile" %}" class="LINK___application___bigdata___modal___action_profile" enctype="multipart/form-data">
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___bigdata___modal___action_close" data-dismiss="modal" aria-label="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {% trans "APPLICATION___SECURITY___PROFILE" %}</h4>
+            </div>
+            {% csrf_token %}
+            <div class="modal-body">
+                <!-- Modal Menssage -->
+                <div class="modal___message">
+                </div>
+                <!-- Modal Form Field -->
+                <div class="modal___form">
+                    {% with ctx___field=ctx___form.first_name %}
+                        {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.last_name %}
+                        {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.avatar ctx___form___errors=ctx___form.errors ctx___instance_current=ctx___form.instance_current ctx___instance=ctx___form.instance %}
+                        {% include "application/bigdata/___includes___/modal/___includes___/form/avatar/avatar.html" %}
+                    {% endwith %}
+
+                    <div class="divider___transparent"></div>
+                    {% if ctx___form.ldap_group %}
+                        {% with ctx___field=ctx___form.ldap_group %}
+                            {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                        {% endwith %}
+                    {% endif %}
+                    {% with ctx___field=ctx___form.identifier %}
+                        {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.email %}
+                        {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% if ctx___form.password %}
+                        {% with ctx___field=ctx___form.password %}
+                            {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                        {% endwith %}
+                    {% endif %}
+                    {% if ctx___form.password_confirmation %}
+                        {% with ctx___field=ctx___form.password_confirmation %}
+                            {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-primary pull-left" title="{% trans "APPLICATION___SECURITY___ACTION_PROFILE" %}">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {% trans "APPLICATION___SECURITY___ACTION_PROFILE" %}
+                </button>
+                <a class="btn btn-sm btn-default pull-left LINK___application___bigdata___modal___action_refresh" data-url="{% url "application___bigdata:profile" %}" title="{% trans "APPLICATION___SECURITY___ACTION_REFRESH" %}">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_REFRESH" %}</span>
+                </a>
+                <button type="button" class="btn btn-sm btn-default pull-left LINK___application___bigdata___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

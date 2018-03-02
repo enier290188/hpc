@@ -1,0 +1,20 @@
+#application___website___content___center #center___content h4
+{
+    margin :20px 0 5px 0;
+}
+
+#application___website___content___center #center___content h4:first-child
+{
+    margin-top :10px;
+}
+
+#application___website___content___center #center___content p
+{
+    margin :5px 0;
+}
+
+#application___website___content___center #center___content a
+{
+    color           :blue;
+    text-decoration :underline;
+}

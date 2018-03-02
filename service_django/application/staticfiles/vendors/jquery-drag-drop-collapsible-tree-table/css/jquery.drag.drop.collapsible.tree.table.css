@@ -1,0 +1,78 @@
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container
+{
+    cursor :move;
+}
+
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander
+{
+    display        :inline-block;
+    position       :relative;
+    width          :24px;
+    margin-left    :-24px;
+    vertical-align :middle;
+    cursor         :default;
+}
+
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander::after
+{
+    content     :' ';
+    display     :block;
+    position    :absolute;
+    top         :50%;
+    left        :50%;
+    width       :0;
+    height      :0;
+    margin-left :-6px;
+    margin-top  :-6px;
+    border      :6px solid transparent;
+}
+
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander-expanded,
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander-collapsed
+{
+    cursor :pointer;
+}
+
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander-expanded::after
+{
+    border-top-color :#2a3f54;
+}
+
+td.jquerydragdropcollapsibletreetable-sortable .jquerydragdropcollapsibletreetable-container .jquerydragdropcollapsibletreetable-expander-collapsed::after
+{
+    border-left-color :#2a3f54;
+}
+
+.jquerydragdropcollapsibletreetable-move-indicator
+{
+    display           :none;
+    position          :absolute;
+    width             :0;
+    height            :0;
+    margin-top        :-5px;
+    margin-left       :-6px;
+    border            :5px solid transparent;
+    border-left-color :#2a3f54;
+    z-index           :10000;
+}
+
+.jquerydragdropcollapsibletreetable-container.dragging
+{
+    position         :absolute;
+    margin-left      :0 !important;
+    padding          :5px;
+    background-color :#2a3f54;
+    color            :white;
+    cursor           :move;
+    z-index          :10001;
+}
+
+tr.loading > td > .jquerydragdropcollapsibletreetable-container > .jquerydragdropcollapsibletreetable-expander::after
+{
+    width       :16px;
+    height      :16px;
+    margin-left :-8px;
+    margin-top  :-8px;
+    background  :url('../images/loader.gif') center center no-repeat;
+    border      :0;
+}

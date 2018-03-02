@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% now "YmdHis" as ctx___now %}
+<!-- Application Website Custom Theme Style -->
+<link href="{% static "vendors/jquery-multiple-collapsible-tree-table/css/jquery.multiple.collapsible.tree.table.css" %}?{{ ctx___now }}" rel="stylesheet">
+<link href="{% static "application/website/css/application___website___content___center___help.css" %}?{{ ctx___now }}" rel="stylesheet">
+
+<h3 id="center___header">
+    <span class="fa fa-book fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___WEBSITE___CONTENT___WEBSITE_HELP" %}
+</h3>
+<div id="center___content" class="container-fluid">
+    <div class="row">
+        <div id="content___list" class="col-md-4 col-md-push-8" data-url="{% url "application___website:modules:website_help:list" %}">
+        </div>
+        <div id="content___content" class="col-md-8 col-md-pull-4" data-url="{% url "application___website:modules:website_help:content" pk=0 %}">
+        </div>
+    </div>
+</div>
+
+<!-- Application Website Help Custom Theme JavaScript -->
+<script src="{% static "vendors/jquery-multiple-collapsible-tree-table/js/jquery.multiple.collapsible.tree.table.js" %}?{{ ctx___now }}"></script>
+<script src="{% static "application/website/js/application___website___help.js" %}?{{ ctx___now }}"></script>

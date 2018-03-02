@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___BIGDATA___LEFTSIDE___USER___TEXT___WELCOME"
+msgstr "Bienvenido"
+
+msgid "APPLICATION___BIGDATA___LEFTSIDE___NAV___MODULE___MODULE01"
+msgstr "Modulo01"
+
+msgid "APPLICATION___BIGDATA___LEFTSIDE___NAV___MODULE___MODULE02"
+msgstr "Modulo02"
+
+msgid "APPLICATION___BIGDATA___LEFTSIDE___NAV___MODULE___MODULE03"
+msgstr "Modulo03"

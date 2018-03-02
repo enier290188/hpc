@@ -1,0 +1,270 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___SECURITY___ACTION_REFRESH"
+msgstr "Refrescar"
+
+msgid "APPLICATION___SECURITY___ACTION_CLOSE"
+msgstr "Cerrar"
+
+msgid "APPLICATION___SECURITY___ACTION_LOGIN"
+msgstr "Autenticar"
+
+msgid "APPLICATION___SECURITY___ACTION_LOGOUT"
+msgstr "Cerrar sesión"
+
+msgid "APPLICATION___SECURITY___ACTION_PROFILE"
+msgstr "Modificar"
+
+msgid "APPLICATION___SECURITY___ACTION_SUBMIT"
+msgstr "Enviar"
+
+msgid "APPLICATION___SECURITY___ACTION_UPDATE"
+msgstr "Modificar"
+
+msgid "APPLICATION___SECURITY___ACTION_UPLOAD"
+msgstr "Subir"
+
+
+
+msgid "APPLICATION___SECURITY___LOGIN"
+msgstr "Autenticar"
+
+msgid "APPLICATION___SECURITY___LOGIN___MODEL___LOCALUSER"
+msgstr "LOCAL"
+
+msgid "APPLICATION___SECURITY___LOGIN___MODEL___LDAPUSER"
+msgstr "LDAP"
+
+msgid "APPLICATION___SECURITY___LOGIN___LDAP_GROUP"
+msgstr "Grupo"
+
+msgid "APPLICATION___SECURITY___LOGIN___IDENTIFIER"
+msgstr "Identificador"
+
+msgid "APPLICATION___SECURITY___LOGIN___PASSWORD"
+msgstr "Contraseña"
+
+msgid "APPLICATION___SECURITY___LOGIN___LINK___FORGOT_CREDENTIALS"
+msgstr "Olvidaste credenciales"
+
+msgid "APPLICATION___SECURITY___LOGIN___LINK___REQUEST"
+msgstr "Solicitar usuario"
+
+msgid "APPLICATION___SECURITY___LOGIN___MESSAGE Welcome %(instance)s."
+msgstr "Bienvenidos <strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong>."
+
+msgid "APPLICATION___SECURITY___LOGIN___MESSAGE The identifier and password are incorrect."
+msgstr "El identificador y la contraseña son incorrectos."
+
+msgid "APPLICATION___SECURITY___LOGIN___MESSAGE The identifier and password are correct, but this user is not active."
+msgstr "El identificador y la contraseña son correctos, pero este usuario no está activo."
+
+
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS"
+msgstr "Olvidaste credenciales"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___LOCALUSER"
+msgstr "LOCAL usuario"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___LDAPUSER"
+msgstr "LDAP usuario"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___EMAIL"
+msgstr "Correo"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___EMAIL___HELP_TEXT"
+msgstr "Escriba el correo con el cual suscribio su cuenta."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___CODE_CONFIRMATION"
+msgstr "Confirmación de código"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___CODE_CONFIRMATION___HELP_TEXT"
+msgstr "Introduzca el código que se envió a su dirección de correo electrónico."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___PASSWORD"
+msgstr "Contraseña"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___PASSWORD_CONFIRMATION"
+msgstr "Confirmación de contraseña"
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION This email address is not subscribed to any account."
+msgstr "Esta dirección de correo electrónico no está suscrito a ninguna cuenta."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION In a few seconds you can try to recover your account."
+msgstr "En unos segundos puedes intentar recuperar su cuenta."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION It is been %(minutes)s minutes since you tried to recover your account, you should wait about %(minutes_max)s minutes."
+msgstr "Han pasado %(minutes)s minutos desde que intentaste recuperar tu cuenta, debes esperar unos %(minutes_max)s minutos."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION This code is not correct."
+msgstr "Este código no es correcto."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION The password and your confirmation do not match."
+msgstr "La contraseña y su confirmación no coinciden."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___MESSAGE This window should not close and only works %(minutes_max)s minutes after sending the confirmation code to your email address."
+msgstr "Esta ventana no debe cerrarla y sólo funciona %(minutes_max)s minutos después de enviar el código de confirmación a su dirección de correo electrónico."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___MESSAGE This window should not close and only works %(minutes_max)s minutes after sending the confirmation code to your email address that was %(minutes)s minutes ago."
+msgstr "Esta ventana no debe cerrarla y sólo funciona %(minutes_max)s minutos después de enviar el código de confirmación a su dirección de correo electrónico que fue hace %(minutes)s minutos."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___MESSAGE An email has been sent to %(email)s with a verification code that will be entered in the field called code confirmation."
+msgstr "Se ha enviado un correo electrónico a <strong>&OpenCurlyDoubleQuote;%(email)s&CloseCurlyDoubleQuote;</strong> con un código de verificación que se ingresará en el campo denominado <strong>&OpenCurlyDoubleQuote;confirmación de código&CloseCurlyDoubleQuote;</strong>."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___MESSAGE Now you can change your password to access the application."
+msgstr "Ahora usted puede cambiar su contraseña para poder acceder a la aplicación."
+
+msgid "APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___MESSAGE Try to access the application."
+msgstr "Intente acceder a la aplicación."
+
+
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST"
+msgstr "Solicitar"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___LOCALUSER"
+msgstr "LOCAL usuario"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___LDAPUSER"
+msgstr "LDAP usuario"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___FIRST_NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___LAST_NAME"
+msgstr "Apellidos"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___IDENTIFIER"
+msgstr "Identificador"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___EMAIL"
+msgstr "Correo"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___PASSWORD"
+msgstr "Contraseña"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___PASSWORD_CONFIRMATION"
+msgstr "Confirmación de contraseña"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL"
+msgstr "Breve resumen"
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL___HELP_TEXT"
+msgstr "Escribe un breve resumen explicando su solicitud."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and the special character dot."
+msgstr "Sólo letras, números y el carácter especial punto."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and the special character _."
+msgstr "Sólo letras, números y el carácter especial _."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Sólo letras, números y los carácteres especiales punto, - , _ y espacio."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION This identifier has already been chosen."
+msgstr "Este identificador ya ha sido elegido."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION This email has already been chosen."
+msgstr "Este email ya ha sido elegido."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION The password and your confirmation do not match."
+msgstr "La contraseña y su confirmación no coinciden."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___MESSAGE The application administrators have received your request, you will receive an email informing you if it was accepted or canceled."
+msgstr "Los administradores de la aplicación han recibido su solicitud, usted recibirá un correo electrónico informándole si fue aceptado o cancelado."
+
+
+
+msgid "APPLICATION___SECURITY___LOGOUT"
+msgstr "Cerrar sesión"
+
+msgid "APPLICATION___SECURITY___LOGOUT___QUESTION Are you sure you want to logout?"
+msgstr "¿Seguro que quieres cerrar la sesión?"
+
+msgid "APPLICATION___SECURITY___LOGOUT___MESSAGE %(instance)s your session was successfully closed."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> tu sesión se cerró con éxito."
+
+
+
+msgid "APPLICATION___SECURITY___PROFILE"
+msgstr "Perfil"
+
+msgid "APPLICATION___SECURITY___PROFILE___AVATAR"
+msgstr "Avatar"
+
+msgid "APPLICATION___SECURITY___PROFILE___FIRST_NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___SECURITY___PROFILE___LAST_NAME"
+msgstr "Apellidos"
+
+msgid "APPLICATION___SECURITY___PROFILE___LDAP_GROUP"
+msgstr "Grupo"
+
+msgid "APPLICATION___SECURITY___PROFILE___IDENTIFIER"
+msgstr "Identificador"
+
+msgid "APPLICATION___SECURITY___PROFILE___EMAIL"
+msgstr "Correo"
+
+msgid "APPLICATION___SECURITY___PROFILE___PASSWORD"
+msgstr "Contraseña"
+
+msgid "APPLICATION___SECURITY___PROFILE___PASSWORD_CONFIRMATION"
+msgstr "Confirmación de contraseña"
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION The avatar should not be beggear than %(weight)s."
+msgstr "El avatar no debe ser más grande que %(weight)s."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION Only letters, numbers and the special character dot."
+msgstr "Sólo letras, números y el carácter especial punto."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION Only letters, numbers and the special character _."
+msgstr "Sólo letras, números y el carácter especial _."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Sólo letras, números y los carácteres especiales punto, - , _ y espacio."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION This identifier has already been chosen."
+msgstr "Este identificador ya ha sido elegido."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION This email has already been chosen."
+msgstr "Este email ya ha sido elegido."
+
+msgid "APPLICATION___SECURITY___PROFILE___VALIDATION The password and your confirmation do not match."
+msgstr "La contraseña y su confirmación no coinciden."
+
+msgid "APPLICATION___SECURITY___PROFILE___MESSAGE %(instance)s your profile was successfully update."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> tu perfil fue modificado correctamente."
+
+
+
+msgid "APPLICATION___SECURITY___LOCALE___MESSAGE The language of the application was successfully update."
+msgstr "El idioma de la aplicación fue modificado correctamente."
+
+msgid "APPLICATION___SECURITY___LOCALE___MESSAGE %(instance)s the language of the application was successfully update."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> el idioma de la aplicación fue modificado correctamente."
+
+
+
+msgid "APPLICATION___SECURITY___MESSAGE ERROR."
+msgstr "ERROR."
+
+msgid "APPLICATION___SECURITY___MESSAGE Action not performed, you do not have permission."
+msgstr "Acción no realizada, usted no tiene permiso."
+
+msgid "APPLICATION___SECURITY___MESSAGE Connection to the LDAP could not be established."
+msgstr "No se pudo establecer la conexión con el LDAP."
+
+msgid "APPLICATION___SECURITY___MESSAGE Action not performed, connection to the LDAP could not be established."
+msgstr "Acción no realizada, no se pudo establecer la conexión con el LDAP."
+
+msgid "APPLICATION___SECURITY___MESSAGE Connection to the LDAP could not be established. When the connection will be place, the action will be perform in the LDAP."
+msgstr "No se pudo establecer la conexión con el LDAP. Cuando se establezca la conexión, la acción se realizará en el LDAP."

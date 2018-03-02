@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERS"
+msgstr "LDAP usuarios"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER"
+msgstr "LDAP usuario"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___IDENTIFIER"
+msgstr "Identificador"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TABLE___IS_ACTIVE"
+msgstr "Es activo"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___ID"
+msgstr "ID"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IS_ACTIVE"
+msgstr "Es activo"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IS_ACTIVE___HELP_TEXT"
+msgstr "Indica si esta instancia debe tratarse como activa. Desactive esta opción en lugar de eliminarla."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___CREATED"
+msgstr "Creado"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___MODIFIED"
+msgstr "Modificado"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___AVATAR"
+msgstr "Avatar"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___FIRST_NAME"
+msgstr "Nombre"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___LAST_NAME"
+msgstr "Apellidos"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IDENTIFIER"
+msgstr "Identificador"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___EMAIL"
+msgstr "Correo"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD"
+msgstr "Contraseña"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD_CONFIRMATION"
+msgstr "Confirmación de contraseña"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___GROUPS"
+msgstr "Grupos"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PERMISSIONS"
+msgstr "Permisos"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL"
+msgstr "Detalle"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL___HELP_TEXT"
+msgstr "Escribe un breve resumen."
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and the special character dot."
+msgstr "Sólo letras, números y el carácter especial punto."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and the special character _."
+msgstr "Sólo letras, números y el carácter especial _."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Sólo letras, números y los carácteres especiales punto, - , _ y espacio."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The avatar should not be beggear than %(weight)s."
+msgstr "El avatar no debe ser más grande que %(weight)s."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This identifier has already been chosen."
+msgstr "Este identificador ya ha sido elegido."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This email has already been chosen."
+msgstr "Este correo ya ha sido elegido."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match."
+msgstr "La contraseña y su confirmación no coinciden."

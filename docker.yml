@@ -1,0 +1,107 @@
+version: "3"
+
+services:
+    ${POSTGRES_HOST}:
+        build:
+            context: ./service_postgres
+            dockerfile: ${APPLICATION_ENVIRONMENT}.df
+            args:
+                - APPLICATION_ENVIRONMENT=${APPLICATION_ENVIRONMENT}
+        image: image_${APPLICATION}_${POSTGRES_HOST}:${APPLICATION_VERSION}
+        container_name: container_${APPLICATION}_${POSTGRES_HOST}
+        env_file:
+            - ./environment/application.env
+            - ./environment/${APPLICATION_ENVIRONMENT}.env
+        expose:
+            - ${POSTGRES_PORT}
+        volumes:
+            - ./service_postgres/volumes/postgres/${APPLICATION_ENVIRONMENT}:/var/lib/postgresql/data:rw
+        networks:
+            - network_${APPLICATION}
+    ${PGADMIN_HOST}:
+        build:
+            context: ./service_pgadmin
+            dockerfile: ${APPLICATION_ENVIRONMENT}.df
+            args:
+                - APPLICATION_ENVIRONMENT=${APPLICATION_ENVIRONMENT}
+        image: image_${APPLICATION}_${PGADMIN_HOST}:${APPLICATION_VERSION}
+        container_name: container_${APPLICATION}_${PGADMIN_HOST}
+        env_file:
+            - ./environment/application.env
+            - ./environment/${APPLICATION_ENVIRONMENT}.env
+        ports:
+            - ${PGADMIN_PORT}:443
+        volumes:
+            - ./service_pgadmin/volumes/pgadmin/${APPLICATION_ENVIRONMENT}:/var/lib/pgadmin:rw
+        networks:
+            - network_${APPLICATION}
+    ${RABBITMQ_HOST}:
+        build:
+            context: ./service_rabbitmq
+            dockerfile: ${APPLICATION_ENVIRONMENT}.df
+            args:
+                - APPLICATION_ENVIRONMENT=${APPLICATION_ENVIRONMENT}
+        image: image_${APPLICATION}_${RABBITMQ_HOST}:${APPLICATION_VERSION}
+        container_name: container_${APPLICATION}_${RABBITMQ_HOST}
+        env_file:
+            - ./environment/application.env
+            - ./environment/${APPLICATION_ENVIRONMENT}.env
+        expose:
+            - ${RABBITMQ_PORT}
+        volumes:
+            - ./service_rabbitmq/volumes/rabbitmq/${APPLICATION_ENVIRONMENT}:/var/lib/rabbitmq:rw
+        networks:
+            - network_${APPLICATION}
+    ${DJANGO_HOST}:
+        build:
+            context: ./service_django
+            dockerfile: ${APPLICATION_ENVIRONMENT}.df
+            args:
+                - APPLICATION_ENVIRONMENT=${APPLICATION_ENVIRONMENT}
+        image: image_${APPLICATION}_${DJANGO_HOST}:${APPLICATION_VERSION}
+        container_name: container_${APPLICATION}_${DJANGO_HOST}
+        depends_on:
+            - ${POSTGRES_HOST}
+            - ${RABBITMQ_HOST}
+        env_file:
+            - ./environment/application.env
+            - ./environment/${APPLICATION_ENVIRONMENT}.env
+        expose:
+            - ${DJANGO_PORT}
+        volumes:
+            - ./service_django/application:/service_django/application:rw
+            - ./service_django/commands:/service_django/commands:rw
+            - ./service_django/volumes/celery/${APPLICATION_ENVIRONMENT}:/service_django/volumes/celery:rw
+            - ./service_django/volumes/staticfiles/${APPLICATION_ENVIRONMENT}:/service_django/volumes/staticfiles:rw
+            - ./service_django/volumes/mediafiles/${APPLICATION_ENVIRONMENT}:/service_django/volumes/mediafiles:rw
+        networks:
+            - network_${APPLICATION}
+    ${NGINX_HOST}:
+        build:
+            context: ./service_nginx
+            dockerfile: ${APPLICATION_ENVIRONMENT}.df
+            args:
+                - APPLICATION_ENVIRONMENT=${APPLICATION_ENVIRONMENT}
+        image: image_${APPLICATION}_${NGINX_HOST}:${APPLICATION_VERSION}
+        container_name: container_${APPLICATION}_${NGINX_HOST}
+        depends_on:
+            - ${DJANGO_HOST}
+        env_file:
+            - ./environment/application.env
+            - ./environment/${APPLICATION_ENVIRONMENT}.env
+        ports:
+            - ${NGINX_PORT_HTTP}:80
+            - ${NGINX_PORT_HTTPS}:443
+        volumes:
+            - ./service_django/volumes/staticfiles/${APPLICATION_ENVIRONMENT}:/service_nginx/volumes/staticfiles:rw
+            - ./service_django/volumes/mediafiles/${APPLICATION_ENVIRONMENT}:/service_nginx/volumes/mediafiles:rw
+            - ./service_nginx/volumes/nginx/${APPLICATION_ENVIRONMENT}:/service_nginx/volumes/nginx:rw
+            # This is our nginx template with the variables substituted:
+            - ./service_nginx/nginx/nginx.conf:/etc/nginx/nginx.conf
+        networks:
+            - network_${APPLICATION}
+
+networks:
+    network_${APPLICATION}:
+        external:
+            name: network_${APPLICATION}

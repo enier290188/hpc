@@ -1,0 +1,54 @@
+#center___content #content___pagination
+{
+    margin     :0;
+    padding    :10px 0 10px 0;
+    text-align :center;
+}
+
+#center___content #content___pagination .pagination
+{
+    margin  :0;
+    padding :0;
+}
+
+#center___content #content___pagination .pagination li
+{
+    cursor :pointer;
+}
+
+#center___content #content___pagination .pagination li a
+{
+    background-color :#ffffff;
+    border-color     :#d9dee4;
+    color            :#2a3f54;
+}
+
+#center___content #content___pagination .pagination li:hover a,
+#center___content #content___pagination .pagination li:focus a
+{
+    background-color :#d9dee4;
+}
+
+#center___content #content___pagination .pagination li.disabled a
+{
+    background-color :#ffffff;
+    border-color     :#d9dee4;
+    color            :#2a3f54;
+}
+
+#center___content #content___pagination .pagination li.active a
+{
+    background-color :#2a3f54;
+    border-color     :#2a3f54;
+    color            :#ffffff;
+}
+
+#center___content #content___pagination .pagination > .active > a,
+#center___content #content___pagination .pagination > .active > a:focus,
+#center___content #content___pagination .pagination > .active > a:hover,
+#center___content #content___pagination .pagination > .active > span,
+#center___content #content___pagination .pagination > .active > span:focus,
+#center___content #content___pagination .pagination > .active > span:hover
+{
+    z-index :0;
+}

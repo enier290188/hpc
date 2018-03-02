@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<p id="footer___text_1" class="text-center text-muted">
+    {% trans "APPLICATION___ADMINISTRATION___CONTENT___FOOTER___TEXT_1" %}
+</p>
+<p id="footer___text_2" class="text-center text-muted">
+    {% now "l" as ctx___now_l %}
+    {% now "j" as ctx___now_j %}
+    {% now "F" as ctx___now_F %}
+    {% now "Y" as ctx___now_Y %}
+    {% blocktrans %}APPLICATION___ADMINISTRATION___CONTENT___FOOTER___TEXT_2 {{ ctx___now_l }} {{ ctx___now_F }} {{ ctx___now_j }} {{ ctx___now_Y }}{% endblocktrans %}
+</p>

@@ -1,0 +1,35 @@
+{% load application___security %}
+{% load i18n %}
+
+<h3 id="center___header">
+    <span class="fa fa-list-ol fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LOCALUSERREQUESTS" %}
+    <a class="btn btn-sm btn-default pull-right LINK___application___administration___content___center___content___table___tbody___action_refresh" data-url="{% url "application___administration:modules:administration_security:localuserrequest:list" %}" title="{% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}" role="button">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH" %}</span>
+    </a>
+</h3>
+<div id="center___content">
+    <!-- Application Content Center Content Search -->
+    <div id="content___search">
+        {% with ctx___data_url="application___administration:modules:administration_security:localuserrequest:list" %}
+            {% include "application/administration/___includes___/content/center/___includes___/search/search.html" %}
+        {% endwith %}
+    </div>
+    <!-- Application Content Center Content Table -->
+    <div id="content___table" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="{{ request|___get_string___user___th___width___:"none application_security_localuserrequest_detail application_security_localuserrequest_approve application_security_localuserrequest_disapprove" }}"></th>
+                <th class="th___name">{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LOCALUSERREQUEST___TABLE___NAME" %}</th>
+                <th class="th___identifier_medium">{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LOCALUSERREQUEST___TABLE___IDENTIFIER" %}</th>
+                <th class="th___email">{% trans "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LOCALUSERREQUEST___TABLE___EMAIL" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <!-- Application Content Center Content Pagination -->
+    <div id="content___pagination">
+    </div>
+</div>

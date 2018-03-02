@@ -1,0 +1,94 @@
+{% load application___security %}
+{% load i18n %}
+
+{% if request|___required___application___security___user___ %}
+    <div id="leftside___user">
+        <div id="user___img" class="pull-left">
+            <img src="{{ request|___get_string___application___security___user___avatar_url___ }}" class="img-circle"/>
+        </div>
+        <div id="user___text">
+            <h4 id="text___welcome">{% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___USER___TEXT___WELCOME" %},</h4>
+
+            <p id="text___name">{{ request|___get_instance___application___security___user___ }}</p>
+        </div>
+    </div>
+
+    <ul id="leftside___nav" class="nav">
+        {% if request|___required___application___security___user___has_permission___:"application_security_localuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_group_list" or request|___required___application___security___user___has_permission___:"application_security_permission_list" %}
+            <li>
+                <a href=""><span class="fa fa-user-secret fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY" %}<span class="fa arrow"></span></a>
+                <ul class="nav nav___second_level">
+                    {% if request|___required___application___security___user___has_permission___:"application_security_localuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" %}
+                        <li>
+                            <a href=""><span class="fa fa-users fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LOCAL" %}<span class="fa arrow"></span></a>
+                            <ul class="nav nav___third_level">
+                                {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequest_list" %}
+                                    <li>
+                                        {% url "application___administration:modules:administration_security:localuserrequest:index" as url %}
+                                        <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LOCALUSERREQUESTS" %}</a>
+                                    </li>
+                                {% endif %}
+                                {% if request|___required___application___security___user___has_permission___:"application_security_localuser_list" %}
+                                    <li>
+                                        {% url "application___administration:modules:administration_security:localuser:index" as url %}
+                                        <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LOCALUSERS" %}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" %}
+                        <li>
+                            <a href=""><span class="fa fa-users fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LDAP" %}<span class="fa arrow"></span></a>
+                            <ul class="nav nav___third_level">
+                                {% if request|___required___application___security___user___has_permission___:"application_security_ldapuserrequest_list" %}
+                                    <li>
+                                        {% url "application___administration:modules:administration_security:ldapuserrequest:index" as url %}
+                                        <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LDAPUSERREQUESTS" %}</a>
+                                    </li>
+                                {% endif %}
+                                {% if request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" %}
+                                    <li>
+                                        {% url "application___administration:modules:administration_security:ldapuser:index" as url %}
+                                        <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LDAPUSERS" %}</a>
+                                    </li>
+                                {% endif %}
+                                {% if request|___required___application___security___user___has_permission___:"application_security_ldapuserimported_list" %}
+                                    <li>
+                                        {% url "application___administration:modules:administration_security:ldapuserimported:index" as url %}
+                                        <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LDAPUSERIMPORTEDS" %}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if request|___required___application___security___user___has_permission___:"application_security_group_list" %}
+                        <li>
+                            {% url "application___administration:modules:administration_security:group:index" as url %}
+                            <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___GROUPS" %}</a>
+                        </li>
+                    {% endif %}
+                    {% if request|___required___application___security___user___has_permission___:"application_security_permission_list" %}
+                        <li>
+                            {% url "application___administration:modules:administration_security:permission:index" as url %}
+                            <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___PERMISSIONS" %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+        {% if request|___required___application___security___user___has_permission___:"application_help_document_list" %}
+            <li>
+                <a href=""><span class="fa fa-book fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___HELP" %}<span class="fa arrow" aria-hidden="true"></span></a>
+                <ul class="nav nav___second_level">
+                    {% if request|___required___application___security___user___has_permission___:"application_help_document_list" %}
+                        <li>
+                            {% url "application___administration:modules:administration_help:document:index" as url %}
+                            <a data-url="{{ url }}" class="LINK___application___administration___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-list-ol fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___HELP___DOCUMENTS" %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___WEBSITE___LEFTSIDE___USER___TEXT___WELCOME"
+msgstr "Welcome"
+
+msgid "APPLICATION___WEBSITE___LEFTSIDE___NAV___MODULE___HOME"
+msgstr "Home"
+
+msgid "APPLICATION___WEBSITE___LEFTSIDE___NAV___MODULE___HELP"
+msgstr "Help"

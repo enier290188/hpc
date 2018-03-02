@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSIONS"
+msgstr "Permissions"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION"
+msgstr "Permission"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___TABLE___NAME"
+msgstr "Name"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___TABLE___IDENTIFIER"
+msgstr "Identifier"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___TABLE___IS_ACTIVE"
+msgstr "Is active"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___ID"
+msgstr "ID"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___IS_ACTIVE"
+msgstr "Is active"
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___IS_ACTIVE___HELP_TEXT"
+msgstr "Indicates whether this instance should be treated as active. Disable this option instead of deleting it."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___CREATED"
+msgstr "Created"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___MODIFIED"
+msgstr "Modified"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___NAME"
+msgstr "Name"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___IDENTIFIER"
+msgstr "Identifier"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___VALIDATION Only letters, numbers and the special character dot."
+msgstr "Only letters, numbers and the special character dot."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___VALIDATION Only letters, numbers and special characters dot, -, _ and space."
+msgstr "Only letters, numbers and special characters dot, -, _ and space."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___VALIDATION This name has already been chosen."
+msgstr "This name has already been chosen."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___PERMISSION___VALIDATION This identifier has already been chosen."
+msgstr "This identifier has already been chosen."

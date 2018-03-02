@@ -1,0 +1,80 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% now "YmdHis" as ctx___now %}
+<div class="form-group {% if ctx___field.errors %}has-error{% endif %}">
+    <label for="{{ ctx___field.field.widget.attrs.id }}">{{ ctx___field.field.label }}:{% if ctx___field.field.required %} *{% endif %}</label>
+    {{ ctx___field }}
+    <div class="modal___form___field_avatar">
+        <div class="pull-left modal___form___field_avatar___img">
+            <img id="{{ ctx___field.field.widget.attrs.img_upload_id }}"
+                 src="
+                 {% if ctx___instance_current.avatar %}
+                    {% if ctx___instance_current.avatar == ctx___instance.avatar %}
+                        {{ ctx___instance_current.avatar.url }}?{{ ctx___now }}
+                    {% else %}
+                        {% if ctx___instance_current.identifier == ctx___instance.identifier %}
+                            {{ ctx___instance_current.avatar.url }}?{{ ctx___now }}
+                        {% else %}
+                            {% if ctx___form___errors %}
+                                {{ ctx___instance_current.avatar.url }}?{{ ctx___now }}
+                            {% else %}
+                                {{ ctx___instance.avatar.url }}?{{ ctx___now }}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                 {% else %}
+                    {% if ctx___instance.avatar %}
+                        {% if ctx___form___errors %}
+                            {% static "application/security/img/avatar/avatar.png" %}
+                        {% else %}
+                            {{ ctx___instance.avatar.url }}?{{ ctx___now }}
+                        {% endif %}
+                    {% else %}
+                        {% static "application/security/img/avatar/avatar.png" %}
+                    {% endif %}
+                {% endif %}
+                "/>
+        </div>
+        <div class="modal___form___field_avatar___button">
+            <button type="button" id="{{ ctx___field.field.widget.attrs.button_upload_id }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-upload"></span> {% trans "APPLICATION___SECURITY___ACTION_UPLOAD" %}
+            </button>
+        </div>
+    </div>
+    {% if ctx___field.help_text %}
+        <p class="help-block text-justify">{{ ctx___field.help_text }}</p>
+    {% endif %}
+    {% if ctx___field.errors %}
+        <ul>
+            {% for ctx___error in ctx___field.errors %}
+                <li><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> {{ ctx___error|escape }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function () {
+        var identifier___modal___form___field_avatar___id = "#{{ ctx___field.field.widget.attrs.id }}";
+        var identifier___modal___form___field_avatar___img_upload_id = "#{{ ctx___field.field.widget.attrs.img_upload_id }}";
+        var identifier___modal___form___field_avatar___button_upload_id = "#{{ ctx___field.field.widget.attrs.button_upload_id }}";
+
+        $(identifier___modal___form___field_avatar___button_upload_id).click(function () {
+            $(identifier___modal___form___field_avatar___id).click();
+        });
+        function ___JS___avatar___reload___(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(identifier___modal___form___field_avatar___img_upload_id).attr("src", e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(identifier___modal___form___field_avatar___id).change(function () {
+            ___JS___avatar___reload___(this);
+        });
+    });
+</script>

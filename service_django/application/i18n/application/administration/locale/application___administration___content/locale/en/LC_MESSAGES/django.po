@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_REFRESH"
+msgstr "Refresh"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CLOSE"
+msgstr "Close"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CREATE"
+msgstr "Create"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_CREATE_UPDATE"
+msgstr "Create and Update"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DETAIL"
+msgstr "Detail"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_UPDATE"
+msgstr "Update"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DELETE"
+msgstr "Delete"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_APPROVE"
+msgstr "Approve"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_DISAPPROVE"
+msgstr "Disapprove"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ACTION_SEARCH"
+msgstr "Search"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___OPTION_NOT_FOUND"
+msgstr "Not found"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___OPTION_ATTRIBUTE"
+msgstr "Attribute"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___OPTION_VALUE"
+msgstr "Value"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___OPTION_YES"
+msgstr "yes"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___OPTION_NO"
+msgstr "no"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___VALIDATION Action not performed, maximum number of possible instances is %(maximum_number)s."
+msgstr "Action not performed, maximum number of possible instances is %(maximum_number)s."
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___QUESTION Are you sure you want to delete it?"
+msgstr "Are you sure you want to delete it?"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___QUESTION Are you sure you want to approve it?"
+msgstr "Are you sure you want to approve it?"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___QUESTION Are you sure you want to disapprove it?"
+msgstr "Are you sure you want to disapprove it?"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___MESSAGE %(instance)s was successfully created."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> was successfully created."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___MESSAGE %(instance)s was successfully updated."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> was successfully updated."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___MESSAGE %(instance)s was successfully deleted."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> was successfully deleted."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___MESSAGE %(instance)s was successfully approved."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> was successfully approved."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___MESSAGE %(instance)s was successfully disapproved."
+msgstr "<strong>&OpenCurlyDoubleQuote;%(instance)s&CloseCurlyDoubleQuote;</strong> was successfully disapproved."
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION"
+msgstr "Administration"
+
+
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___FOOTER___TEXT_1"
+msgstr "Developed by the Departament of Informatization and Comunication."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___FOOTER___TEXT_2 %(ctx___now_l)s %(ctx___now_F)s %(ctx___now_j)s %(ctx___now_Y)s"
+msgstr "Today is %(ctx___now_l)s, %(ctx___now_F)s %(ctx___now_j)s, %(ctx___now_Y)s"

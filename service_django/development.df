@@ -1,0 +1,29 @@
+FROM python:latest
+
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+apt-utils \
+gettext \
+postgresql-client \
+&& rm -rf /var/lib/apt/lists/*
+
+ARG APPLICATION_ENVIRONMENT
+
+RUN mkdir -p /service_django
+WORKDIR /service_django
+
+RUN mkdir -p application
+RUN mkdir -p volumes volumes/celery volumes/staticfiles volumes/mediafiles
+RUN mkdir -p commands
+
+COPY ./application application
+COPY ./commands commands
+
+WORKDIR /service_django/application
+RUN pip3 install pip --upgrade
+RUN pip3 install --no-cache-dir -r requirements/application/${APPLICATION_ENVIRONMENT}.txt
+
+# Set a custom entrypoint to let us provide custom initialization behavior
+ENTRYPOINT ["/service_django/commands/entrypoint.sh"]
+# Set the command to start uwsgi
+CMD ["/service_django/commands/cmd.sh"]

@@ -1,0 +1,10 @@
+{% load application___security %}
+{% load i18n %}
+
+{% if request|___required___application___security___user___|___get_boolean___not___ %}
+    <li>
+        <a data-url="{% url "application___administration:login" %}" class="LINK___application___administration___modal___reload">
+            <span class="fa fa-sign-in fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___ADMINISTRATION___HEADER___RIGHT___LOGIN" %}</span>
+        </a>
+    </li>
+{% endif %}

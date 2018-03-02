@@ -1,0 +1,76 @@
+#application___hpc
+{
+    position         :absolute !important;
+    top              :0 !important;
+    right            :0 !important;
+    bottom           :0 !important;
+    left             :0 !important;
+    margin           :0 !important;
+    padding          :0 !important;
+    background-color :#f7f7f7 !important;
+}
+
+#application___hpc .application___hpc___without_margin
+{
+    margin :0 !important;
+}
+
+#application___hpc .application___hpc___without_padding
+{
+    padding :0 !important;
+}
+
+#application___hpc .application___hpc___invisible
+{
+    visibility :hidden !important;
+}
+
+#application___hpc .application___hpc___load
+{
+    margin           :0;
+    padding          :0 5px 0 5px;
+    background-color :transparent;
+    color            :#2a3f54;
+    text-align       :left;
+    font-size        :15px;
+}
+
+#application___hpc .btn-default
+{
+    background-color :#ffffff;
+    border           :1px solid #d9dee4;
+    color            :#2a3f54;
+}
+
+#application___hpc .btn-link
+{
+    background-color :transparent;
+    border           :none;
+    color            :#2a3f54;
+}
+
+#application___hpc .btn-primary
+{
+    background-color :#2a3f54;
+    border           :1px solid #2a3f54;
+    color            :#ffffff;
+}
+
+#application___hpc .btn-danger
+{
+    background-color :#f59090;
+    border           :1px solid #f59090;
+    color            :#ffffff;
+}
+
+#application___hpc .btn-default:hover,
+#application___hpc .btn-default:focus,
+#application___hpc .btn-primary:hover,
+#application___hpc .btn-primary:focus,
+#application___hpc .btn-danger:hover,
+#application___hpc .btn-danger:focus
+{
+    background-color :#d9dee4;
+    border           :1px solid #d9dee4;
+    color            :#2a3f54;
+}

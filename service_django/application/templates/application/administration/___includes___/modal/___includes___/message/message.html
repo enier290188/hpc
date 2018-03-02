@@ -1,0 +1,15 @@
+{% if ctx___messages %}
+    {% for ctx___message in ctx___messages %}
+        <div class="alert alert-{% if ctx___message.tags == "error" %}danger{% else %}{{ ctx___message.tags }}{% endif %}" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="alert___message">
+                <p class="alert___message___icon">
+                    <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+                </p>
+                <p class="alert___message___text">
+                    {{ ctx___message|safe }}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

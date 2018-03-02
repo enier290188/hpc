@@ -1,0 +1,117 @@
+#center___content #content___table.table-responsive
+{
+    margin  :0;
+    padding :0;
+    border  :none;
+}
+
+#center___content #content___table.table-responsive > table
+{
+    margin  :0;
+    padding :0;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th
+{
+    height         :40px;
+    margin         :0;
+    padding        :5px;
+    background     :#2a3f54;
+    color          :#ffffff;
+    text-align     :left;
+    vertical-align :middle;
+    border         :none;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_0
+{
+    width     :10px !important;
+    min-width :10px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_1
+{
+    width     :50px !important;
+    min-width :50px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_2
+{
+    width     :70px !important;
+    min-width :70px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_3
+{
+    width     :110px !important;
+    min-width :110px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_1 > a.btn,
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_2 > a.btn,
+#center___content #content___table.table-responsive > table > thead > tr > th.th___width_3 > a.btn
+{
+    display :block;
+    margin  :0;
+    padding :5px;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___pk
+{
+    width     :50px !important;
+    min-width :50px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___name
+{
+    min-width :200px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___identifier_medium
+{
+    width     :260px !important;
+    min-width :260px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___identifier_large
+{
+    width     :360px !important;
+    min-width :360px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___email
+{
+    width     :280px !important;
+    min-width :280px !important;
+}
+
+#center___content #content___table.table-responsive > table > thead > tr > th.th___is_active
+{
+    width     :80px !important;
+    min-width :80px !important;
+}
+
+#center___content #content___table.table-responsive > table > tbody > tr
+{
+    border-top :1px solid #d9dee4;
+}
+
+#center___content #content___table.table-responsive > table > tbody > tr:first-child
+{
+    border-top :none;
+}
+
+#center___content #content___table.table-responsive > table > tbody > tr > th
+{
+    margin     :0;
+    padding    :5px;
+    text-align :center;
+    border     :none;
+}
+
+#center___content #content___table.table-responsive > table > tbody > tr > td
+{
+    margin  :0;
+    padding :5px;
+    border  :none;
+}

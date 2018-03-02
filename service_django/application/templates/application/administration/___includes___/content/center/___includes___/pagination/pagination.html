@@ -1,0 +1,39 @@
+{% if ctx___page.paginator.num_pages > 1 %}
+    <ul class="pagination pagination-sm">
+        {% if ctx___page.paginator.num_pages <= 7 %}
+            {% with ''|center:ctx___page.paginator.num_pages as range %}
+                {% for _ in range %}
+                    <li {% if ctx___page.number == forloop.counter %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                {% endfor %}
+            {% endwith %}
+        {% else %}
+            {% if ctx___page.number == 1 or ctx___page.number == 2 or ctx___page.number == 3 %}
+                <li {% if ctx___page.number == 1 %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=1">1</a></li>
+                <li {% if ctx___page.number == 2 %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=2">2</a></li>
+                <li {% if ctx___page.number == 3 %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=3">3</a></li>
+                <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=4">4</a></li>
+                <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=5">5</a></li>
+                <li class="disabled"><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number }}">...</a></li>
+                <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages }}">{{ ctx___page.paginator.num_pages }}</a></li>
+            {% else %}
+                {% if ctx___page.number == ctx___page.paginator.num_pages or ctx___page.number == ctx___page.paginator.num_pages|add:"-1" or ctx___page.number == ctx___page.paginator.num_pages|add:"-2" %}
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=1">1</a></li>
+                    <li class="disabled"><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number }}">...</a></li>
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages|add:"-4" }}">{{ ctx___page.paginator.num_pages|add:"-4" }}</a></li>
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages|add:"-3" }}">{{ ctx___page.paginator.num_pages|add:"-3" }}</a></li>
+                    <li {% if ctx___page.number == ctx___page.paginator.num_pages|add:"-2" %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages|add:"-2" }}">{{ ctx___page.paginator.num_pages|add:"-2" }}</a></li>
+                    <li {% if ctx___page.number == ctx___page.paginator.num_pages|add:"-1" %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages|add:"-1" }}">{{ ctx___page.paginator.num_pages|add:"-1" }}</a></li>
+                    <li {% if ctx___page.number == ctx___page.paginator.num_pages %}class="active"{% endif %}><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages }}">{{ ctx___page.paginator.num_pages }}</a></li>
+                {% else %}
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page=1">1</a></li>
+                    <li class="disabled"><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number }}">...</a></li>
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number|add:"-1" }}">{{ ctx___page.number|add:"-1" }}</a></li>
+                    <li class="active"><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number }}">{{ ctx___page.number }}</a></li>
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number|add:"1" }}">{{ ctx___page.number|add:"1" }}</a></li>
+                    <li class="disabled"><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.number }}">...</a></li>
+                    <li><a class="LINK___application___administration___content___center___content___table___tbody___action_pagination" data-url="{% url ctx___data_url %}?search={{ ctx___search }}&page={{ ctx___page.paginator.num_pages }}">{{ ctx___page.paginator.num_pages }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </ul>
+{% endif %}

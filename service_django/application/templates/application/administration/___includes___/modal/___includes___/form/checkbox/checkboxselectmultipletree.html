@@ -1,0 +1,35 @@
+<div class="form-group {% if ctx___field.errors %}has-error{% endif %}">
+    <label>{{ ctx___field.field.label }}:{% if ctx___field.field.required %} *{% endif %}</label>
+    <br/>
+
+    <div id="modal___form___field_table_{{ ctx___field.field.widget.attrs.id }}" class="table-responsive modal___form___field_table">
+        <table class="table table-bordered">
+            <tbody>
+            {% for ctx___instance_temporal in ctx___field___instances_choices %}
+                <tr class="expanded jquerycheckboxselectmultiplecollapsibletreetable-{{ ctx___instance_temporal.pk }}{% if  ctx___instance_temporal.parent and ctx___instance_temporal.parent != 0 %} jquerycheckboxselectmultiplecollapsibletreetable-parent-{{ ctx___instance_temporal.parent }}{% endif %}">
+                    <td class="jquerycheckboxselectmultiplecollapsibletreetable-sortable">
+                        <label for="{{ ctx___field.field.widget.attrs.id }}_{{ forloop.counter0 }}">
+                            <input type="checkbox" id="{{ ctx___field.field.widget.attrs.id }}_{{ forloop.counter0 }}" name="{{ ctx___field.field.widget.attrs.id }}" value="{{ ctx___instance_temporal.pk }}" {% for ctx___value_index in ctx___field.value %}{% if ctx___instance_temporal.pk|safe == ctx___value_index|safe %}checked="checked"{% endif %}{% endfor %}/>
+                            {{ ctx___instance_temporal }}
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if ctx___field.help_text %}
+        <p class="help-block text-justify">{{ ctx___field.help_text }}</p>
+    {% endif %}
+    {% if ctx___field.errors %}
+        <ul>
+            {% for ctx___error in ctx___field.errors %}
+                <li><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> {{ ctx___error|escape }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<script>
+    $("#modal___form___field_table_{{ ctx___field.field.widget.attrs.id }} > table.table").jquerycheckboxselectmultiplecollapsibletreetable();
+</script>

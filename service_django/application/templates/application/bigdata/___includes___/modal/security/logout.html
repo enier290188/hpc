@@ -1,0 +1,47 @@
+{% load application___security %}
+{% load i18n %}
+
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___bigdata:logout" %}" class="LINK___application___bigdata___modal___action_logout">
+            {% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___bigdata___modal___action_close" data-dismiss="modal" aria-label="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> {% trans "APPLICATION___SECURITY___LOGOUT" %}</h4>
+            </div>
+            <div class="modal-body">
+                <!-- Modal Menssage -->
+                <div class="modal___message">
+                </div>
+                <!-- Modal Form Field -->
+                <div class="modal___form">
+                    <div class="form-group">
+                        <div class="modal___form___field_avatar">
+                            <div class="modal___form___field_avatar___img">
+                                <img src="{{ request|___get_string___application___security___user___avatar_url___ }}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="lead text-center">
+                        <strong>&OpenCurlyDoubleQuote;{{ request|___get_instance___application___security___user___ }}&CloseCurlyDoubleQuote;</strong>
+                    </p>
+
+                    <p class="lead text-center">
+                        {% trans "APPLICATION___SECURITY___LOGOUT___QUESTION Are you sure you want to logout?" %}
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-primary pull-left" title="{% trans "APPLICATION___SECURITY___ACTION_LOGOUT" %}">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> {% trans "APPLICATION___SECURITY___ACTION_LOGOUT" %}
+                </button>
+                <button type="button" class="btn btn-sm btn-default pull-left LINK___application___bigdata___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

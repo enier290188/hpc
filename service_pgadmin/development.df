@@ -1,0 +1,9 @@
+FROM dpage/pgadmin4:latest
+
+ARG APPLICATION_ENVIRONMENT
+
+RUN mkdir -p /service_pgadmin
+WORKDIR /service_pgadmin
+
+COPY ./pgadmin/ssl/certificate.crt /certs/server.cert
+COPY ./pgadmin/ssl/certificate_key.key /certs/server.key

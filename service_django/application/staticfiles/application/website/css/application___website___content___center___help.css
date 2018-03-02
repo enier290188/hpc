@@ -1,0 +1,48 @@
+#application___website___content___center #center___content h4
+{
+    margin :20px 0 5px 0;
+}
+
+#application___website___content___center #center___content h4:first-child
+{
+    margin :5px 0 10px 0;
+}
+
+#application___website___content___center #center___content #content___list div.table-responsive
+{
+    background-color :#f7f7f7;
+    border           :1px solid #d9dee4;
+    max-height       :500px;
+}
+
+@media (max-width :767px)
+{
+    #application___website___content___center #center___content #content___list div.table-responsive
+    {
+        max-height :150px;
+    }
+}
+
+#application___website___content___center #center___content #content___list div.table-responsive table tbody tr td
+{
+    margin  :0;
+    padding :5px 5px 0 5px;
+    border  :none;
+}
+
+#application___website___content___center #center___content #content___list div.table-responsive table tbody tr:first-child td
+{
+    padding-top :10px;
+}
+
+#application___website___content___center #center___content #content___list div.table-responsive table tbody tr td a
+{
+    color           :blue;
+    text-decoration :none;
+}
+
+#application___website___content___center #center___content #content___list div.table-responsive table tbody tr td a.active
+{
+    color           :blue;
+    text-decoration :underline;
+}

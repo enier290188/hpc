@@ -1,0 +1,29 @@
+{% load application___security %}
+{% load i18n %}
+
+<ul class="nav navbar-nav navbar-left pull-left header___links">
+    <li>
+        <a data-url="{% url "application___website:index" %}" class="LINK___application___reload">
+            <span class="fa fa-sitemap fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___BIGDATA___HEADER___LEFT___WEBSITE" %}</span>
+        </a>
+    </li>
+    {% if request|___required___application___security___user___is_ldapuser___ %}
+        <li>
+            <a data-url="{% url "application___hpc:index" %}" class="LINK___application___reload">
+                <span class="fa fa-server fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___BIGDATA___HEADER___LEFT___HPC" %}</span>
+            </a>
+        </li>
+        <li class="active">
+            <a data-url="{% url "application___bigdata:index" %}" class="LINK___application___reload">
+                <span class="fa fa-database faa-tada animated" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___BIGDATA___HEADER___LEFT___BIGDATA" %}</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if request|___required___application___security___user___ and request|___get_boolean___show_the_administration_link___ %}
+        <li>
+            <a data-url="{% url "application___administration:index" %}" class="LINK___application___reload">
+                <span class="fa fa-wrench fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___BIGDATA___HEADER___LEFT___ADMINISTRATION" %}</span>
+            </a>
+        </li>
+    {% endif %}
+</ul>

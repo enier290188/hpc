@@ -1,0 +1,6 @@
+FROM postgres:10
+
+ARG APPLICATION_ENVIRONMENT
+
+RUN mkdir -p /service_postgres
+WORKDIR /service_postgres

@@ -1,0 +1,6 @@
+FROM rabbitmq:latest
+
+ARG APPLICATION_ENVIRONMENT
+
+RUN mkdir -p /service_rabbitmq
+WORKDIR /service_rabbitmq

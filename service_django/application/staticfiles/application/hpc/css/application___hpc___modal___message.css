@@ -1,0 +1,66 @@
+#application___hpc___modal .modal___message,
+#application___hpc___modal___modal .modal___message
+{
+    margin  :0;
+    padding :0;
+}
+
+#application___hpc___modal .modal___message .alert,
+#application___hpc___modal___modal .modal___message .alert
+{
+    margin        :0;
+    padding       :10px 15px 10px 10px;
+    border-radius :0;
+}
+
+#application___hpc___modal .modal___message .alert.alert-success,
+#application___hpc___modal___modal .modal___message .alert.alert-success
+{
+    background-color :#7ee87e;
+    border           :1px solid #7ee87e;
+}
+
+#application___hpc___modal .modal___message .alert.alert-danger,
+#application___hpc___modal___modal .modal___message .alert.alert-danger
+{
+    background-color :#f59090;
+    border           :1px solid #f59090;
+}
+
+#application___hpc___modal .modal___message .alert.alert-warning,
+#application___hpc___modal___modal .modal___message .alert.alert-warning
+{
+    background-color :#f9e996;
+    border           :1px solid #f9e996;
+}
+
+#application___hpc___modal .modal___message .alert.alert-info,
+#application___hpc___modal___modal .modal___message .alert.alert-info
+{
+    background-color :#b6dcef;
+    border           :1px solid #b6dcef;
+}
+
+#application___hpc___modal .modal___message .alert .alert___message,
+#application___hpc___modal___modal .modal___message .alert .alert___message
+{
+    margin  :0;
+    padding :0;
+}
+
+#application___hpc___modal .modal___message .alert .alert___message .alert___message___icon,
+#application___hpc___modal___modal .modal___message .alert .alert___message .alert___message___icon
+{
+    float   :left;
+    margin  :0;
+    padding :0;
+    color   :#2a3f54;
+}
+
+#application___hpc___modal .modal___message .alert .alert___message .alert___message___text,
+#application___hpc___modal___modal .modal___message .alert .alert___message .alert___message___text
+{
+    margin  :0 30px 0 30px;
+    padding :0;
+    color   :#2a3f54;
+}

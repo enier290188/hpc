@@ -1,0 +1,76 @@
+#application___website
+{
+    position         :absolute !important;
+    top              :0 !important;
+    right            :0 !important;
+    bottom           :0 !important;
+    left             :0 !important;
+    margin           :0 !important;
+    padding          :0 !important;
+    background-color :#f7f7f7 !important;
+}
+
+#application___website .application___website___without_margin
+{
+    margin :0 !important;
+}
+
+#application___website .application___website___without_padding
+{
+    padding :0 !important;
+}
+
+#application___website .application___website___invisible
+{
+    visibility :hidden !important;
+}
+
+#application___website .application___website___load
+{
+    margin           :0;
+    padding          :0 5px 0 5px;
+    background-color :transparent;
+    color            :#2a3f54;
+    text-align       :left;
+    font-size        :15px;
+}
+
+#application___website .btn-default
+{
+    background-color :#ffffff;
+    border           :1px solid #d9dee4;
+    color            :#2a3f54;
+}
+
+#application___website .btn-link
+{
+    background-color :transparent;
+    border           :none;
+    color            :#2a3f54;
+}
+
+#application___website .btn-primary
+{
+    background-color :#2a3f54;
+    border           :1px solid #2a3f54;
+    color            :#ffffff;
+}
+
+#application___website .btn-danger
+{
+    background-color :#f59090;
+    border           :1px solid #f59090;
+    color            :#ffffff;
+}
+
+#application___website .btn-default:hover,
+#application___website .btn-default:focus,
+#application___website .btn-primary:hover,
+#application___website .btn-primary:focus,
+#application___website .btn-danger:hover,
+#application___website .btn-danger:focus
+{
+    background-color :#d9dee4;
+    border           :1px solid #d9dee4;
+    color            :#2a3f54;
+}

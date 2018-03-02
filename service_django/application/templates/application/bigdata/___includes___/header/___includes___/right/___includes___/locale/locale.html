@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load staticfiles %}
+{% get_current_language as ctx___current_language %}
+{% get_available_languages as ctx___available_lenguages %}
+{% get_language_info_list for ctx___available_lenguages as ctx___available_lenguages_info %}
+
+<li class="dropdown">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hover="dropdown" role="button">
+        {% for ctx___language in ctx___available_lenguages_info %}
+            {% if ctx___language.code == ctx___current_language %}
+                <img src="{% static "application/security/img/locale/"|add:ctx___current_language|add:".png" %}" alt="{% trans ctx___language.name %}"/>
+                <span class="hidden-xs"> {% trans ctx___language.name %}</span><span class="caret"></span>
+            {% endif %}
+        {% endfor %}
+    </a>
+    <ul class="dropdown-menu dropdown_menu___locale" role="menu">
+        {% for ctx___language in ctx___available_lenguages_info %}
+            {% if ctx___language.code != ctx___current_language %}
+                <li>
+                    <a data-url="{% url "application___bigdata:locale" %}?locale={{ ctx___language.code }}" class="LINK___application___bigdata___modal___action_locale">
+                        <img src="{% static "application/security/img/locale/"|add:ctx___language.code|add:".png" %}" alt="{% trans ctx___language.name %}"/> {% trans ctx___language.name %}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</li>

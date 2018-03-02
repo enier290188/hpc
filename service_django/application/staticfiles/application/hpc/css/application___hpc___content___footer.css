@@ -1,0 +1,39 @@
+#application___hpc___content___footer
+{
+    min-height :100px;
+    margin     :10px 10px 0 10px;
+    padding    :0;
+    color      :#73879c;
+}
+
+@media (max-width :767px)
+{
+    #application___hpc___content___footer
+    {
+        margin        :0;
+        border-bottom :1px solid inherit;
+    }
+}
+
+#application___hpc___content___footer #footer___text_1
+{
+    margin :20px 20px 0 20px;
+}
+
+#application___hpc___content___footer #footer___text_2
+{
+    margin :0 20px 20px 20px;
+}
+
+@media (max-width :767px)
+{
+    #application___hpc___content___footer #footer___text_1
+    {
+        margin :20px 10px 0 10px;
+    }
+
+    #application___hpc___content___footer #footer___text_2
+    {
+        margin :0 10px 10px 10px;
+    }
+}

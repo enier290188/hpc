@@ -1,0 +1,82 @@
+{% load i18n %}
+{% load staticfiles %}
+{% now "YmdHis" as ctx___now %}
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- Application Website Title -->
+            <title data-url="{% url "application___website:index___title" %}">{% include "application/website/___includes___/title/title.html" %}</title>
+            <!-- favicon -->
+            <link rel="shortcut icon" href="{% static 'application/website/img/favicon/favicon.png' %}?{{ ctx___now }}" type="image/png">
+            <!-- Bootstrap -->
+            <link href="{% static "vendors/bootstrap/css/bootstrap.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- Font Awesome -->
+            <link href="{% static "vendors/font-awesome/css/font-awesome.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <link href="{% static "vendors/font-awesome/css/font-awesome-animation.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- CustomScrollbar -->
+            <link href="{% static "vendors/malihu-custom-scrollbar/jquery.mCustomScrollbar.min.css" %}?{{ ctx___now }}" rel="stylesheet"/>
+            <!-- Application Website Custom Theme Style -->
+            <link href="{% static "application/website/css/application___website.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___header.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___leftside.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___content.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___content___center.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___content___footer.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___modal.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___modal___message.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/website/css/application___website___modal___form.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <!--[if lt IE 9]>
+                <script src="{% static "vendors/ie/js/ie8-responsive-file-warning.js" %}?{{ ctx___now }}"></script>
+            <![endif]-->
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+                <script src="{% static "vendors/html5shiv/html5shiv.min.js" %}?{{ ctx___now }}"></script>
+                <script src="{% static "vendors/respond/respond.min.js" %}?{{ ctx___now }}"></script>
+            <![endif]-->
+        </head>
+        <body>
+            <!-- Application Website -->
+            <div id="application___website">
+                <!-- Application Website Load -->
+                <div id="application___website___load" class="hidden" data-url="{% url "application___website:index___load" %}">
+                    {% include "application/website/___includes___/load/load.html" %}
+                </div>
+                <!-- Application Website Header -->
+                <header id="application___website___header" class="navbar navbar-fixed-top" data-url="{% url "application___website:index___header" %}">
+                </header>
+                <!-- Application Website Leftside -->
+                <aside id="application___website___leftside" data-url="{% url "application___website:index___leftside" %}">
+                </aside>
+                <!-- Application Website Content -->
+                <section id="application___website___content">
+                    <!-- Application Website Content Center -->
+                    <div id="application___website___content___center" data-url="{% url "application___website:index___content___center" %}">
+                    </div>
+                    <!-- Application Website Content Footer -->
+                    <footer id="application___website___content___footer" data-url="{% url "application___website:index___content___footer" %}">
+                    </footer>
+                </section>
+                <!-- Application Website Modal -->
+                <div id="application___website___modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="true">
+                </div>
+                <!-- Application Website Modal Modal -->
+                <div id="application___website___modal___modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="true">
+                </div>
+            </div>
+            <!-- jQuery -->
+            <script src="{% static "vendors/jquery/jquery.min.js" %}?{{ ctx___now }}"></script>
+            <!-- Bootstrap -->
+            <script src="{% static "vendors/bootstrap/js/bootstrap.min.js" %}?{{ ctx___now }}"></script>
+            <!-- CustomScrollbar -->
+            <script src="{% static "vendors/malihu-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js" %}?{{ ctx___now }}"></script>
+            <!-- Application Website Custom Theme JavaScript -->
+            <script src="{% static "application/website/js/application___website.js" %}?{{ ctx___now }}"></script>
+        </body>
+    </html>
+{% endspaceless %}

@@ -1,0 +1,30 @@
+{% load application___security %}
+{% load i18n %}
+
+{% if request|___required___application___security___user___is_ldapuser___ %}
+    <div id="leftside___user">
+        <div id="user___img" class="pull-left">
+            <img src="{{ request|___get_string___application___security___user___avatar_url___ }}" alt="..." class="img-circle"/>
+        </div>
+        <div id="user___text">
+            <h4 id="text___welcome">{% trans "APPLICATION___HPC___LEFTSIDE___USER___TEXT___WELCOME" %},</h4>
+
+            <p id="text___name">{{ request|___get_instance___application___security___user___ }}</p>
+        </div>
+    </div>
+
+    <ul id="leftside___nav" class="nav">
+        <li>
+            {% url "application___hpc:modules:hpc_module01:index" as url %}
+            <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-cube fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE01" %}</a>
+        </li>
+        <li>
+            {% url "application___hpc:modules:hpc_module02:index" as url %}
+            <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-cube fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE02" %}</a>
+        </li>
+        <li>
+            {% url "application___hpc:modules:hpc_module03:index" as url %}
+            <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-cube fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE03" %}</a>
+        </li>
+    </ul>
+{% endif %}

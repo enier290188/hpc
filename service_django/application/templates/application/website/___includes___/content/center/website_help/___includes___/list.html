@@ -1,0 +1,25 @@
+{% if ctx___instances %}
+    <div id="content___list___table_001" class="table-responsive">
+        <table class="table">
+            <tbody>
+            {% for ctx___instance in ctx___instances %}
+                <tr class="expanded jquerymultiplecollapsibletreetable-{{ ctx___instance.pk }}{% if  ctx___instance.parent and ctx___instance.parent != 0 %} jquerymultiplecollapsibletreetable-parent-{{ ctx___instance.parent }}{% endif %}">
+                    <td class="jquerymultiplecollapsibletreetable-sortable">
+                        <a class="btn btn-xs btn-link LINK___application___website___content___center___content___list___reload___" data-url="{% url "application___website:modules:website_help:content" pk=ctx___instance.pk %}" role="button">{{ ctx___instance }}</a><br/>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endif %}
+
+<script>
+    var $identifier = $("#content___list___table_001");
+    $identifier.find("table.table").jquerymultiplecollapsibletreetable();
+    $identifier.mCustomScrollbar({
+        theme: "minimal-dark",
+        axis:"yx" // vertical and horizontal scrollbar
+    });
+</script>

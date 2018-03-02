@@ -1,0 +1,63 @@
+#application___website___modal .modal-dialog,
+#application___website___modal___modal .modal-dialog
+{
+}
+
+@media (max-width :767px)
+{
+    #application___website___modal .modal-dialog,
+    #application___website___modal___modal .modal-dialog
+    {
+        margin  :0;
+        padding :0;
+    }
+}
+
+#application___website___modal .modal-dialog .modal-content,
+#application___website___modal___modal .modal-dialog .modal-content
+{
+    border        :1px solid transparent;
+    border-radius :1px;
+    box-shadow    :none;
+}
+
+#application___website___modal .modal-dialog .modal-content.application___website___modal_message,
+#application___website___modal___modal .modal-dialog .modal-content.application___website___modal_message
+{
+    background-color :transparent !important;
+    box-shadow       :none;
+}
+
+#application___website___modal .modal-dialog .modal-content .nav-tabs > li > a,
+#application___website___modal___modal .modal-dialog .modal-content .nav-tabs > li > a
+{
+    border-radius :0;
+}
+
+#application___website___modal .modal-dialog .modal-content .modal-header,
+#application___website___modal___modal .modal-dialog .modal-content .modal-header
+{
+    background-color :#2a3f54;
+    border           :none;
+    color            :#ffffff;
+}
+
+#application___website___modal .modal-dialog .modal-content .modal-header .close,
+#application___website___modal___modal .modal-dialog .modal-content .modal-header .close
+{
+    width :25px;
+}
+
+#application___website___modal .modal-dialog .modal-content .modal-body,
+#application___website___modal___modal .modal-dialog .modal-content .modal-body
+{
+    margin  :0;
+    padding :0;
+    border  :1px solid transparent;
+}
+
+#application___website___modal .modal-dialog .modal-content .modal-footer,
+#application___website___modal___modal .modal-dialog .modal-content .modal-footer
+{
+    border-top :1px solid #d9dee4;
+}

@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% now "YmdHis" as ctx___now %}
+<!-- Application Website Custom Theme Style -->
+<link href="{% static "application/website/css/application___website___content___center___home.css" %}?{{ ctx___now }}" rel="stylesheet">
+
+<h3 id="center___header">
+    <span class="fa fa-home fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___WEBSITE___CONTENT___WEBSITE_HOME" %}
+</h3>
+<div id="center___content">
+    {% trans "APPLICATION___WEBSITE___CONTENT___WEBSITE_HOME___TEXT" %}
+</div>

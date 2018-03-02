@@ -1,0 +1,178 @@
+#application___bigdata___leftside
+{
+    position         :absolute;
+    top              :50px;
+    right            :0;
+    bottom           :0;
+    left             :0;
+    width            :250px;
+    margin           :0;
+    padding          :0;
+    background-color :#ededed;
+    border-right     :1px solid #d9dee4;
+    color            :#73879c;
+}
+
+@media (max-width :767px)
+{
+    #application___bigdata___leftside
+    {
+        z-index  :1000;
+        position :absolute;
+        top      :100px;
+        right    :0;
+        bottom   :0;
+        left     :0;
+        width    :100%;
+        border   :1px solid #d9dee4;
+    }
+}
+
+#application___bigdata___leftside #leftside___user
+{
+    overflow :hidden;
+}
+
+#application___bigdata___leftside #leftside___user #user___img
+{
+    margin :10px;
+}
+
+#application___bigdata___leftside #leftside___user #user___img img
+{
+    width  :75px;
+    height :75px;
+    border :5px solid #ffffff;
+}
+
+#application___bigdata___leftside #leftside___user #user___text
+{
+    margin :20px 10px 10px 90px;
+}
+
+#application___bigdata___leftside #leftside___user #user___text #text___welcome,
+#application___bigdata___leftside #leftside___user #user___text #text___name
+{
+    margin  :0;
+    padding :0;
+}
+
+#application___bigdata___leftside #leftside___user #user___text #text___name
+{
+    border-bottom :1px solid #d9dee4;
+}
+
+#application___bigdata___leftside #leftside___nav
+{
+    margin-bottom :20px;
+    padding       :10px 0 0 0;
+}
+
+#application___bigdata___leftside #leftside___nav li a
+{
+    color  :#2a3f54;
+    cursor :pointer;
+}
+
+#application___bigdata___leftside #leftside___nav li a:hover
+{
+    background-color :#d9dee4;
+}
+
+#application___bigdata___leftside #leftside___nav li a.active
+{
+    background-color :#2a3f54;
+    color            :#ffffff;
+}
+
+#application___bigdata___leftside #leftside___nav .arrow
+{
+    float :right;
+}
+
+#application___bigdata___leftside #leftside___nav .fa.arrow:before
+{
+    content :"\f104";
+}
+
+#application___bigdata___leftside #leftside___nav .active > a > .fa.arrow:before
+{
+    content :"\f107";
+}
+
+#application___bigdata___leftside #leftside___nav .nav___second_level li,
+#application___bigdata___leftside #leftside___nav .nav___third_level li
+{
+    border-bottom :0 !important;
+}
+
+#application___bigdata___leftside #leftside___nav .nav___second_level li a
+{
+    padding-left :37px;
+}
+
+#application___bigdata___leftside #leftside___nav .nav___third_level li a
+{
+    padding-left :52px;
+}
+
+#application___bigdata___leftside #leftside___nav .arrow
+{
+    float       :right;
+    line-height :1.42857
+}
+
+#application___bigdata___leftside #leftside___nav .glyphicon.arrow:before
+{
+    content :"\e079"
+}
+
+#application___bigdata___leftside #leftside___nav .active > a > .glyphicon.arrow:before
+{
+    content :"\e114"
+}
+
+#application___bigdata___leftside #leftside___nav .fa.arrow:before
+{
+    content :"\f104"
+}
+
+#application___bigdata___leftside #leftside___nav .active > a > .fa.arrow:before
+{
+    content :"\f107"
+}
+
+#application___bigdata___leftside #leftside___nav .plus-times
+{
+    float :right
+}
+
+#application___bigdata___leftside #leftside___nav .fa.plus-times:before
+{
+    content :"\f067"
+}
+
+#application___bigdata___leftside #leftside___nav .active > a > .fa.plus-times
+{
+    filter            :progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+    -webkit-transform :rotate(45deg);
+    -moz-transform    :rotate(45deg);
+    -ms-transform     :rotate(45deg);
+    -o-transform      :rotate(45deg);
+    transform         :rotate(45deg)
+}
+
+#application___bigdata___leftside #leftside___nav .plus-minus
+{
+    float :right
+}
+
+#application___bigdata___leftside #leftside___nav .fa.plus-minus:before
+{
+    content :"\f067"
+}
+
+#application___bigdata___leftside #leftside___nav .active > a > .fa.plus-minus:before
+{
+    content :"\f068"
+}

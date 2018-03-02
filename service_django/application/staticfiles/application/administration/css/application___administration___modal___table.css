@@ -1,0 +1,51 @@
+#application___administration___modal .modal___table.table-responsive
+{
+    margin  :0;
+    padding :5px 15px 15px 15px;
+    border  :none;
+}
+
+@media (max-width :767px)
+{
+    #application___administration___modal .modal___table.table-responsive
+    {
+        margin  :0;
+        padding :0;
+    }
+}
+
+#application___administration___modal .modal___table.table-responsive > table
+{
+    margin  :0;
+    padding :0;
+}
+
+#application___administration___modal .modal___table.table-responsive > table th
+{
+    color :#2a3f54;
+}
+
+#application___administration___modal .modal___table.table-responsive > table td
+{
+    color :#73879c;
+}
+
+#application___administration___modal .modal___table.table-responsive > table td .modal___form___field_avatar
+{
+    overflow :hidden;
+}
+
+#application___administration___modal .modal___table.table-responsive > table td .modal___form___field_avatar .modal___form___field_avatar___img
+{
+    margin :0 auto;
+    width  :102px;
+    height :102px;
+    border :1px solid #d9dee4;
+}
+
+#application___administration___modal .modal___table.table-responsive > table td .modal___form___field_avatar .modal___form___field_avatar___img img
+{
+    width  :100px;
+    height :100px;
+    border :5px solid #ffffff;
+}
