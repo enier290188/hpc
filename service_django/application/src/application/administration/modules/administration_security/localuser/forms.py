@@ -431,6 +431,8 @@ class LOCALUserUpdate(forms.ModelForm):
             password = self.cleaned_data.get('password')
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
+            else:
+                instance.password = self.instance_current.password
             # groups
             # groups a los que pertenece
             instances___group = instance.groups.all()

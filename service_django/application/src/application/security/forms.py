@@ -643,6 +643,8 @@ class LOCALUserProfile(forms.ModelForm):
             password = self.cleaned_data.get('password')
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
+            else:
+                instance.password = self.instance_current.password
             # save to data base
             instance.save()
         return instance
@@ -983,6 +985,8 @@ class LDAPUserProfile(forms.ModelForm):
             password = self.cleaned_data.get('password')
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
+            else:
+                instance.password = self.instance_current.password
             # save to data base
             instance.save()
             #
