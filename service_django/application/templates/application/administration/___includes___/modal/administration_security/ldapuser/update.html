@@ -28,8 +28,8 @@
                     {% endwith %}
 
                     <div class="divider___transparent"></div>
-                    {% with ctx___field=ctx___form.identifier %}
-                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% with ctx___field=ctx___form.identifier ctx___ldap_group=ctx___form.instance_current|___get_string___user___ldap_group___ %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfieldldapidentifier.html" %}
                     {% endwith %}
                     {% with ctx___field=ctx___form.email %}
                         {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}

@@ -43,9 +43,25 @@ def ___required___application___security___user___is_localuser___(request):
 
 
 @register.filter()
-def ___required___application___security___user___is_ldapuser___(request):
+def ___required___application___security___user___is_ldapuser_or_ldapuserimported___(request):
     if ___required___application___security___user___(request=request):
         if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUser) or isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUserImported):
+            return True
+    return False
+
+
+@register.filter()
+def ___required___application___security___user___is_ldapuser___(request):
+    if ___required___application___security___user___(request=request):
+        if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUser):
+            return True
+    return False
+
+
+@register.filter()
+def ___required___application___security___user___is_ldapuserimported___(request):
+    if ___required___application___security___user___(request=request):
+        if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUserImported):
             return True
     return False
 
@@ -69,11 +85,45 @@ def ___get_string___application___security___user___avatar_url___(request):
 
 
 @register.filter()
+def ___get_string___application___security___user___ldap_group___(request):
+    if ___required___application___security___user___is_ldapuser_or_ldapuserimported___(request=request):
+        if ___required___application___security___user___is_ldapuser___(request=request):
+            return '%s_' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),)
+        if ___required___application___security___user___is_ldapuserimported___(request=request):
+            return '%s_' % (request.___APPLICATION___SECURITY___USER___.ldap_group.lower(),)
+    return ''
+
+
+@register.filter()
 def ___get_string___user___avatar_url___(instance):
     string___avatar_url = staticfiles.static('application/security/img/avatar/avatar.png')
     if instance is not None and instance.avatar:
         string___avatar_url = instance.avatar.url
     return '%s?%s' % (string___avatar_url, timezone.datetime.now().strftime("%Y%m%d%H%M%S"))
+
+
+@register.filter()
+def ___get_string___user___ldap_group___(instance):
+    if instance is None:
+        return '%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+    if isinstance(instance, models.LDAPUserRequest):
+        return '%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+    if isinstance(instance, models.LDAPUser):
+        return '%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+    if isinstance(instance, models.LDAPUserImported):
+        return '%s' % (instance.ldap_group,)
+    return ''
+
+
+@register.filter()
+def ___get_string___user___ldap_identifier___(instance):
+    if isinstance(instance, models.LDAPUserRequest):
+        return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier, )
+    if isinstance(instance, models.LDAPUser):
+        return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier, )
+    if isinstance(instance, models.LDAPUserImported):
+        return '%s_%s' % (instance.ldap_group.lower(), instance.identifier, )
+    return ''
 
 
 @register.filter()

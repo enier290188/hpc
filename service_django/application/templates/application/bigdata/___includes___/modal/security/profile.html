@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load application___security i18n %}
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -27,14 +27,15 @@
                     {% endwith %}
 
                     <div class="divider___transparent"></div>
-                    {% if ctx___form.ldap_group %}
-                        {% with ctx___field=ctx___form.ldap_group %}
+                    {% if request|___required___application___security___user___is_localuser___ %}
+                        {% with ctx___field=ctx___form.identifier %}
                             {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
                         {% endwith %}
+                    {% elif request|___required___application___security___user___is_ldapuser_or_ldapuserimported___ %}
+                        {% with ctx___field=ctx___form.identifier ctx___ldap_group=ctx___form.instance_current|___get_string___user___ldap_group___ %}
+                            {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfieldldapidentifier.html" %}
+                        {% endwith %}
                     {% endif %}
-                    {% with ctx___field=ctx___form.identifier %}
-                        {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
-                    {% endwith %}
                     {% with ctx___field=ctx___form.email %}
                         {% include "application/bigdata/___includes___/modal/___includes___/form/textfield/textfield.html" %}
                     {% endwith %}

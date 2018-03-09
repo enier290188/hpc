@@ -21,7 +21,7 @@
             {% endif %}
         </th>
         <td>{{ ctx___instance }}</td>
-        <td>{{ ctx___instance.identifier }}</td>
+        <td>{{ ctx___instance|___get_string___user___ldap_identifier___ }}</td>
         <td>{{ ctx___instance.email }}</td>
     </tr>
 {% empty %}

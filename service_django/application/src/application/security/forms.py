@@ -247,18 +247,6 @@ ___FIELD___PROFILE___LAST_NAME___ = forms.CharField(
         },
     ),
 )
-___FIELD___PROFILE___LDAP_GROUP___ = forms.CharField(
-    label=_('APPLICATION___SECURITY___PROFILE___LDAP_GROUP'),
-    required=False,
-    widget=forms.TextInput(
-        attrs={
-            'id': 'ldap_group',
-            'class': 'form-control',
-            'aria-describedby': 'ldap_group_icon',
-            'icon': 'fa fa-object-group',
-        },
-    ),
-)
 ___FIELD___PROFILE___IDENTIFIER___ = forms.CharField(
     label=_('APPLICATION___SECURITY___PROFILE___IDENTIFIER'),
     required=True,
@@ -673,7 +661,7 @@ class LDAPUserLogin(forms.Form):
         # ldap_group
         choices = list()
         for group in settings.LDAP_SERVER_GROUPS_LIST:
-            choices.append((group, group))
+            choices.append((group, group.upper()))
         self.fields['ldap_group'].widget.choices = tuple(choices)
         # identifier
         ___field___attribute___placeholder___locale___reload__(field=self.fields['ldap_identifier'], locale='APPLICATION___SECURITY___LOGIN___IDENTIFIER')
@@ -999,13 +987,12 @@ class LDAPUserImportedProfile(forms.ModelForm):
     avatar = ___FIELD___PROFILE___AVATAR___
     first_name = ___FIELD___PROFILE___FIRST_NAME___
     last_name = ___FIELD___PROFILE___LAST_NAME___
-    ldap_group = ___FIELD___PROFILE___LDAP_GROUP___
     identifier = ___FIELD___PROFILE___IDENTIFIER___
     email = ___FIELD___PROFILE___EMAIL___
 
     class Meta:
         model = models.LDAPUserImported
-        fields = ['avatar', 'first_name', 'last_name', 'ldap_group', 'identifier', 'email', ]
+        fields = ['avatar', 'first_name', 'last_name', 'identifier', 'email', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -1019,9 +1006,6 @@ class LDAPUserImportedProfile(forms.ModelForm):
         # last name
         ___field___attribute___placeholder___locale___reload__(field=self.fields['last_name'], locale='APPLICATION___SECURITY___PROFILE___LAST_NAME')
         self.fields['last_name'].widget.attrs['readonly'] = 'readonly'
-        # ldap group
-        ___field___attribute___placeholder___locale___reload__(field=self.fields['ldap_group'], locale='APPLICATION___SECURITY___PROFILE___LDAP_GROUP')
-        self.fields['ldap_group'].widget.attrs['readonly'] = 'readonly'
         # identifier
         ___field___attribute___placeholder___locale___reload__(field=self.fields['identifier'], locale='APPLICATION___SECURITY___PROFILE___IDENTIFIER')
         self.fields['identifier'].widget.attrs['readonly'] = 'readonly'
@@ -1036,10 +1020,6 @@ class LDAPUserImportedProfile(forms.ModelForm):
     def clean_last_name(self):
         last_name = self.instance_current.last_name
         return last_name
-
-    def clean_ldap_group(self):
-        ldap_group = self.instance_current.ldap_group
-        return ldap_group
 
     def clean_identifier(self):
         identifier = self.instance_current.identifier

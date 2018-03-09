@@ -205,9 +205,6 @@ msgstr "Nombre"
 msgid "APPLICATION___SECURITY___PROFILE___LAST_NAME"
 msgstr "Apellidos"
 
-msgid "APPLICATION___SECURITY___PROFILE___LDAP_GROUP"
-msgstr "Grupo"
-
 msgid "APPLICATION___SECURITY___PROFILE___IDENTIFIER"
 msgstr "Identificador"
 

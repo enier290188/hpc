@@ -87,8 +87,8 @@ def ___boolean___ldap___ldapuser_instance_create___(connection, instance):
             'uidNumber': '%s' % (1000000000 + instance.pk),
             'gidNumber': settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,
             'cn': instance.__str__(),
-            'givenName': instance.first_name,
-            'sn': instance.last_name,
+            'givenName': (instance.first_name if instance.first_name != '' else '-'),
+            'sn': (instance.last_name if instance.last_name != '' else '-'),
             'mail': instance.email,
             'userPassword': instance.password,
             'description': instance.detail,
@@ -106,7 +106,7 @@ def ___boolean___ldap___ldapuser_instance_create___(connection, instance):
     if boolean___is_add:
         boolean___is_add = ___boolean___ldap___ldapuserhpc_instance_create___(
             connection=connection,
-            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
             int___group_gidnumber=int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER),
             instance=instance
         )
@@ -135,8 +135,8 @@ def ___boolean___ldap___ldapuser_instance_update___(connection, instance):
                     'uidNumber': [(ldap3.MODIFY_REPLACE, [1000000000 + instance.pk])],
                     'gidNumber': [(ldap3.MODIFY_REPLACE, [settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER])],
                     'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
-                    'givenName': [(ldap3.MODIFY_REPLACE, [instance.first_name])],
-                    'sn': [(ldap3.MODIFY_REPLACE, [instance.last_name])],
+                    'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
+                    'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
                     'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
                     'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
                     'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
@@ -154,7 +154,7 @@ def ___boolean___ldap___ldapuser_instance_update___(connection, instance):
             if boolean___is_update:
                 boolean___is_update = ___boolean___ldap___ldapuserhpc_instance_update___(
                     connection=connection,
-                    string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+                    string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
                     int___group_gidnumber=int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER),
                     instance=instance
                 )
@@ -170,12 +170,13 @@ def ___boolean___ldap___ldapuser_instance_delete___(connection, instance):
     if boolean___is_delete:
         boolean___is_delete = ___boolean___ldap___ldapuserhpc_instance_delete___(
             connection=connection,
-            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
             instance=instance
         )
     return boolean___is_delete
 
 
+##########################################################################################
 def ___boolean___ldap___ldapuserhpc_group_search___(connection, string___group_cn):
     # perform the operation search
     boolean___is_find = connection.search(
@@ -219,8 +220,8 @@ def ___boolean___ldap___ldapuserhpc_instance_create___(connection, string___grou
             'uidNumber': '%s' % ((int___group_gidnumber * 1000000000) + instance.pk),
             'gidNumber': '%s' % (int___group_gidnumber,),
             'cn': instance.__str__(),
-            'givenName': instance.first_name,
-            'sn': instance.last_name,
+            'givenName': (instance.first_name if instance.first_name != '' else '-'),
+            'sn': (instance.last_name if instance.last_name != '' else '-'),
             'mail': instance.email,
             'userPassword': instance.password,
             'description': instance.detail,
@@ -261,8 +262,8 @@ def ___boolean___ldap___ldapuserhpc_instance_update___(connection, string___grou
                     'uidNumber': [(ldap3.MODIFY_REPLACE, [(int___group_gidnumber * 1000000000) + instance.pk])],
                     'gidNumber': [(ldap3.MODIFY_REPLACE, [int___group_gidnumber])],
                     'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
-                    'givenName': [(ldap3.MODIFY_REPLACE, [instance.first_name])],
-                    'sn': [(ldap3.MODIFY_REPLACE, [instance.last_name])],
+                    'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
+                    'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
                     'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
                     'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
                     'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
@@ -336,7 +337,7 @@ def ___void___ldap___ldapuser_instances_synchronize___(connection):
                 dn='uid=%s,ou=%s,%s' % (str(entry.uid), settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,)
             )
             connection.delete(
-                dn='uid=%s,%s' % ('%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN, str(entry.uid),), settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,)
+                dn='uid=%s,%s' % ('%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), str(entry.uid),), settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,)
             )
 
 
@@ -393,8 +394,8 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
             if boolean___is_find:
                 for entry in connection.entries:
                     string___uid = str(entry.uid)
-                    string___givenname = str(entry.givenName)
-                    string___sn = str(entry.sn)
+                    string___givenname = (str(entry.givenName) if str(entry.givenName) != '[]' else '')
+                    string___sn = (str(entry.sn) if str(entry.sn) != '[]' else '')
                     string___mail = str(entry.mail)
                     string___userpassword = str(entry.userPassword)[2:-1]
                     string___description = str(entry.description)
@@ -427,7 +428,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
         # perform the operation search
         boolean___is_find = ___boolean___ldap___ldapuserhpc_instance_search___(
             connection=connection,
-            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+            string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
             int___group_gidnumber=int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER),
             instance=instance
         )
@@ -435,7 +436,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
             # perform the operation update
             ___boolean___ldap___ldapuserhpc_instance_update___(
                 connection=connection,
-                string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+                string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
                 int___group_gidnumber=int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER),
                 instance=instance
             )
@@ -443,7 +444,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
             # perform the operation create
             ___boolean___ldap___ldapuserhpc_instance_create___(
                 connection=connection,
-                string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN,
+                string___group_cn=settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),
                 int___group_gidnumber=int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER),
                 instance=instance
             )
@@ -460,7 +461,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
             #
             boolean___is_find = ___boolean___ldap___ldapuserhpc_instance_search___(
                 connection=connection,
-                string___group_cn=string___group_cn,
+                string___group_cn=string___group_cn.lower(),
                 int___group_gidnumber=int___group_gidnumber,
                 instance=instance
             )
@@ -468,7 +469,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
                 # perform the operation update
                 ___boolean___ldap___ldapuserhpc_instance_update___(
                     connection=connection,
-                    string___group_cn=string___group_cn,
+                    string___group_cn=string___group_cn.lower(),
                     int___group_gidnumber=int___group_gidnumber,
                     instance=instance
                 )
@@ -476,7 +477,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
                 # perform the operation create
                 ___boolean___ldap___ldapuserhpc_instance_create___(
                     connection=connection,
-                    string___group_cn=string___group_cn,
+                    string___group_cn=string___group_cn.lower(),
                     int___group_gidnumber=int___group_gidnumber,
                     instance=instance
                 )
@@ -493,9 +494,9 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
             boolean___delete = True
             instances = models.LDAPUser.objects.all()
             for instance in instances:
-                uid = '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)
+                uid = '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier,)
                 uidnumber = '%s' % ((int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER) * 1000000000) + instance.pk)
-                homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)
+                homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier,)
                 if uid == string___uid and uidnumber == string___uidnumber and homedirectory == string___homedirectory:
                     boolean___delete = False
                     break
@@ -507,9 +508,9 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
                         string___group_cn=instance.ldap_group
                     )
                     if boolean___is_find is True:
-                        uid = '%s_%s' % (str(connection.entries[0].cn), instance.identifier,)
+                        uid = '%s_%s' % (str(connection.entries[0].cn).lower(), instance.identifier,)
                         uidnumber = '%s' % ((int(str(connection.entries[0].gidNumber)) * 1000000000) + instance.pk)
-                        homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, str(connection.entries[0].cn), instance.identifier,)
+                        homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, str(connection.entries[0].cn).lower(), instance.identifier,)
                         if uid == string___uid and uidnumber == string___uidnumber and homedirectory == string___homedirectory:
                             boolean___delete = False
                             break

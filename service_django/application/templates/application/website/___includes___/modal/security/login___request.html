@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load application___security i18n %}
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -24,9 +24,15 @@
                     {% endwith %}
 
                     <div class="divider___transparent"></div>
-                    {% with ctx___field=ctx___form.identifier %}
-                        {% include "application/website/___includes___/modal/___includes___/form/textfield/textfield.html" %}
-                    {% endwith %}
+                    {% if ctx___tab___localuserlogin___request == True %}
+                        {% with ctx___field=ctx___form.identifier %}
+                            {% include "application/website/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                        {% endwith %}
+                    {% elif ctx___tab___ldapuserlogin___request == True %}
+                        {% with ctx___field=ctx___form.identifier ctx___ldap_group=None|___get_string___user___ldap_group___ %}
+                            {% include "application/website/___includes___/modal/___includes___/form/textfield/textfieldldapidentifier.html" %}
+                        {% endwith %}
+                    {% endif %}
                     {% with ctx___field=ctx___form.email %}
                         {% include "application/website/___includes___/modal/___includes___/form/textfield/textfield.html" %}
                     {% endwith %}
@@ -36,7 +42,6 @@
                     {% with ctx___field=ctx___form.password_confirmation %}
                         {% include "application/website/___includes___/modal/___includes___/form/textfield/textfield.html" %}
                     {% endwith %}
-
 
                     <div class="divider___transparent"></div>
                     {% with ctx___field=ctx___form.detail %}

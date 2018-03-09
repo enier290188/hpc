@@ -1,7 +1,7 @@
 {% load application___security %}
 {% load i18n %}
 
-{% if request|___required___application___security___user___is_ldapuser___ %}
+{% if request|___required___application___security___user___is_ldapuser_or_ldapuserimported___ %}
     <div id="leftside___user">
         <div id="user___img" class="pull-left">
             <img src="{{ request|___get_string___application___security___user___avatar_url___ }}" alt="..." class="img-circle"/>

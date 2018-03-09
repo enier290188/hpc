@@ -45,13 +45,36 @@
                                     </ul>
                                 {% endif %}
                             </div>
+                            <div class="form-group {% if ctx___form___ldapuserlogin.ldap_identifier.errors %}has-error{% endif %}">
+                                <label for="{{ ctx___form___ldapuserlogin.ldap_identifier.field.widget.attrs.id }}">{{ ctx___form___ldapuserlogin.ldap_identifier.field.label }}:{% if ctx___form___ldapuserlogin.ldap_identifier.field.required %} *{% endif %}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="{{ ctx___form___ldapuserlogin.ldap_identifier.field.widget.attrs.id }}_icon">
+                                        <span class="{{ ctx___form___ldapuserlogin.ldap_identifier.field.widget.attrs.icon }}" aria-hidden="true"></span>
+                                        <span>&nbsp;</span>
+                                        <span id="{{ ctx___form___ldapuserlogin.ldap_identifier.field.widget.attrs.id }}_icon_text"></span>
+                                    </span>
+                                    {{ ctx___form___ldapuserlogin.ldap_identifier }}
+                                </div>
+                                {% if ctx___form___ldapuserlogin.ldap_identifier.help_text %}
+                                    <p class="help-block text-justify">{{ ctx___form___ldapuserlogin.ldap_identifier.help_text }}</p>
+                                {% endif %}
+                                {% if ctx___form___ldapuserlogin.ldap_identifier.errors %}
+                                    <ul>
+                                        {% for ctx___error in ctx___form___ldapuserlogin.ldap_identifier.errors %}
+                                            <li><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> {{ ctx___error|escape }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
                             <script>
                                 $(document).ready(function () {
                                     $identifierSelectLdapGroup = $("#{{ ctx___form___ldapuserlogin.ldap_group.field.widget.attrs.id }}");
                                     $identifierSelectLdapGroupOptions = $("#{{ ctx___form___ldapuserlogin.ldap_group.field.widget.attrs.id }}_options");
+                                    $identifierSpanLdapIdentifierIconText = $("#{{ ctx___form___ldapuserlogin.ldap_identifier.field.widget.attrs.id }}_icon_text");
                                     if ($identifierSelectLdapGroup.find("option:first-of-type:selected").val() === undefined) {
                                         $identifierSelectLdapGroupOptions.addClass("hidden");
                                     }
+                                    $identifierSpanLdapIdentifierIconText.html($identifierSelectLdapGroup.find("option:selected").val().toLowerCase() + "_");
                                     $identifierSelectLdapGroup.change(function () {
                                         if ($identifierSelectLdapGroup.find("option:first-of-type:selected").val() === undefined) {
                                             $identifierSelectLdapGroupOptions.addClass("hidden");
@@ -59,12 +82,10 @@
                                         else {
                                             $identifierSelectLdapGroupOptions.removeClass("hidden");
                                         }
+                                        $identifierSpanLdapIdentifierIconText.html($identifierSelectLdapGroup.find("option:selected").val().toLowerCase() + "_");
                                     });
                                 });
                             </script>
-                            {% with ctx___field=ctx___form___ldapuserlogin.ldap_identifier %}
-                                {% include "application/hpc/___includes___/modal/___includes___/form/textfield/textfield.html" %}
-                            {% endwith %}
                             {% with ctx___field=ctx___form___ldapuserlogin.ldap_password %}
                                 {% include "application/hpc/___includes___/modal/___includes___/form/textfield/textfield.html" %}
                             {% endwith %}

@@ -566,7 +566,7 @@ class LDAPUser(models.Model):
             return '%s %s' % (self.first_name, self.last_name,)
         if self.first_name:
             return '%s' % (self.first_name,)
-        return self.identifier
+        return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), self.identifier,)
 
     def save(self, *args, **kwargs):
         if self.password == '':
@@ -723,7 +723,7 @@ class LDAPUserImported(models.Model):
             return '%s %s' % (self.first_name, self.last_name,)
         if self.first_name:
             return '%s' % (self.first_name,)
-        return self.identifier
+        return '%s_%s' % (self.ldap_group.lower(), self.identifier,)
 
     def save(self, *args, **kwargs):
         if self.password == '':

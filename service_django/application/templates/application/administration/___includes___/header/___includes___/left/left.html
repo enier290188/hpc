@@ -7,7 +7,7 @@
             <span class="fa fa-sitemap fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___ADMINISTRATION___HEADER___LEFT___WEBSITE" %}</span>
         </a>
     </li>
-    {% if request|___required___application___security___user___is_ldapuser___ %}
+    {% if request|___required___application___security___user___is_ldapuser_or_ldapuserimported___ %}
         <li>
             <a data-url="{% url "application___hpc:index" %}" class="LINK___application___reload">
                 <span class="fa fa-server fa-fw" aria-hidden="true"></span> <span class="hidden-xs">{% trans "APPLICATION___ADMINISTRATION___HEADER___LEFT___HPC" %}</span>

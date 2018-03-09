@@ -75,18 +75,6 @@ ___FIELD___LAST_NAME___ = forms.CharField(
         },
     ),
 )
-___FIELD___LDAP_GROUP___ = forms.CharField(
-    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___LDAP_GROUP'),
-    required=False,
-    widget=forms.TextInput(
-        attrs={
-            'id': 'ldap_group',
-            'class': 'form-control',
-            'aria-describedby': 'ldap_group_icon',
-            'icon': 'fa fa-object-group',
-        },
-    ),
-)
 ___FIELD___IDENTIFIER___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___IDENTIFIER'),
     required=False,
@@ -141,7 +129,6 @@ class LDAPUserImportedDetail(forms.ModelForm):
     avatar = ___FIELD___AVATAR___
     first_name = ___FIELD___FIRST_NAME___
     last_name = ___FIELD___LAST_NAME___
-    ldap_group = ___FIELD___LDAP_GROUP___
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
@@ -160,14 +147,13 @@ class LDAPUserImportedUpdate(forms.ModelForm):
     avatar = ___FIELD___AVATAR___
     first_name = ___FIELD___FIRST_NAME___
     last_name = ___FIELD___LAST_NAME___
-    ldap_group = ___FIELD___LDAP_GROUP___
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
 
     class Meta:
         model = models.LDAPUserImported
-        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'ldap_group', 'identifier', 'email', 'detail', ]
+        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'detail', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -183,9 +169,6 @@ class LDAPUserImportedUpdate(forms.ModelForm):
         # last name
         ___field___attribute___placeholder___locale___reload__(field=self.fields['last_name'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___LAST_NAME')
         self.fields['last_name'].widget.attrs['readonly'] = 'readonly'
-        # ldap_group
-        ___field___attribute___placeholder___locale___reload__(field=self.fields['ldap_group'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___LDAP_GROUP')
-        self.fields['ldap_group'].widget.attrs['readonly'] = 'readonly'
         # identifier
         ___field___attribute___placeholder___locale___reload__(field=self.fields['identifier'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___IDENTIFIER')
         self.fields['identifier'].widget.attrs['readonly'] = 'readonly'
@@ -211,10 +194,6 @@ class LDAPUserImportedUpdate(forms.ModelForm):
     def clean_last_name(self):
         last_name = self.instance_current.last_name
         return last_name
-
-    def clean_ldap_group(self):
-        ldap_group = self.instance_current.ldap_group
-        return ldap_group
 
     def clean_identifier(self):
         identifier = self.instance_current.identifier
