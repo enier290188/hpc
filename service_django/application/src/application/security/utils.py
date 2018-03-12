@@ -503,13 +503,11 @@ def ___jsonresponse___login___request___(request, ___application___security___fr
         tab___ldapuserlogin___request = False
         form = forms.LOCALUserLoginRequest(data=request.POST or None, request=request)
         string___user_model = ___APPLICATION___SECURITY___USER___MODEL___LOCALUSER___TEXT___
-        string___identifier = ''
     elif request.GET.get('tab___ldapuserlogin___request'):
         tab___localuserlogin___request = False
         tab___ldapuserlogin___request = True
         form = forms.LDAPUserLoginRequest(data=request.POST or None, request=request)
         string___user_model = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___TEXT___
-        string___identifier = '%s_' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(),)
     else:
         return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)
     #
@@ -525,7 +523,7 @@ def ___jsonresponse___login___request___(request, ___application___security___fr
                     'string___user_model': string___user_model,
                     'string___first_name': instance.first_name,
                     'string___last_name': instance.last_name,
-                    'string___identifier': '%s%s' % (string___identifier, instance.identifier,),
+                    'string___identifier': instance.identifier,
                     'string___email': instance.email,
                     'string___detail': instance.detail,
                 },

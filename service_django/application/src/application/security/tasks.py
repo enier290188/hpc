@@ -27,7 +27,7 @@ def ___task___application___security___login___forgot_credentials___delete_insta
 def ___task___application___security___login___forgot_credentials_1___send_mail___(string___email, string___code):
     # Send mail with the verification code to the user who forgot their credentials.
     try:
-        string___subject = '::: HPC-%s ::: FORGOT CREDENTIALS :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+        string___subject = '::: HPC ::: FORGOT CREDENTIALS :::'
         string___msg_plain = string___subject + '\n\n' \
                                                 'CODE: %s' % (string___code,)
         string___msg_html = string___subject + '<br/><br/>' \
@@ -51,7 +51,7 @@ def ___task___application___security___login___request___send_mail___(string___u
     # Send mail to users who approve the request.
     # Send mail to the user who made the request.
     try:
-        string___subject = '::: HPC-%s ::: REQUEST USER :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+        string___subject = '::: HPC ::: REQUEST USER :::'
         string___msg_plain_1 = string___subject + '\n\n' \
                                                   'User model: %s \n' \
                                                   'First name: %s \n' \
@@ -119,7 +119,7 @@ def ___task___application___security___login___request___send_mail___(string___u
 @shared_task()
 def ___task___application___security___login___request___approve___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail):
     try:
-        string___subject = '::: HPC-%s ::: REQUEST USER ::: APPROVE :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+        string___subject = '::: HPC ::: REQUEST USER ::: APPROVE :::'
         string___msg_plain = string___subject + '\n\n' \
                                                 'Your request was approved. \n\n' \
                                                 'User model: %s \n' \
@@ -154,7 +154,7 @@ def ___task___application___security___login___request___approve___send_mail___(
 @shared_task()
 def ___task___application___security___login___request___disapprove___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail):
     try:
-        string___subject = '::: HPC-%s ::: REQUEST USER ::: DISAPPROVE :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
+        string___subject = '::: HPC ::: REQUEST USER ::: DISAPPROVE :::'
         string___msg_plain = string___subject + '\n\n' \
                                                 'Your request was disapproved. \n\n' \
                                                 'User model: %s \n' \

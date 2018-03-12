@@ -1,145 +1,139 @@
 #application___administration___modal .modal___form,
-#application___administration___modal___modal .modal___form
-{
-    margin  :0;
-    padding :15px;
-    color   :#73879c;
+#application___administration___modal___modal .modal___form {
+    margin: 0;
+    padding: 15px;
+    color: #73879c;
 }
 
 #application___administration___modal .modal___form .divider___transparent,
-#application___administration___modal___modal .modal___form .divider___transparent
-{
-    margin     :20px 0 15px 0;
-    border-top :1px solid transparent;
+#application___administration___modal___modal .modal___form .divider___transparent {
+    margin: 20px 0 15px 0;
+    border-top: 1px solid transparent;
 }
 
 #application___administration___modal .modal___form .divider___solid,
-#application___administration___modal___modal .modal___form .divider___solid
-{
-    margin     :20px 0 15px 0;
-    border-top :1px solid #d9dee4;
+#application___administration___modal___modal .modal___form .divider___solid {
+    margin: 20px 0 15px 0;
+    border-top: 1px solid #d9dee4;
 }
 
 #application___administration___modal .modal___form .divider___dotted,
-#application___administration___modal___modal .modal___form .divider___dotted
-{
-    margin     :20px 0 15px 0;
-    border-top :1px dotted #d9dee4;
+#application___administration___modal___modal .modal___form .divider___dotted {
+    margin: 20px 0 15px 0;
+    border-top: 1px dotted #d9dee4;
 }
 
 #application___administration___modal .modal___form *[readonly="readonly"],
-#application___administration___modal___modal .modal___form *[readonly="readonly"]
-{
-    cursor :not-allowed;
+#application___administration___modal___modal .modal___form *[readonly="readonly"] {
+    cursor: not-allowed;
 }
 
 #application___administration___modal .modal___form .form-group label,
-#application___administration___modal___modal .modal___form .form-group label
-{
-    margin      :0;
-    padding     :0;
-    font-weight :bolder;
+#application___administration___modal___modal .modal___form .form-group label {
+    margin: 0;
+    padding: 0;
+    font-weight: bolder;
 }
 
 #application___administration___modal .modal___form .form-group .input-group,
-#application___administration___modal___modal .modal___form .form-group .input-group
-{
-    margin  :0;
-    padding :0;
+#application___administration___modal___modal .modal___form .form-group .input-group {
+    margin: 0;
+    padding: 0;
 }
 
 #application___administration___modal .modal___form .form-group .input-group .input-group-addon,
-#application___administration___modal___modal .modal___form .form-group .input-group .input-group-addon
-{
-    background-color :#ffffff;
-    border-radius    :0;
-    border-color     :#d9dee4;
-    color            :#73879c;
+#application___administration___modal___modal .modal___form .form-group .input-group .input-group-addon {
+    background-color: #ffffff;
+    border-radius: 0;
+    border-color: #d9dee4;
+    color: #73879c;
 }
 
 #application___administration___modal .modal___form .form-group .input-group .form-control,
-#application___administration___modal___modal .modal___form .form-group .input-group .form-control
-{
-    border-radius :0;
-    border-color  :#d9dee4;
-    color         :#73879c;
+#application___administration___modal___modal .modal___form .form-group .input-group .form-control {
+    border-radius: 0;
+    border-color: #d9dee4;
+    color: #73879c;
 }
 
 #application___administration___modal .modal___form .form-group .input-group .form-control::-moz-placeholder,
 #application___administration___modal .modal___form .form-group .input-group .form-control::-webkit-input-placeholder,
 #application___administration___modal___modal .modal___form .form-group .input-group .form-control::-moz-placeholder,
-#application___administration___modal___modal .modal___form .form-group .input-group .form-control::-webkit-input-placeholder
-{
-    color   :#73879c;
-    opacity :0.5;
+#application___administration___modal___modal .modal___form .form-group .input-group .form-control::-webkit-input-placeholder {
+    color: #73879c;
+    opacity: 0.5;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_avatar,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar
-{
-    overflow :hidden;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar {
+    overflow: hidden;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img
-{
-    margin :0 auto;
-    width  :102px;
-    height :102px;
-    border :1px solid #d9dee4;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img {
+    margin: 0 auto;
+    width: 102px;
+    height: 102px;
+    border: 1px solid #d9dee4;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img img,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img img
-{
-    width  :100px;
-    height :100px;
-    border :5px solid #ffffff;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___img img {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #ffffff;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___button,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___button
-{
-    margin :0 0 0 120px;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar .modal___form___field_avatar___button {
+    margin: 0 0 0 120px;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_table,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_table
-{
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_table {
 
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_table table.table,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table
-{
-    margin-bottom :0;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table {
+    margin-bottom: 0;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td
-{
-    border :none;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td {
+    border: none;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label,
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label
-{
-    font-weight :normal;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label {
+    font-weight: normal;
 }
 
 #application___administration___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label input[type="checkbox"],
-#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label input[type="checkbox"]
-{
-    margin-right :10px;
+#application___administration___modal___modal .modal___form .form-group .modal___form___field_table table.table tbody tr td label input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#application___administration___modal .modal___form .form-group .trumbowyg-box {
+    border: 1px solid #d9dee4 !important;
+}
+
+#application___administration___modal .modal___form .form-group .trumbowyg-box,
+#application___administration___modal .modal___form .form-group .trumbowyg-editor {
+    margin: 0 auto !important;
+}
+
+#application___administration___modal .modal___form .form-group .trumbowyg-editor,
+#application___administration___modal .modal___form .form-group .trumbowyg-textarea {
+    padding: 5px !important;
 }
 
 #application___administration___modal .modal___form .form-group .help-block,
-#application___administration___modal___modal .modal___form .form-group .help-block
-{
-    margin     :0;
-    padding    :0;
-    font-style :italic;
-    color      :#73879c;
+#application___administration___modal___modal .modal___form .form-group .help-block {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    color: #73879c;
 }
 
 #application___administration___modal .modal___form .form-group.has-error,
@@ -155,9 +149,8 @@
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon .input-group-btn .btn,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control,
-#application___administration___modal___modal .modal___form .form-group.has-error .help-block
-{
-    color :#ce5454;
+#application___administration___modal___modal .modal___form .form-group.has-error .help-block {
+    color: #ce5454;
 }
 
 #application___administration___modal .modal___form .form-group.has-error button,
@@ -167,22 +160,19 @@
 #application___administration___modal___modal .modal___form .form-group.has-error button,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control,
-#application___administration___modal___modal .modal___form .form-group.has-error .modal___form___field_avatar .modal___form___field_avatar___img
-{
-    border-color :#ce5454;
+#application___administration___modal___modal .modal___form .form-group.has-error .modal___form___field_avatar .modal___form___field_avatar___img {
+    border-color: #ce5454;
 }
 
 #application___administration___modal .modal___form .form-group.has-error .input-group .form-control::-moz-placeholder,
 #application___administration___modal .modal___form .form-group.has-error .input-group .form-control::-webkit-input-placeholder,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control::-moz-placeholder,
-#application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control::-webkit-input-placeholder
-{
-    color   :#73879c;
-    opacity :0.5;
+#application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control::-webkit-input-placeholder {
+    color: #73879c;
+    opacity: 0.5;
 }
 
 #application___administration___modal .modal___form .form-group ul li,
-#application___administration___modal___modal .modal___form .form-group ul li
-{
-    list-style :none;
+#application___administration___modal___modal .modal___form .form-group ul li {
+    list-style: none;
 }

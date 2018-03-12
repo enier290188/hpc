@@ -3,6 +3,7 @@ from src.application.help import models
 from django import forms
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
+import copy
 
 ___FIELD___IS_ACTIVE___ = forms.BooleanField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_HELP___DOCUMENT___IS_ACTIVE'),
@@ -77,10 +78,10 @@ def ___field___attribute___help_text___locale___reload__(field, locale):
 
 class DocumentCreate(forms.ModelForm):
     is_active = ___FIELD___IS_ACTIVE___
-    title_en = ___FIELD___TITLE___
-    title_es = ___FIELD___TITLE___
-    content_en = ___FIELD___CONTENT___
-    content_es = ___FIELD___CONTENT___
+    title_en = copy.deepcopy(___FIELD___TITLE___)
+    title_es = copy.deepcopy(___FIELD___TITLE___)
+    content_en = copy.deepcopy(___FIELD___CONTENT___)
+    content_es = copy.deepcopy(___FIELD___CONTENT___)
 
     class Meta:
         model = models.Document
@@ -134,10 +135,10 @@ class DocumentDetail(forms.ModelForm):
 
 class DocumentUpdate(forms.ModelForm):
     is_active = ___FIELD___IS_ACTIVE___
-    title_en = ___FIELD___TITLE___
-    title_es = ___FIELD___TITLE___
-    content_en = ___FIELD___CONTENT___
-    content_es = ___FIELD___CONTENT___
+    title_en = copy.deepcopy(___FIELD___TITLE___)
+    title_es = copy.deepcopy(___FIELD___TITLE___)
+    content_en = copy.deepcopy(___FIELD___CONTENT___)
+    content_es = copy.deepcopy(___FIELD___CONTENT___)
 
     class Meta:
         model = models.Document

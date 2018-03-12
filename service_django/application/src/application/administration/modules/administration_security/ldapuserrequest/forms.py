@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.application.security import ldap, models, tasks, utils
 from django import forms
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 ___FIELD___CREATED___ = forms.DateField(
@@ -145,17 +144,17 @@ class LDAPUserRequestApprove(forms.ModelForm):
         )
         # Send email
         tasks.___task___application___security___login___request___approve___send_mail___.apply_async(
-            args=[],
-            kwargs={
-                'string___user_model': utils.___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___TEXT___,
-                'string___first_name': instance_mirror.first_name,
-                'string___last_name': instance_mirror.last_name,
-                'string___identifier': '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance_mirror.identifier,),
-                'string___email': instance_mirror.email,
-                'string___detail': instance_mirror.detail,
-            },
-            serializer='json'
-        )
+                    args=[],
+                    kwargs={
+                        'string___user_model': utils.___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___TEXT___,
+                        'string___first_name': instance_mirror.first_name,
+                        'string___last_name': instance_mirror.last_name,
+                        'string___identifier': instance_mirror.identifier,
+                        'string___email': instance_mirror.email,
+                        'string___detail': instance_mirror.detail,
+                    },
+                    serializer='json'
+                )
         # LDAP
         ldap.___void___action___ldapuser_instance_create___(instance=instance_mirror)
         return instance_mirror
@@ -172,14 +171,14 @@ class LDAPUserRequestDisapprove(forms.ModelForm):
 
     def ___disapprove___(self):
         tasks.___task___application___security___login___request___disapprove___send_mail___.apply_async(
-            args=[],
-            kwargs={
-                'string___user_model': utils.___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___TEXT___,
-                'string___first_name': self.instance.first_name,
-                'string___last_name': self.instance.last_name,
-                'string___identifier': '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), self.instance.identifier,),
-                'string___email': self.instance.email,
-                'string___detail': self.instance.detail,
-            },
-            serializer='json'
-        )
+                args=[],
+                kwargs={
+                    'string___user_model': utils.___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___TEXT___,
+                    'string___first_name': self.instance.first_name,
+                    'string___last_name': self.instance.last_name,
+                    'string___identifier': self.instance.identifier,
+                    'string___email': self.instance.email,
+                    'string___detail': self.instance.detail,
+                },
+                serializer='json'
+            )

@@ -82,3 +82,28 @@
         </form>
     </div>
 </div>
+
+<script>
+    //configuration of editor wysiwyg
+    $(document).ready(function () {
+        $('#{{ ctx___form.content_en.field.widget.attrs.id }}, #{{ ctx___form.content_es.field.widget.attrs.id }}').trumbowyg(
+            {
+                {% if ctx___current_language == "en" %}
+                    lang: 'en',
+                {% elif ctx___current_language == "es" %}
+                    lang: 'es',
+                {% endif %}
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'],
+                    ['removeformat'],
+                    ['p', 'blockquote', 'h1', 'h2', 'h3', 'h4'],
+                    ['strong', 'em', 'del', 'superscript', 'subscript'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['base64'],
+                    ['fullscreen']
+                ]
+            }
+        );
+    });
+</script>
