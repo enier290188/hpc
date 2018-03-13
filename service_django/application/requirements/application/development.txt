@@ -7,3 +7,4 @@ django_celery_results==1.0.1
 django_celery_beat==1.0.1
 psycopg2==2.7.3.2
 uwsgi==2.0.15
+paramiko==2.4.0

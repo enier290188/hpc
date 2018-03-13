@@ -75,9 +75,6 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___header/locale'),
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___leftside/locale'),
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content/locale'),
-    os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content___hpc_module01/locale'),
-    os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content___hpc_module02/locale'),
-    os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content___hpc_module03/locale'),
     #
     os.path.join(BASE_DIR, 'i18n/application/bigdata/locale/application___bigdata/locale'),
     os.path.join(BASE_DIR, 'i18n/application/bigdata/locale/application___bigdata___header/locale'),

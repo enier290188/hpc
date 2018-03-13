@@ -43,7 +43,7 @@ class ApplicationSecurityMiddleware(object):
             if request.path == '/website/':
                 request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/website/modules/website_home/'
             elif request.path == '/hpc/':
-                request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/hpc/modules/hpc_module01/'
+                request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/hpc/modules/hpc_jobs/'
             elif request.path == '/bigdata/':
                 request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/bigdata/modules/bigdata_module01/'
             else:
