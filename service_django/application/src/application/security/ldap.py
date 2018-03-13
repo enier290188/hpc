@@ -70,7 +70,7 @@ def ___boolean___ldap___ldapuser_instance_search___(connection, instance):
     # perform the operation search
     boolean___is_find = connection.search(
         search_base='ou=%s,%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,),
-        search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(uidNumber=%s)(gidNumber=%s))' % (1000000000 + instance.pk, settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,),
+        search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(uidNumber=%s)(gidNumber=%s))' % (100000 + instance.pk, settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,),
         search_scope=ldap3.SUBTREE,
         attributes=['uid', 'uidNumber', 'gidNumber', ]
     )
@@ -84,7 +84,7 @@ def ___boolean___ldap___ldapuser_instance_create___(connection, instance):
         object_class=['inetOrgPerson', 'posixAccount', 'top', 'hpcCubaUser'],
         attributes={
             'uid': instance.identifier,
-            'uidNumber': '%s' % (1000000000 + instance.pk),
+            'uidNumber': '%s' % (100000 + instance.pk),
             'gidNumber': settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,
             'cn': instance.__str__(),
             'givenName': (instance.first_name if instance.first_name != '' else '-'),
@@ -132,7 +132,7 @@ def ___boolean___ldap___ldapuser_instance_update___(connection, instance):
             boolean___is_update = connection.modify(
                 dn='uid=%s,ou=%s,%s' % (instance.identifier, settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,),
                 changes={
-                    'uidNumber': [(ldap3.MODIFY_REPLACE, [1000000000 + instance.pk])],
+                    'uidNumber': [(ldap3.MODIFY_REPLACE, [100000 + instance.pk])],
                     'gidNumber': [(ldap3.MODIFY_REPLACE, [settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER])],
                     'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
                     'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
@@ -203,7 +203,7 @@ def ___boolean___ldap___ldapuserhpc_instance_search___(connection, string___grou
     # perform the operation search
     boolean___is_find = connection.search(
         search_base='%s' % (settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
-        search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(uid=%s_*)(uidNumber=%s)(gidNumber=%s))' % (string___group_cn, ((int___group_gidnumber * 1000000000) + instance.pk), int___group_gidnumber,),
+        search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(uid=%s_*)(uidNumber=%s)(gidNumber=%s))' % (string___group_cn, ((int___group_gidnumber * 100000) + instance.pk), int___group_gidnumber,),
         search_scope=ldap3.SUBTREE,
         attributes=['uid', 'uidNumber', 'gidNumber', ]
     )
@@ -217,7 +217,7 @@ def ___boolean___ldap___ldapuserhpc_instance_create___(connection, string___grou
         object_class=['inetOrgPerson', 'posixAccount', 'top', 'hpcCubaUser'],
         attributes={
             'uid': '%s_%s' % (string___group_cn, instance.identifier,),
-            'uidNumber': '%s' % ((int___group_gidnumber * 1000000000) + instance.pk),
+            'uidNumber': '%s' % ((int___group_gidnumber * 100000) + instance.pk),
             'gidNumber': '%s' % (int___group_gidnumber,),
             'cn': instance.__str__(),
             'givenName': (instance.first_name if instance.first_name != '' else '-'),
@@ -259,7 +259,7 @@ def ___boolean___ldap___ldapuserhpc_instance_update___(connection, string___grou
             boolean___is_update = connection.modify(
                 dn='uid=%s,%s' % ('%s_%s' % (string___group_cn, instance.identifier,), settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
                 changes={
-                    'uidNumber': [(ldap3.MODIFY_REPLACE, [(int___group_gidnumber * 1000000000) + instance.pk])],
+                    'uidNumber': [(ldap3.MODIFY_REPLACE, [(int___group_gidnumber * 100000) + instance.pk])],
                     'gidNumber': [(ldap3.MODIFY_REPLACE, [int___group_gidnumber])],
                     'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
                     'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
@@ -324,7 +324,7 @@ def ___void___ldap___ldapuser_instances_synchronize___(connection):
             boolean___delete = True
             for instance in instances:
                 uid = instance.identifier
-                uidnumber = '%s' % (1000000000 + instance.pk)
+                uidnumber = '%s' % (100000 + instance.pk)
                 homedirectory = '%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)
                 if uid == string___uid and uidnumber == string___uidnumber and homedirectory == string___homedirectory:
                     boolean___delete = False
@@ -495,7 +495,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
             instances = models.LDAPUser.objects.all()
             for instance in instances:
                 uid = '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier,)
-                uidnumber = '%s' % ((int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER) * 1000000000) + instance.pk)
+                uidnumber = '%s' % ((int(settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER) * 100000) + instance.pk)
                 homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance.identifier,)
                 if uid == string___uid and uidnumber == string___uidnumber and homedirectory == string___homedirectory:
                     boolean___delete = False
@@ -509,7 +509,7 @@ def ___void___ldap___ldapuserhpc_instances_synchronize___(connection):
                     )
                     if boolean___is_find is True:
                         uid = '%s_%s' % (str(connection.entries[0].cn).lower(), instance.identifier,)
-                        uidnumber = '%s' % ((int(str(connection.entries[0].gidNumber)) * 1000000000) + instance.pk)
+                        uidnumber = '%s' % ((int(str(connection.entries[0].gidNumber)) * 100000) + instance.pk)
                         homedirectory = '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, str(connection.entries[0].cn).lower(), instance.identifier,)
                         if uid == string___uid and uidnumber == string___uidnumber and homedirectory == string___homedirectory:
                             boolean___delete = False
