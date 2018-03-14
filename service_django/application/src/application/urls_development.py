@@ -3,9 +3,16 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.i18n import javascript_catalog
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': ('hpc',),
+}
 
 urlpatterns = [
     url(regex=r'^$', view=views.___view___index___, name='application'),
+    url(r'^jsi18n/(?P<packages>\S+?)/$', javascript_catalog, js_info_dict, name='javascript-catalog'),
     url(r'^website/', include('src.application.website.urls', namespace='application___website')),
     url(r'^hpc/', include('src.application.hpc.urls', namespace='application___hpc')),
     url(r'^bigdata/', include('src.application.bigdata.urls', namespace='application___bigdata')),

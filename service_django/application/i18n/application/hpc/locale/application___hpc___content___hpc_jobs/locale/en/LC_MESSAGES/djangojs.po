@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+# *****************************************************************************
+# APPLICATION HPC CONTENT HPC_JOBS DATA_TABLE
+# *****************************************************************************
+
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Processing"
+msgstr "Processing..."
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Length_Menu"
+msgstr "Show _MENU_ entries"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Zero_Records"
+msgstr "No matching records found"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Empty_Table"
+msgstr "No data available in table"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info"
+msgstr "Showing _START_ to _END_ of _TOTAL_ entries"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info_Empty"
+msgstr "Showing 0 to 0 of 0 entries"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info_Filtered"
+msgstr "(filtered from _MAX_ total entries)"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Search"
+msgstr "Search:"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Loading_Records"
+msgstr "Loading..."
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_First"
+msgstr "First"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Last"
+msgstr "Last"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Next"
+msgstr "Next"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Previous"
+msgstr "Previous"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Ascending"
+msgstr "Activate to sort column ascending"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Descending"
+msgstr "Activate to sort column ascending"

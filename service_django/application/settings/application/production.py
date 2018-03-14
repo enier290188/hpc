@@ -75,6 +75,8 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___header/locale'),
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___leftside/locale'),
     os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content/locale'),
+    os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___content___hpc_jobs/locale'),
+    os.path.join(BASE_DIR, 'i18n/application/hpc/locale/application___hpc___ssh/locale'),
     #
     os.path.join(BASE_DIR, 'i18n/application/bigdata/locale/application___bigdata/locale'),
     os.path.join(BASE_DIR, 'i18n/application/bigdata/locale/application___bigdata___header/locale'),
@@ -147,6 +149,7 @@ EMAIL_USER_NOREPLY = os.environ.get('DJANGO_EMAIL_USER_NOREPLY')[1:-1]
 
 # LDAP settings
 LDAP_SERVER_HOST = os.environ.get('DJANGO_LDAP_SERVER_HOST')
+LDAP_SERVER_PORT = os.environ.get('DJANGO_LDAP_SERVER_PORT')
 LDAP_SERVER_USER = os.environ.get('DJANGO_LDAP_SERVER_USER')[1:-1]
 LDAP_SERVER_PASSWORD = os.environ.get('DJANGO_LDAP_SERVER_PASSWORD')[1:-1]
 LDAP_SERVER_GROUPS_SEARCH_BASE = os.environ.get('DJANGO_LDAP_SERVER_GROUPS_SEARCH_BASE')[1:-1]
@@ -156,6 +159,10 @@ LDAP_SERVER_GROUPS_GROUP_GIDNUMBER = os.environ.get('DJANGO_LDAP_SERVER_GROUPS_G
 LDAP_SERVER_USERS_SEARCH_BASE = os.environ.get('DJANGO_LDAP_SERVER_USERS_SEARCH_BASE')[1:-1]
 LDAP_SERVER_USERS_HPC_SEARCH_BASE = os.environ.get('DJANGO_LDAP_SERVER_USERS_HPC_SEARCH_BASE')[1:-1]
 LDAP_SERVER_USERS_HOMEDIRECTORY = os.environ.get('DJANGO_LDAP_SERVER_USERS_HOMEDIRECTORY')[1:-1]
+
+# CLUSTER settings
+CLUSTER_SERVER_HOST = os.environ.get('DJANGO_CLUSTER_SERVER_HOST')
+CLUSTER_SERVER_PORT = os.environ.get('DJANGO_CLUSTER_SERVER_PORT')
 
 # Celery settings
 CELERY_BROKER_URL = 'amqp://%s:%s@%s:%s//' % (os.environ.get('RABBITMQ_DEFAULT_USER'), os.environ.get('RABBITMQ_DEFAULT_PASS'), os.environ.get('RABBITMQ_HOST'), os.environ.get('RABBITMQ_PORT'),)

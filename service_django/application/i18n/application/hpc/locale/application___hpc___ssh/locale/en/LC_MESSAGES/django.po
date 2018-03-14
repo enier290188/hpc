@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+# *****************************************************************************
+# APPLICATION HPC SSH MESSAGES
+# *****************************************************************************
+
+msgid "APPLICATION___HPC___SSH___MESSAGES_AuthenticationException"
+msgstr "Incorrects username and/or password"
+msgid "APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable"
+msgstr "Server not avaible"
+msgid "APPLICATION___HPC___SSH___MESSAGES_UploadFilesException"
+msgstr "It was not possible to upload the files to the server"
+msgid "APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException"
+msgstr "It has not been possible to download the files from the server"

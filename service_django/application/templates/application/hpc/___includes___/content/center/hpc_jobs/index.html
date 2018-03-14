@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% now "YmdHis" as ctx___now %}
+<!-- Application Website Custom Theme Style -->
+<link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static "application/hpc/css/application___hpc___content___center___jobs.css" %}?{{ ctx___now }}" rel="stylesheet">
+
+<h3 id="center___header">
+    <span class="fa fa-dashboard fa-fw"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS' %}
+    <div class="dropdown pull-right dropdown-menu-right">
+        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+            All Jobs <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a id="yourjobs" onclick="dropJobs(this)">Your Jobs</a></li>
+            <li><a id="groupjobs" onclick="dropJobs(this)">Your Group's Jobs</a></li>
+            <li class="divider"></li>
+            <li class="active"><a id="alljobs" onclick="dropJobs(this)">All Jobs</a></li>
+        </ul>
+    </div>
+</h3>
+<div id="center___content">
+    <div class="row container-fluid">
+        <table id="datatable-buttons" class="table dt-responsive nowrap" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                {% for key in serializers.keys %}
+                    <th>
+                        {% if key == 'PARTITION' %}QUEUE
+                        {% elif key == 'NODELIST(REASON)' %}NODELIST
+                        {% elif key == 'TIME_LIMI' %}TIME_LIMIT
+                        {% else %}{{ key }}{% endif %}
+                    </th>
+                {% endfor %}
+                    <th class="none"></th>{# esta columna solo se muestra en la vista detallada #}
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var url_api = "{% url "application___hpc:modules:hpc_jobs:api" %}";
+</script>
+
+<!-- Application Website Help Custom Theme JavaScript -->
+<script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' 'hpc' %}?{% now "YmdHis" %}"></script>
+<script src="{% static "application/hpc/js/application___hpc___jobs.js" %}?{{ ctx___now }}"></script>
