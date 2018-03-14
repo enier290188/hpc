@@ -14,11 +14,11 @@
     </div>
 
     <ul id="leftside___nav" class="nav">
-        {% if request|___required___application___security___user___has_permission___:"application_security_localuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_group_list" or request|___required___application___security___user___has_permission___:"application_security_permission_list" %}
+        {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserimported_list" or request|___required___application___security___user___has_permission___:"application_security_group_list" or request|___required___application___security___user___has_permission___:"application_security_permission_list" %}
             <li>
                 <a href=""><span class="fa fa-user-secret fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY" %}<span class="fa arrow"></span></a>
                 <ul class="nav nav___second_level">
-                    {% if request|___required___application___security___user___has_permission___:"application_security_localuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" %}
+                    {% if request|___required___application___security___user___has_permission___:"application_security_localuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_localuser_list" %}
                         <li>
                             <a href=""><span class="fa fa-users fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LOCAL" %}<span class="fa arrow"></span></a>
                             <ul class="nav nav___third_level">
@@ -37,7 +37,7 @@
                             </ul>
                         </li>
                     {% endif %}
-                    {% if request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" %}
+                    {% if request|___required___application___security___user___has_permission___:"application_security_ldapuserrequestuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuser_list" or request|___required___application___security___user___has_permission___:"application_security_ldapuserimported_list" %}
                         <li>
                             <a href=""><span class="fa fa-users fa-fw"></span> {% trans "APPLICATION___ADMINISTRATION___LEFTSIDE___NAV___MODULE___SECURITY___LDAP" %}<span class="fa arrow"></span></a>
                             <ul class="nav nav___third_level">
