@@ -14,7 +14,7 @@ def ___connection___ldap___():
     # define an unsecure LDAP server, requesting info on DSE and schema
     server = ldap3.Server(
         host=settings.LDAP_SERVER_HOST,
-        port=int(settings.LDAP_SERVER_PORT),
+        port=settings.LDAP_SERVER_PORT,
         use_ssl=False,
         get_info=ldap3.ALL
     )

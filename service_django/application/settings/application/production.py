@@ -143,13 +143,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'volumes', 'mediafiles')
 
 # Emails settings
-EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')
-EMAIL_PORT = os.environ.get('DJANGO_EMAIL_PORT')
+EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST')[1:-1]
+EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT')[1:-1])
 EMAIL_USER_NOREPLY = os.environ.get('DJANGO_EMAIL_USER_NOREPLY')[1:-1]
 
 # LDAP settings
-LDAP_SERVER_HOST = os.environ.get('DJANGO_LDAP_SERVER_HOST')
-LDAP_SERVER_PORT = os.environ.get('DJANGO_LDAP_SERVER_PORT')
+LDAP_SERVER_HOST = os.environ.get('DJANGO_LDAP_SERVER_HOST')[1:-1]
+LDAP_SERVER_PORT = int(os.environ.get('DJANGO_LDAP_SERVER_PORT')[1:-1])
 LDAP_SERVER_USER = os.environ.get('DJANGO_LDAP_SERVER_USER')[1:-1]
 LDAP_SERVER_PASSWORD = os.environ.get('DJANGO_LDAP_SERVER_PASSWORD')[1:-1]
 LDAP_SERVER_GROUPS_SEARCH_BASE = os.environ.get('DJANGO_LDAP_SERVER_GROUPS_SEARCH_BASE')[1:-1]
@@ -161,8 +161,8 @@ LDAP_SERVER_USERS_HPC_SEARCH_BASE = os.environ.get('DJANGO_LDAP_SERVER_USERS_HPC
 LDAP_SERVER_USERS_HOMEDIRECTORY = os.environ.get('DJANGO_LDAP_SERVER_USERS_HOMEDIRECTORY')[1:-1]
 
 # CLUSTER settings
-CLUSTER_SERVER_HOST = os.environ.get('DJANGO_CLUSTER_SERVER_HOST')
-CLUSTER_SERVER_PORT = os.environ.get('DJANGO_CLUSTER_SERVER_PORT')
+CLUSTER_SERVER_HOST = os.environ.get('DJANGO_CLUSTER_SERVER_HOST')[1:-1]
+CLUSTER_SERVER_PORT = int(os.environ.get('DJANGO_CLUSTER_SERVER_PORT')[1:-1])
 
 # Celery settings
 CELERY_BROKER_URL = 'amqp://%s:%s@%s:%s//' % (os.environ.get('RABBITMQ_DEFAULT_USER'), os.environ.get('RABBITMQ_DEFAULT_PASS'), os.environ.get('RABBITMQ_HOST'), os.environ.get('RABBITMQ_PORT'),)
