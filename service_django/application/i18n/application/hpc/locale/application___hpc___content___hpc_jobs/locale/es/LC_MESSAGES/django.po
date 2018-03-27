@@ -13,3 +13,10 @@ msgstr "Jobs Activos"
 # *****************************************************************************
 # APPLICATION HPC CONTENT HPC_JOBS
 # *****************************************************************************
+
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS"
+msgstr "Jobs (Todos)"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_GROUP_JOBS"
+msgstr "Jobs (Grupo)"
+msgid "APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_USER_JOBS"
+msgstr "Jobs (Usuario)"

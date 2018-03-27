@@ -10,11 +10,20 @@ msgstr ""
 msgid "APPLICATION___HPC___LEFTSIDE___USER___TEXT___WELCOME"
 msgstr "Bienvenido"
 
-msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE01"
-msgstr "Modulo01"
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___JOBS"
+msgstr "Jobs Activos"
 
-msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE02"
-msgstr "Modulo02"
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___SCRIPT"
+msgstr "Generador de Scripts"
 
-msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULE03"
-msgstr "Modulo03"
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___NODES"
+msgstr "Nodos"
+
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULES"
+msgstr "Módulos"
+
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___EXPLORER"
+msgstr "Sistema de Archivos"
+
+msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___TERMINAL"
+msgstr "Terminal"
