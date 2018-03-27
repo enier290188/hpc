@@ -9,7 +9,7 @@ from django import http
 
 
 @decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___index___(request):
     dict___data = dict()
     dict___data['___HTML___APPLICATION___HPC___CONTENT___CENTER___'] = utils___hpc.___html___template___(
@@ -23,7 +23,7 @@ def ___view___index___(request):
 
 
 @decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___api___(request):
     if request.method == "POST":
         parameters = request.POST.getlist('parameters[]', None)

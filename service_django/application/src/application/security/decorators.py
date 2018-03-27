@@ -89,11 +89,43 @@ def ___required___application___security___user___is_localuser___(function=None,
         return _decorator(function)
 
 
-def ___required___application___security___user___is_ldapuser___(function=None, ___application___security___from___module___=''):
+def ___required___application___security___user___is_ldapuser_or_ldapuserimported___(function=None, ___application___security___from___module___=''):
     def _decorator(view_func):
         @___required___application___security___user___()
         def _view(request, *args, **kwargs):
             if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUser) or isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUserImported):
+                return view_func(request, *args, **kwargs)
+            return ___jsonresponse___not_permission___(request=request, ___application___security___from___module___=___application___security___from___module___)
+
+        return _view
+
+    if function is None:
+        return _decorator
+    else:
+        return _decorator(function)
+
+
+def ___required___application___security___user___is_ldapuser___(function=None, ___application___security___from___module___=''):
+    def _decorator(view_func):
+        @___required___application___security___user___()
+        def _view(request, *args, **kwargs):
+            if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUser):
+                return view_func(request, *args, **kwargs)
+            return ___jsonresponse___not_permission___(request=request, ___application___security___from___module___=___application___security___from___module___)
+
+        return _view
+
+    if function is None:
+        return _decorator
+    else:
+        return _decorator(function)
+
+
+def ___required___application___security___user___is_ldapuserimported___(function=None, ___application___security___from___module___=''):
+    def _decorator(view_func):
+        @___required___application___security___user___()
+        def _view(request, *args, **kwargs):
+            if isinstance(request.___APPLICATION___SECURITY___USER___, models.LDAPUserImported):
                 return view_func(request, *args, **kwargs)
             return ___jsonresponse___not_permission___(request=request, ___application___security___from___module___=___application___security___from___module___)
 
