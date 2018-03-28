@@ -41,10 +41,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 import paramiko
-
-
-class CustomSSHException(Exception):
-    pass
+import logging
 
 
 def ssh_exec(username, password, command):
@@ -59,29 +56,25 @@ def ssh_exec(username, password, command):
             username=username,
             password=password,
         )
-    except paramiko.ssh_exception.AuthenticationException:
+        h_input, h_output, h_error = ssh_client.exec_command(command)
+    except Exception as e:
+        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
         result.update({
-            'STATUS': 'ERROR',
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_AuthenticationException')
-        })
-    except CustomSSHException:
-        result.update({
-            'STATUS': 'ERROR',
+            'HAS_ERROR': True,
             'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
         })
     else:
-        h_input, h_output, h_error = ssh_client.exec_command(command)
-        error = h_error.read()
+        error = h_error.read().decode('utf-8')
         output = h_output.read()
-        if error == b'':
+        if error == '':
             result.update({
-                'STATUS': 'SUCCESS',
+                'HAS_ERROR': False,
                 'OUTPUT': str(output)[2:-3]
             })
         else:
             result.update({
-                'STATUS': 'ERROR',
-                'MESSAGE': str(error)[2:-3].replace('\xe2\x80\x98', '"').replace('\xe2\x80\x99', '"')
+                'HAS_ERROR': True,
+                'MESSAGE': error
             })
     finally:
         ssh_client.close()
@@ -99,14 +92,10 @@ def ssh_sftp_put(username, password, local, remoto):
             username=username,
             password=password
         )
-    except paramiko.ssh_exception.AuthenticationException:
+    except Exception as e:
+        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
         result.update({
-            'STATUS': 'ERROR',
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_AuthenticationException')
-        })
-    except CustomSSHException:
-        result.update({
-            'STATUS': 'ERROR',
+            'HAS_ERROR': True,
             'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
         })
     else:
@@ -114,11 +103,12 @@ def ssh_sftp_put(username, password, local, remoto):
         try:
             output = sftp.put(local, remoto)
             result.update({
-                'STATUS': 'SUCCESS'
+                'HAS_ERROR': False
             })
-        except CustomSSHException:
+        except Exception as e:
+            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
             result.update({
-                'STATUS': 'ERROR',
+                'HAS_ERROR': True,
                 'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException')
             })
         sftp.close()
@@ -138,14 +128,10 @@ def ssh_sftp_get(username, password, remoto, local):
             username=username,
             password=password
         )
-    except paramiko.ssh_exception.AuthenticationException:
+    except Exception as e:
+        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
         result.update({
-            'STATUS': 'ERROR',
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_AuthenticationException')
-        })
-    except CustomSSHException:
-        result.update({
-            'STATUS': 'ERROR',
+            'HAS_ERROR': True,
             'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
         })
     else:
@@ -153,11 +139,12 @@ def ssh_sftp_get(username, password, remoto, local):
         try:
             output = sftp.get(remoto, local)
             result.update({
-                'STATUS': 'SUCCESS'
+                'HAS_ERROR': False
             })
-        except CustomSSHException:
+        except Exception as e:
+            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
             result.update({
-                'STATUS': 'ERROR',
+                'HAS_ERROR': True,
                 'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException'),
             })
         sftp.close()

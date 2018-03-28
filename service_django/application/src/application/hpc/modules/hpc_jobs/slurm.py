@@ -3,7 +3,10 @@ from ...ssh import ssh_exec
 import json
 
 
-def exec_cmd(username, password, parameters):
+def exec_cmd(instance, parameters):
+    username = "42110027" # instance.username
+    password = "12345*abc" # instance.get__password
+    # retorna tres variables (STATUS, MESSAGE, DATA)
     if isinstance(parameters, list):
         val = parameters[0]
     else:
@@ -15,17 +18,16 @@ def exec_cmd(username, password, parameters):
         cmd = 'squeue -all'
     if val == 'jobs group':
         result = ssh_exec(username, password, 'groups ' + username)
-        if result['STATUS'] == "SUCCESS":
+        if not result['HAS_ERROR']:
             cmd = 'squeue -all -A ' + result['OUTPUT'].split(' : ')[1]
-        else:
-            return
     if val == 'jobs user':
         cmd = 'squeue -all --users=' + parameters[1]
     if val == 'detail job':
         cmd = 'scontrol show job -o ' + parameters[1]
     result = ssh_exec(username, password, cmd)
-    if result['STATUS'] == "SUCCESS":
-        return generate_data(val, result['OUTPUT'])
+    if result['HAS_ERROR']:
+        return True, result['MESSAGE']
+    return False, generate_data(val, result['OUTPUT'])
 
 
 def generate_data(val, output):
@@ -45,7 +47,6 @@ def generate_data(val, output):
             else:
                 l.append(data.split())
         __json__['data'] = l
-        __json__ = json.dumps(__json__)
     if val == 'detail job':
         keys = [
             'JobId', 'JobName', 'UserId', 'GroupId', 'Priority', 'Account', 'QOS', 'JobState',
@@ -66,5 +67,4 @@ def generate_data(val, output):
                         __json__[key] = field.split('=')[1]
                     break
             fields.pop(i)
-        __json__ = json.dumps(__json__)
     return __json__

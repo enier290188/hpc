@@ -12,13 +12,13 @@
     <span class="fa fa-dashboard fa-fw"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS' %}
     <div class="dropdown pull-right dropdown-menu-right">
         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-            All Jobs <span class="caret"></span>
+            {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a id="yourjobs" onclick="dropJobs(this)">Your Jobs</a></li>
-            <li><a id="groupjobs" onclick="dropJobs(this)">Your Group's Jobs</a></li>
+            <li><a id="yourjobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_USER_JOBS' %}</a></li>
+            <li><a id="groupjobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_GROUP_JOBS' %}</a></li>
             <li class="divider"></li>
-            <li class="active"><a id="alljobs" onclick="dropJobs(this)">All Jobs</a></li>
+            <li class="active"><a id="alljobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %}</a></li>
         </ul>
     </div>
 </h3>
@@ -27,7 +27,7 @@
         <table id="datatable-buttons" class="table dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                {% for key in serializers.keys %}
+                {% for key in DATA.keys %}
                     <th>
                         {% if key == 'PARTITION' %}QUEUE
                         {% elif key == 'NODELIST(REASON)' %}NODELIST

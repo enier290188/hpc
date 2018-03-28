@@ -203,10 +203,9 @@ function detailJob(row, id){
                 '</div>' +
             '</div>'
         ).page(datatable.page()).draw('page');
-
-
-    }).fail(function() {
-
+    }).fail(function(data) {
+        ___HTML___application___hpc___modal___SHOW_LOAD___();
+        ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data['MESSAGE']);
     }).always(function() {
         console.log( "complete" );
     });
