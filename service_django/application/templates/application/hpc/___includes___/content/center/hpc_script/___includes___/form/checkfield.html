@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if field.errors %}
+    <div class="error">
+        {{ field.errors }}
+    </div>
+{% endif %}
+<div class="input-group input-group-sm">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-{% if field.errors %}danger{% else %}info{% endif %} button-width" data-toggle="popover"
+            title="{% trans title %}" id="field_{{ field.label }}" data-content="{% trans content %}" data-html="true" data-container="body">{% trans name %}</button>
+    </div>
+    <label class="form-control label-checkbox">{{ field }}</label>
+</div>
+<br/>

@@ -1,0 +1,9 @@
+{% load i18n %}
+{% if field.errors %}
+    <div class="error">
+        {{ field.errors }}
+    </div>
+{% endif %}
+<div class="form-group form-group-sm">
+    {{ field }}
+</div>

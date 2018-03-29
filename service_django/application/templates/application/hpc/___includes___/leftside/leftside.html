@@ -23,19 +23,19 @@
             <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-file-code-o fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___SCRIPT" %}</a>
         </li>
         <li>
-            {% url "application___hpc:modules:hpc_script:index" as url %}
+            {% url "application___hpc:modules:hpc_nodes:index" as url %}
             <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___NODES" %}</a>
         </li>
         <li>
-            {% url "application___hpc:modules:hpc_script:index" as url %}
+            {% url "application___hpc:modules:hpc_nodes:index" as url %}
             <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-archive fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___MODULES" %}</a>
         </li>
         <li>
-            {% url "application___hpc:modules:hpc_script:index" as url %}
+            {% url "application___hpc:modules:hpc_nodes:index" as url %}
             <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___EXPLORER" %}</a>
         </li>
         <li>
-            {% url "application___hpc:modules:hpc_script:index" as url %}
+            {% url "application___hpc:modules:hpc_nodes:index" as url %}
             <a data-url="{{ url }}" class="LINK___application___hpc___content___center___reload {% if url == request|___get_string___application___security___user___url_current___ %}active{% endif %}"><span class="fa fa-terminal fa-fw" aria-hidden="true"></span> {% trans "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___TERMINAL" %}</a>
         </li>
     </ul>

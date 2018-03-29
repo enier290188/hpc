@@ -1,0 +1,16 @@
+{% load i18n %}
+{% if field.errors %}
+    <div class="error">
+        {{ field.errors }}
+    </div>
+{% endif %}
+<div class="input-group input-group-sm">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-{% if field.errors %}danger{% else %}info{% endif %} button-width" data-toggle="popover"
+            title="{% trans title %}" id="{{ id }}" data-content="{% trans content %}" data-html="true" data-container="body">{% trans name %}</button>
+    </div>
+    {{ field1 }}
+    <span class="input-group-addon" style="padding: 5px 2px"></span>
+    {{ field2 }}
+</div>
+<br/>

@@ -1,0 +1,195 @@
+{% load i18n %}
+
+<div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> {% trans "APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_HEADER" %}</h4>
+        </div>
+        <div class="modal-body" style="height:450px; overflow-y: scroll;">
+            <!-- Modal Menssage -->
+            <div class="modal___message">
+            </div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#env" aria-controls="env" role="tab" data-toggle="tab">Ambiente</a></li>
+                <li role="presentation"><a href="#slurm" aria-controls="slurm" role="tab" data-toggle="tab">SLURM</a></li>
+                <li role="presentation"><a href="#pbs" aria-controls="pbs" role="tab" data-toggle="tab">PBS</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="env">
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_1' %}</th>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_3' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tdelem">$USER</td>
+                                <td>{{ variables.USER }}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$UID</td>
+                                <td>{{ variables.UID }}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$HOME</td>
+                                <td>{{ variables.HOME }}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PATH</td>
+                                <td>{{ variables.PATH }}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SHELL</td>
+                                <td>{{ variables.SHELL }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="slurm">
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_4' %}</th>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_5' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tdelem">$SLURM_ARRAY_JOB_ID</td>
+                                <td>{% trans 'Set to the job ID if part of a job array.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_ARRAY_TASK_ID</td>
+                                <td>{% trans 'Set to the task ID if part of a job array.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_CLUSTER_NAME</td>
+                                <td>{% trans 'Name of the cluster executing the job.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_CPUS_PER_TASK</td>
+                                <td>{% trans 'Number of CPUs requested per task.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_ACCOUNT</td>
+                                <td>{% trans 'Account name.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_ID</td>
+                                <td>{% trans 'Job ID.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_NAME</td>
+                                <td>{% trans 'Job Name.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_NODELIST</td>
+                                <td>{% trans 'Names of nodes allocated to job.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_NUM_NODES</td>
+                                <td>{% trans 'Number of nodes allocated to job.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_PARTITION</td>
+                                <td>{% trans 'Partition/queue running the job.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_UID</td>
+                                <td>{% trans "User ID of the job's owner." %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_JOB_USER</td>
+                                <td>{% trans "User name of the job's owner." %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_RESTART_COUNT</td>
+                                <td>{% trans 'Number of times job has restarted.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_PROCID</td>
+                                <td>{% trans 'Task ID (MPI rank).' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_STEP_ID</td>
+                                <td>{% trans 'Job step ID.' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$SLURM_STEP_NUM_TASKS</td>
+                                <td>{% trans 'Task count (number of MPI ranks).' %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="pbs">
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_4' %}</th>
+                                <th>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_COLUMN_5' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tdelem">$PBS_O_HOST</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_1' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_SERVER</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_2' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_O_QUEUE</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_3' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_O_WORKDIR</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_4' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_ARRAYID</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_5' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_ENVIROMENT</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_6' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_JOBID</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_7' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_JOBNAME</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_8' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_NODEFILE</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_9' %}</td>
+                            </tr>
+                            <tr>
+                                <td class="tdelem">$PBS_QUEUE</td>
+                                <td>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_MODAL_VARIABLES_DESCRIPTION_10' %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+            </button>
+        </div>
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
