@@ -69,7 +69,7 @@ def ssh_exec(username, password, command):
         if error == '':
             result.update({
                 'HAS_ERROR': False,
-                'OUTPUT': str(output)[2:-3]
+                'OUTPUT': output
             })
         else:
             result.update({
@@ -79,6 +79,36 @@ def ssh_exec(username, password, command):
     finally:
         ssh_client.close()
     return result
+
+
+def ssh_sftp_putfo(username, password, file, remotopath):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(
+        hostname=settings.CLUSTER_SERVER_HOST,
+        port=settings.CLUSTER_SERVER_PORT,
+        username=username,
+        password=password
+    )
+    sftp = ssh_client.open_sftp()
+    sftp.putfo(file, remotopath)
+    sftp.close()
+    ssh_client.close()
+
+
+def ssh_sftp_getfo(username, password, remotopath, file):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(
+        hostname=settings.CLUSTER_SERVER_HOST,
+        port=settings.CLUSTER_SERVER_PORT,
+        username=username,
+        password=password
+    )
+    sftp = ssh_client.open_sftp()
+    sftp.getfo(remotopath, file)
+    sftp.close()
+    ssh_client.close()
 
 
 def ssh_sftp_put(username, password, local, remoto):
@@ -151,3 +181,51 @@ def ssh_sftp_get(username, password, remoto, local):
     finally:
         ssh_client.close()
     return result
+
+
+def ssh_sftp_edit_file(username, password, remoto, content):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.load_system_host_keys()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            password=password
+        )
+
+        sftp = ssh_client.open_sftp()
+        file = sftp.file(remoto, "w", -1)
+        file.write(content)
+        file.flush()
+        sftp.close()
+    except Exception as e:
+        logging.exception('Write file is not posible.', e)
+        return True
+    finally:
+        ssh_client.close()
+    return False
+
+
+def ssh_sftp_open_file(username, password, remoto):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.load_system_host_keys()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            password=password
+        )
+        sftp = ssh_client.open_sftp()
+        file = sftp.file(remoto, "r", -1)
+        file_content = file.read()
+        sftp.close()
+    except Exception as e:
+        logging.exception('Open file is not posible.', e)
+        return True
+    finally:
+        ssh_client.close()
+    return file_content

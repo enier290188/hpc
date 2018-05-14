@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div id="modal-goto" class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> Ir a...</h4>
+        </div>
+        <div class="modal-body">
+            <div class="modal___message">
+            </div>
+            <div class="modal___form">
+                <div class="form-group">
+                    <label>Path</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" onclick="$(this).siblings().eq(0).focus()">/home/CLUSTER/42110027/</span>
+                        <input type="text" name="goto" class="input-sm form-control" maxlength="200">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary pull-left hpc___modal___click___goto">
+                <span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> Ir
+            </button>
+            <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+            </button>
+        </div>
+    </div>
+</div>

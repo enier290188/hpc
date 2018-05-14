@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'vendors/code-prettify-master/src/desert.css' %}">
-<link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___script.css' %}">
+<link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___script.css' %}?{% now "YmdHis" %}">
 
 <h3 id="center___header">
     <span class="fa fa-file-code-o fa-fw" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT' %}
@@ -10,80 +10,80 @@
     <div class="row container-fluid">
         <div class="col-lg-7 base-content-padding-no -padding-lg-right-si">
             <div id="div_form_qsub_create" class="border-radius-shadows">
-                <form id="form_qsub_create" name="qsub_create" action="{% url "application___hpc:modules:hpc_script:index" as url %}" method="POST">
+                <form method="POST" action="{% url "application___hpc:modules:hpc_script:index" %}" class="form___application___hpc___module___hpc_script___submit" name="hpc_script_create" >
                     {% csrf_token %}
-                    <fieldset class=""><!-- Fieldset General Options -->
+                    <fieldset><!-- Fieldset General Options -->
                         <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___GENERAL_OPTION' %}</legend>
                         {% with field=form.script_name title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___TITLE" addon=".sl"%}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Script name  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field=form.job_name title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___JOB_NAME___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___JOB_NAME___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___JOB_NAME___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Job name  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
-                        {% with field=form.export_env_variables title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}<!-- Export shell variable -->
+                        {% with field=form.export_variables title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ENV_VARS___TITLE" %}
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}
                         {% endwith %}
                         {% with field=form.partition title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Partition  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                     </fieldset>
-                    <fieldset class=""> <!-- Fieldset Resource Handling -->
+                    <fieldset> <!-- Fieldset Resource Handling -->
                         <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___RESOURCE_HANDLING' %}</legend>
                         {% with field1=form.nodes field2=form.ntasks title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group2field.html' %}<!-- Nodes and Tasks -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group2field.html' %}
                         {% endwith %}
                         {% with field1=form.tasks_per_node field2=form.cpus_per_task title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_PROCESSES___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_PROCESSES___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_PROCESSES___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group2field.html' %}<!-- Tasks and CPUs -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group2field.html' %}
                         {% endwith %}
                         {% with field1=form.mem field2=form.size field3=form.mem_per_cpu field4=form.size_per_cpu title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MEMORY___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MEMORY___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MEMORY___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group4field.html' %}<!-- Memory per Node and Memory per CPU -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group4field.html' %}
                         {% endwith %}
                         {% with field=form.time title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___WALLTIME___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___WALLTIME___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___WALLTIME___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Walltime -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field=form.test title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___TEST___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___TEST___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___TEST___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}<!-- Is a test? -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}
                         {% endwith %}
                         {% with field=form.require_gpus title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___GPU___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___GPU___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___GPU___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}<!-- Require GPUs -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkfield.html' %}
                         {% endwith %}
                         {% with field=form.nodelist title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___NODELIST___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___NODELIST___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___NODELIST___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Nodelist  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field=form.exclude title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Exclude  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                     </fieldset>
-                    <fieldset class=""> <!-- Fieldset Output Stream Options -->
+                    <fieldset> <!-- Fieldset Output Stream Options -->
                         <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___STREAM_OPTIONS' %}</legend>
                         <!-- Stream requested -->
                         {% with field=form.output title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Output Stream  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field=form.error title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Error Stream  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                     </fieldset>
-                    <fieldset class=""><!--Fieldset Mail Options-->
+                    <fieldset ><!--Fieldset Mail Options-->
                         <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___MAIL_OPTIONS' %}</legend>
                         {% with field=form.mail_user title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}<!-- Mail Adresses  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field1=form.mail_begin field2=form.mail_end field3=form.mail_abort field4=form.mail_requeue title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___TITLE" %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkgroupfield.html' %}<!-- Mail Events  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkgroupfield.html' %}
                         {% endwith %}
                     </fieldset>
-                    <fieldset class=""><!--Fieldset Script Body-->
+                    <fieldset><!--Fieldset Script Body-->
                         <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___SCRIPT_BODY' %}</legend>
                         {% with field=form.script_body %}
-                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textarea.html' %}<!-- Body script  -->
+                            {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textarea.html' %}
                         {% endwith %}
                     </fieldset>
                     <hr>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-upload"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_SCRIPT' %}</button>
-                        <button type="submit" class="btn btn-primary btn-large"><i class="glyphicon glyphicon-play"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_AND_RUN_SCRIPT' %}</button>
-                        <button type="button" class="btn btn-default pull-right" data-url="/hpc/profile/" class="LINK___application___hpc___modal___reload"><i class="glyphicon glyphicon-info-sign"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___HELP' %}</button>
+                        <button type="submit" class="btn btn-primary btn-large" value="save" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-upload"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_SCRIPT' %}</button>
+                        <button type="submit" class="btn btn-primary btn-large" value="run" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-play"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_AND_RUN_SCRIPT' %}</button>
+                        <button type="button" class="btn btn-default pull-right btn___application___hpc___module___hpc_script___modal___help" data-url="{% url "application___hpc:modules:hpc_script:vars" %}"><i class="glyphicon glyphicon-info-sign"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___HELP' %}</button>
                     </div>
                 </form>
             </div>

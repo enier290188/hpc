@@ -2,3 +2,19 @@
     width: 125px;
     text-align: center;
 }
+.modal___tab{
+    margin: 0;
+    padding: 5px 15px 15px 15px;
+    border: none
+}
+#application___hpc___modal .modal___tab table td {
+    color: #73879c;
+}
+.application___hpc___script___error {
+    color: red;
+}
+@media (max-width: 767px) {
+    #center___content > div:nth-child(n) {
+        padding: 0;
+    }
+}

@@ -1,24 +1,34 @@
 {% load i18n %}
+
 {% if field1.errors or field2.errors or field3.errors or field4.errors %}
-    <div class="error">
-        {{ field.errors }}
+    <div class="application___hpc___script___error">
+        {{ field1.errors }}
+        {{ field2.errors }}
+        {{ field3.errors }}
+        {{ field4.errors }}
     </div>
 {% endif %}
 <div class="btn-group" role="group">
-    <button type="button" class="btn btn-{% if field1.errors or field2.errors or field3.errors or field4.errors %}danger{% else %}info{% endif %} btn-sm button-width" data-toggle="popover"
-        title="{% trans title %}" id="field_{{ field1.label }}" data-content="{% trans content %}" data-html="true" data-container="body">
+    <button
+            type="button"
+            class="btn btn-{% if field1.errors or field2.errors or field3.errors or field4.errors %}danger{% else %}info{% endif %} btn-sm button-width"
+            data-toggle="popover"
+            data-trigger="focus"
+            data-title="{% trans title %}"
+            data-content="{% trans content %}"
+            data-container="#application___hpc___content___center">
         {% trans name %}
     </button>
-    <label class="btn btn-primary btn-sm" id="{{ field1.label }}">
+    <label class="btn btn-default btn-sm">
         {{ field1 }}{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___CHECKBOX_1' %}
     </label>
-    <label class="btn btn-default btn-sm" id="{{ field2.label }}">
+    <label class="btn btn-default btn-sm">
         {{ field2 }}{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___CHECKBOX_2' %}
     </label>
-    <label class="btn btn-success btn-sm" id="{{ field3.label }}">
+    <label class="btn btn-default btn-sm">
         {{ field3 }}{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___CHECKBOX_3' %}
     </label>
-    <label class="btn btn-info btn-sm" id="{{ field4.label }}">
+    <label class="btn btn-default btn-sm">
         {{ field4 }}{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___CHECKBOX_4' %}
     </label>
 </div>

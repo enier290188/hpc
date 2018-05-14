@@ -1,0 +1,18 @@
+{% load i18n %}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'vendors/code-prettify-master/src/desert.css' %}">
+<link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___nodes.css' %}?{% now "YmdHis" %}">
+
+<h3 id="center___header">
+    <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_NODES' %}
+</h3>
+<div id="center___content">
+    <div class="row container-fluid">
+    </div>
+</div>
+
+<script src="{% static 'vendors/code-prettify-master/src/prettify.js' %}"></script>
+<script>
+</script>
+<script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{% now "YmdHis" %}"></script>
+

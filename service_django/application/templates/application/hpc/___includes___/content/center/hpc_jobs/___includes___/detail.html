@@ -1,0 +1,62 @@
+{% load application___hpc %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="label label-{{ data.JobState| ___get_label___ }}">{{ data.JobState }}</span>
+        <b>{{ data.JobName }}({{ data.JobId }})</b>
+        {% if True %}
+        <div class="pull-right">
+            <button class="btn btn-xs btn-default" type="button" title="Continue" {% ifnotequal data.JobState 'STOPPED' %}disabled{% endifnotequal %}>
+                <span class="fa fa-play"></span>
+            </button>
+            <button class="btn btn-xs btn-default" type="button" title="Stop" {% ifnotequal data.JobState 'RUNNING' %}disabled{% endifnotequal %}>
+                <span class="fa fa-stop"></span>
+            </button>
+            <button class="btn btn-xs btn-default" type="button" title="Requeue" {{ data.JobState | ___disable_if_cant_requeue___ }}>
+                <span class="fa fa-refresh"></span>
+            </button>
+            <button class="btn btn-xs btn-default" type="button" title="Remove">
+                <span class="fa fa-remove"></span>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped table-condensed">
+            <tr><td colspan=2><b>Job Information</b></td></tr>
+            <tr><td>Job Id</td><td>{{ data.JobId }}</td></tr>
+            <tr><td>Job Name</td><td>{{ data.JobName }}</td></tr>
+            <tr><td>User</td><td>{{ data.UserId }}</td></tr>
+            <tr><td>Queue</td><td>{{ data.Partition }}</td></tr>
+            <tr><td>Group Id</td><td>{{ data.GroupId }}</td></tr>
+            <tr><td colspan=2><b>Excecution Time</b></td></tr>
+            <tr><td>Run Time</td><td>{{ data.RunTime }}</td></tr>
+            <tr><td>Time Limit</td><td>{{ data.TimeLimit }}</td></tr>
+            <tr><td>Submit Time</td><td>{{ data.SubmitTime }}</td></tr>
+            <tr><td>Eligible Time</td><td>{{ data.EligibleTime }}</td></tr>
+            <tr><td>Start Time</td><td>{{ data.StartTime }}</td></tr>
+            <tr><td>End Time</td><td>{{ data.EndTime }}</td></tr>
+            <tr><td colspan=2><b>Nodes</b></td></tr>
+            <tr><td>Node Count</td><td>{{ data.NumNodes }}</td></tr>
+            <tr><td>Node List</td><td>{{ data.NodeList }}</td></tr>
+            <tr><td>Batch Node</td><td>{{ data.BatchHost }}</td></tr>
+            <tr><td colspan=2><b>Resources</b></td></tr>
+            <tr><td>Num CPUs</td><td>{{ data.NumCPUs }}</td></tr>
+            <tr><td>Num Tasks</td><td>{{ data.NumTasks }}</td></tr>
+            <tr><td>CPUs/Task</td><td>{{ data.CPUsTask }}</td></tr>
+            <tr><td>Memory</td><td>{{ data.mem }}</td></tr>
+        </table>
+        <div style="width:80px">File Location</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ data.Command }}</div>
+        </div>
+        <div style="width:80px">Output Location</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ data.StdOut }}</div>
+        </div>
+        <div style="width:80px">Error Location</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ data.StdErr }}</div>
+        </div>
+    </div>
+</div>

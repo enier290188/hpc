@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<div id="modal-upload" class="modal-dialog" role="document">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___hpc:modules:hpc_explorer:upload" %}" class="hpc___modal___submit___upload" enctype="multipart/form-data">
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span class="fa fa-upload fa-fw" aria-hidden="true"></span> Subir archivos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal___message">
+                </div>
+                <div class="modal___form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Archivos</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span id="btn-file" class="btn btn-sm btn-default">
+                                    <span class="fa fa-search fa-fw"></span> {{ form.files }}
+                                </span>
+                            </span>
+                            <input type="text" id="files_selected" class="form-control input-sm" readonly placeholder="- There are no selected files -"/>
+                        </div>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary pull-left" disabled>
+                    <span class="fa fa-upload fa-fw" aria-hidden="true"></span> Subir
+                </button>
+                <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

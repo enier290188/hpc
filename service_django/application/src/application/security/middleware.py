@@ -22,9 +22,10 @@ class ApplicationSecurityMiddleware(object):
             '/website/modules/website_home/',
             '/website/modules/website_help/',
             '/hpc/',
-            '/hpc/modules/hpc_module01/',
-            '/hpc/modules/hpc_module02/',
-            '/hpc/modules/hpc_module03/',
+            '/hpc/modules/hpc_jobs/',
+            '/hpc/modules/hpc_script/',
+            '/hpc/modules/hpc_nodes/',
+            '/hpc/modules/hpc_explorer/',
             '/bigdata/',
             '/bigdata/modules/bigdata_module01/',
             '/bigdata/modules/bigdata_module02/',
@@ -43,7 +44,7 @@ class ApplicationSecurityMiddleware(object):
             if request.path == '/website/':
                 request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/website/modules/website_home/'
             elif request.path == '/hpc/':
-                request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/hpc/modules/hpc_jobs/'
+                request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/hpc/modules/hpc_explorer/'
             elif request.path == '/bigdata/':
                 request.session['___APPLICATION___SECURITY___USER___URL_CURRENT___'] = '/bigdata/modules/bigdata_module01/'
             else:

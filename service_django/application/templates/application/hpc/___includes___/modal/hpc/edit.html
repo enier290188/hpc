@@ -1,0 +1,92 @@
+{% load i18n %}
+
+<div id="modal-edit" class="modal-dialog" role="document">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___hpc:modules:hpc_explorer:edit" %}" class="hpc___modal___submit___edit">
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <span class="fa fa-edit fa-fw" aria-hidden="true"></span> Editar archivo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal___message">
+                </div>
+                <div class="modal___form">
+                    {% csrf_token %}
+                    <div class="form-group form-group-sm">
+                        {{ form.file_content }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary pull-left" disabled>
+                    <span class="fa fa-edit fa-fw" aria-hidden="true"></span> Save
+                </button>
+                <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+                </button>
+                <div class="form-inline input-group-sm">
+                    <label class="hidden-xs">Lang</label>
+                    <select class="form-control" onchange="selectLang(this)">
+                        <option value="default" selected>default</option>
+                        <option value="text/x-csrc">c</option>
+                        <option value="text/x-c++src">c++</option>
+                        <option value="text/x-csharp">c#</option>
+                        <option value="text/x-haskell">haskell</option>
+                        <option value="text/x-java">java</option>
+                        <option value="text/x-mathematica">mathematica</option>
+                        <option value="text/x-octave">matlab</option>
+                        <option value="text/x-perl">perl</option>
+                        <option value="text/x-python">python</option>
+                        <option value="text/x-cython">cython</option>
+                        <option value="text/x-rsrc">r</option>
+                        <option value="text/x-scala">scala</option>
+                        <option value="text/x-sh">shell</option>
+                    </select>
+                    <label class="hidden-xs">Theme</label>
+                    <select class="form-control" onchange="selectTheme(this)">
+                        <option value="default" selected>default</option>
+                        <option value="bespin">bespin</option>
+                        <option value="cobalt">cobalt</option>
+                        <option value="eclipse">eclipse</option>
+                        <option value="elegant">elegant</option>
+                        <option value="idea">idea</option>
+                        <option value="material">material</option>
+                        <option value="monokai">monokai</option>
+                        <option value="neo">neo</option>
+                        <option value="seti">seti</option>
+                        <option value="solarized">solarized</option>
+                        <option value="twilight">twilight</option>
+                        <option value="yeti">yeti</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var textarea = document.getElementById('id_file_content');
+    var editor = CodeMirror.fromTextArea(textarea, {
+        lineNumbers: true,
+        styleActiveLine: true
+    });
+    function selectLang(e) {
+        var mime = $(e).find('option:selected' ).val();
+        editor.setOption("mode", mime);
+    }
+    function selectTheme(e) {
+        var theme = $(e).find('option:selected' ).text();
+        editor.setOption("theme", theme);
+        var $modal__body = $('#modal-edit').find('.modal-body');
+        var background = $modal__body.find('.modal___form').find('.CodeMirror').css('backgroundColor');
+        $modal__body.css('backgroundColor', background);
+    }
+    editor.on('change', function (cm) {
+        textarea.value = cm.getValue();
+        $('#modal-edit').find('.modal-footer').find('button.btn-primary').removeAttr('disabled');
+
+    });
+</script>

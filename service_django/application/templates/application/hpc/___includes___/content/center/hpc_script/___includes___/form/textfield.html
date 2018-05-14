@@ -1,13 +1,22 @@
 {% load i18n %}
+
 {% if field.errors %}
-    <div class="error">
+    <div class="application___hpc___script___error">
         {{ field.errors }}
     </div>
 {% endif %}
 <div class="input-group input-group-sm">
     <div class="input-group-btn">
-        <button type="button" class="btn btn-{% if field.errors %}danger{% else %}info{% endif %} button-width" data-toggle="popover"
-            title="{% trans title %}" id="field_{{ field.label }}" data-content="{% trans content %}" data-html="true" data-container="body">{% trans name %}</button>
+        <button
+                type="button"
+                class="btn btn-{% if field.errors %}danger{% else %}info{% endif %} btn-sm button-width"
+                data-toggle="popover"
+                data-trigger="focus"
+                data-title="{% trans title %}"
+                data-content="{% trans content %}"
+                data-container="#application___hpc___content___center">
+            {% trans name %}
+        </button>
     </div>
     {{ field }}
     {% if addon %}

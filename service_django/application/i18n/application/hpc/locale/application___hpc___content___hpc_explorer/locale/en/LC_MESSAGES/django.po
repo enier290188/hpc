@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER"
+msgstr "Files system"
+
+# *****************************************************************************
+# APPLICATION HPC CONTENT HPC_EXPLORER
+# *****************************************************************************
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___HEADER___BUTTONS___Goto"
+msgstr "Go to..."
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___HEADER___BUTTONS___Folder"
+msgstr "Create folder"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___HEADER___BUTTONS___File"
+msgstr "Create file"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___HEADER___BUTTONS___Upload"
+msgstr "Upload"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___HEADER___DROPDOWN___Actions"
+msgstr "Actions"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Back"
+msgstr "Back"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___View"
+msgstr "View"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Edit"
+msgstr "Edit"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Rename"
+msgstr "Rename"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Download"
+msgstr "Download"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Copy"
+msgstr "Copy"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Paste"
+msgstr "Paste"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___SelectAll"
+msgstr "Select all"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Delete"
+msgstr "Delete"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___COLUMN___Name"
+msgstr "name"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___COLUMN___Size"
+msgstr "size"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___COLUMN___Modified"
+msgstr "modified"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___GOTO"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___FOLDER"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___FILE"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___UPLOAD"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___EDIT"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___RENAME"
+msgstr "Sistema de archivos"
+
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___DELETE"
+msgstr "Sistema de archivos"

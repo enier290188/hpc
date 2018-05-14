@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+{% for folder in data.folders %}
+    <tr data-inode="{{ folder.inode }}" data-name="{{ folder.name }}" class="directory">
+        <td><img height="20px" src="{% static 'application/hpc/img/folder.png' %}"> {{ folder.name }}</td>
+        <td>&lt;dir&gt;</td>
+        <td>{{ folder.date }}</td>
+    </tr>
+{% endfor %}
+{% for file in data.files %}
+    <tr data-inode="{{ file.inode }}" data-name="{{ file.name }}" class="file">
+        <td><img height="20px" src="{% static 'application/hpc/img/file.png' %}"> {{ file.name }}</td>
+        <td>{{ file.size }}</td>
+        <td>{{ file.date }}</td>
+    </tr>
+{% endfor %}

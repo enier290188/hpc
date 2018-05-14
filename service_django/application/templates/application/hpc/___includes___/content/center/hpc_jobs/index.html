@@ -10,15 +10,15 @@
 
 <h3 id="center___header">
     <span class="fa fa-dashboard fa-fw"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS' %}
-    <div class="dropdown pull-right dropdown-menu-right">
-        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    <div class="dropdown pull-right">
+        <button class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
             {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %} <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a id="yourjobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_USER_JOBS' %}</a></li>
-            <li><a id="groupjobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_GROUP_JOBS' %}</a></li>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+            <li><a id="yourjobs" onclick="dropJobs(this)"><span class="fa fa-user fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_USER_JOBS' %}</a></li>
+            <li><a id="groupjobs" onclick="dropJobs(this)"><span class="fa fa-users fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_GROUP_JOBS' %}</a></li>
             <li class="divider"></li>
-            <li class="active"><a id="alljobs" onclick="dropJobs(this)">{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %}</a></li>
+            <li class="active"><a id="alljobs" onclick="dropJobs(this)"><span class="fa fa-users fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %}</a></li>
         </ul>
     </div>
 </h3>
@@ -29,9 +29,10 @@
                 <tr>
                 {% for key in DATA.keys %}
                     <th>
-                        {% if key == 'PARTITION' %}QUEUE
+                        {% if key == 'PARTITION' %}STATE
                         {% elif key == 'NODELIST(REASON)' %}NODELIST
                         {% elif key == 'TIME_LIMI' %}TIME_LIMIT
+                        {% elif key == 'STATE' %}QUEUE
                         {% else %}{{ key }}{% endif %}
                     </th>
                 {% endfor %}
@@ -45,7 +46,12 @@
 </div>
 
 <script>
-    var url_api = "{% url "application___hpc:modules:hpc_jobs:api" %}";
+    var url_list = "{% url "application___hpc:modules:hpc_jobs:list" %}";
+    var url_detail = "{% url "application___hpc:modules:hpc_jobs:detail" %}";
+    var url_stop = "{% url "application___hpc:modules:hpc_jobs:stop" %}";
+    var url_cont = "{% url "application___hpc:modules:hpc_jobs:continue" %}";
+    var url_kill = "{% url "application___hpc:modules:hpc_jobs:kill" %}";
+    var url_requeue = "{% url "application___hpc:modules:hpc_jobs:requeue" %}";
 </script>
 
 <!-- Application Website Help Custom Theme JavaScript -->

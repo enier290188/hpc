@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<div id="modal-delete" class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><span class="fa fa-remove fa-fw" aria-hidden="true"></span> Eliminar elementos</h4>
+        </div>
+        <div class="modal-body">
+            <div class="modal___message">
+            </div>
+            <div class="modal___question" style="padding: 15px; color: indianred">
+                <span class="fa fa-exclamation-circle fa-fw"></span> Esta seguro de querer eliminar los elementos seleccionados
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-primary pull-left hpc___modal___click___delete" data-url="{% url "application___hpc:modules:hpc_explorer:delete" %}">
+                <span class="fa fa-remove fa-fw" aria-hidden="true"></span> Delete
+            </button>
+            <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+            </button>
+        </div>
+    </div>
+</div>

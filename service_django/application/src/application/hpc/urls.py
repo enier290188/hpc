@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import views
+from .modules.hpc_explorer import views as v
 from django.conf.urls import include, url
 
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     url(regex=r'^index___leftside/$', view=views.___view___index___leftside___, name='index___leftside'),
     url(regex=r'^index___content___center/$', view=views.___view___index___content___center___, name='index___content___center'),
     url(regex=r'^index___content___footer/$', view=views.___view___index___content___footer___, name='index___content___footer'),
+    url(regex=r'^download/$', view=v.___view___download___, name='download'),
     #
     url(regex=r'^login/$', view=views.___view___login___, name='login'),
     url(regex=r'^login___forgot_credentials_1/$', view=views.___view___login___forgot_credentials_1___, name='login___forgot_credentials_1'),

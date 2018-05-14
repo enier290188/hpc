@@ -16,6 +16,15 @@ table.dataTable>tbody>tr.child ul {
         width: 70%;
     }
 }
+@media (max-width: 767px) {
+    .dt-buttons {
+        display: none;
+    }
+
+    #datatable-buttons_length > label {
+        display: none;
+    }
+}
 table.dataTable>tbody>tr.child>td:first-child  {
     padding-left: 5px;
 }

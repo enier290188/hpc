@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div id="modal-file" class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <form method="post" action="{% url "application___hpc:modules:hpc_explorer:modal" %}" data-option="file" class="hpc___modal___submit___generic">
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><span class="fa fa-file fa-fw" aria-hidden="true"></span> Crear archivo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal___message">
+                </div>
+                <div class="modal___form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        {{ form.generic }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-primary pull-left" disabled>
+                    <span class="fa fa-file fa-fw" aria-hidden="true"></span> Create
+                </button>
+                <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

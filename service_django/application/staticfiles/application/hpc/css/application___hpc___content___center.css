@@ -44,3 +44,45 @@
         margin :10px;
     }
 }
+
+#center___header > .dropdown {
+    position: absolute !important;
+}
+
+@media (max-width: 767px) {
+    #center___header > .dropdown {
+        position: absolute !important;
+        right: 8px;
+        top: 8px;
+    }
+}
+
+@media (min-width: 768px) {
+    #center___header > .dropdown {
+        position: absolute !important;
+        right: 27px;
+        top: 23px;
+    }
+}
+
+#center___header > .dropdown > ul.dropdown-menu > li {
+    display: block;
+    margin: 3px 5px;
+}
+
+#center___header > .dropdown > ul.dropdown-menu > li > a {
+    padding: 3px 5px;
+    min-height: 0;
+    color: #2a3f54;
+    cursor: pointer;
+}
+
+#center___header > .dropdown > ul.dropdown-menu > li > a :hover{
+    background-color: #2a3f54 !important;
+    color: white !important;
+}
+
+#center___header > .dropdown > ul.dropdown-menu > li.active > a{
+    background-color: #2a3f54 !important;
+    color: white !important;
+}

@@ -1,0 +1,15 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+msgid "APPLICATION___HPC___CONTENT___HPC_NODES"
+msgstr "Estado de los nodos"
+
+# *****************************************************************************
+# APPLICATION HPC CONTENT HPC_NODES
+# *****************************************************************************
