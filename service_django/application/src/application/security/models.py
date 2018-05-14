@@ -474,6 +474,12 @@ class LDAPUser(models.Model):
     def ___AVATAR_UPLOAD_TO___(instance, filename):
         return '%s/%s/%s.jpg' % (___LDAPUSER_FOLDER_PATH___, instance.identifier, instance.identifier,)
 
+    def ___PRVATE_KEY_UPLOAD_TO___(instance, filename):
+        return '%s/%s/.ssh/%s' % (___LDAPUSER_FOLDER_PATH___, instance.identifier, 'id_rsa',)
+
+    def ___PUBLIC_KEY_UPLOAD_TO___(instance, filename):
+        return '%s/%s/.ssh/%s' % (___LDAPUSER_FOLDER_PATH___, instance.identifier, 'id_rsa.pub',)
+
     id = models.AutoField(
         primary_key=True,
     )
@@ -496,6 +502,16 @@ class LDAPUser(models.Model):
         null=True,
         blank=True,
         upload_to=___AVATAR_UPLOAD_TO___,
+    )
+    public_key = models.FileField(
+        null=True,
+        blank=True,
+        upload_to=___PUBLIC_KEY_UPLOAD_TO___,
+    )
+    private_key = models.FileField(
+        null=True,
+        blank=True,
+        upload_to=___PRVATE_KEY_UPLOAD_TO___,
     )
     first_name = models.CharField(
         default='',
