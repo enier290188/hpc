@@ -13,7 +13,7 @@
 # ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # Establecer una conexión
-# ssh_client.connect(hostname, port, username, password)
+# ssh_client.connect(hostname, port, username, key_filename)
 
 # Ejecutar un comando en el servidor
 # h_input, h_output, h_error = ssh_client.exec_command(command)
@@ -44,7 +44,7 @@ import paramiko
 import logging
 
 
-def ssh_exec(username, password, command):
+def ssh_exec(username, private_key_path, command):
     result = dict()
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
@@ -54,7 +54,7 @@ def ssh_exec(username, password, command):
             hostname=settings.CLUSTER_SERVER_HOST,
             port=int(settings.CLUSTER_SERVER_PORT),
             username=username,
-            password=password,
+            key_filename=private_key_path,
         )
         h_input, h_output, h_error = ssh_client.exec_command(command)
     except Exception as e:
@@ -81,14 +81,14 @@ def ssh_exec(username, password, command):
     return result
 
 
-def ssh_sftp_putfo(username, password, file, remotopath):
+def ssh_sftp_putfo(username, private_key_path, file, remotopath):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(
         hostname=settings.CLUSTER_SERVER_HOST,
         port=settings.CLUSTER_SERVER_PORT,
         username=username,
-        password=password
+        key_filename=private_key_path
     )
     sftp = ssh_client.open_sftp()
     sftp.putfo(file, remotopath)
@@ -96,14 +96,14 @@ def ssh_sftp_putfo(username, password, file, remotopath):
     ssh_client.close()
 
 
-def ssh_sftp_getfo(username, password, remotopath, file):
+def ssh_sftp_getfo(username, private_key_path, remotopath, file):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(
         hostname=settings.CLUSTER_SERVER_HOST,
         port=settings.CLUSTER_SERVER_PORT,
         username=username,
-        password=password
+        key_filename=private_key_path
     )
     sftp = ssh_client.open_sftp()
     sftp.getfo(remotopath, file)
@@ -111,7 +111,7 @@ def ssh_sftp_getfo(username, password, remotopath, file):
     ssh_client.close()
 
 
-def ssh_sftp_put(username, password, local, remoto):
+def ssh_sftp_put(username, private_key_path, local, remoto):
     result = dict()
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -120,7 +120,7 @@ def ssh_sftp_put(username, password, local, remoto):
             hostname=settings.CLUSTER_SERVER_HOST,
             port=settings.CLUSTER_SERVER_PORT,
             username=username,
-            password=password
+            key_filename=private_key_path
         )
     except Exception as e:
         logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
@@ -147,7 +147,7 @@ def ssh_sftp_put(username, password, local, remoto):
     return result
 
 
-def ssh_sftp_get(username, password, remoto, local):
+def ssh_sftp_get(username, private_key_path, remoto, local):
     result = dict()
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -156,7 +156,7 @@ def ssh_sftp_get(username, password, remoto, local):
             hostname=settings.CLUSTER_SERVER_HOST,
             port=settings.CLUSTER_SERVER_PORT,
             username=username,
-            password=password
+            key_filename=private_key_path
         )
     except Exception as e:
         logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
@@ -183,7 +183,7 @@ def ssh_sftp_get(username, password, remoto, local):
     return result
 
 
-def ssh_sftp_edit_file(username, password, remoto, content):
+def ssh_sftp_edit_file(username, private_key_path, remoto, content):
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -192,7 +192,7 @@ def ssh_sftp_edit_file(username, password, remoto, content):
             hostname=settings.CLUSTER_SERVER_HOST,
             port=int(settings.CLUSTER_SERVER_PORT),
             username=username,
-            password=password
+            key_filename=private_key_path
         )
 
         sftp = ssh_client.open_sftp()
@@ -208,7 +208,7 @@ def ssh_sftp_edit_file(username, password, remoto, content):
     return False
 
 
-def ssh_sftp_open_file(username, password, remoto):
+def ssh_sftp_open_file(username, private_key_path, remoto):
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -217,7 +217,7 @@ def ssh_sftp_open_file(username, password, remoto):
             hostname=settings.CLUSTER_SERVER_HOST,
             port=int(settings.CLUSTER_SERVER_PORT),
             username=username,
-            password=password
+            key_filename=private_key_path
         )
         sftp = ssh_client.open_sftp()
         file = sftp.file(remoto, "r", -1)

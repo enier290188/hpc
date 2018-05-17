@@ -62,6 +62,6 @@ def ___jsonresponse___success___modal(request):
         messages.add_message(request, messages.SUCCESS, "El archivo se ha guardado satisfactoriamente")
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
-    dict___data['___HTML___APPLICATION___HPC___MODAL___MODAL___'] = ___html___template_modal___message___(request=request)
-    dict___data['___HTML___APPLICATION___HPC___MODAL___MODAL___MESSAGE___'] = ___html___template_message___(request=request)
+    dict___data['___HTML___APPLICATION___HPC___MODAL___'] = ___html___template_modal___message___(request=request)
+    dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = ___html___template_message___(request=request)
     return http.JsonResponse(dict___data)

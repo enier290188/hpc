@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import forms, ldap, models, tasks
+from . import forms, ldap, models, tasks, ssh
 from django import http
 from django.conf import settings
 from django.contrib import messages
@@ -233,10 +233,16 @@ def ___jsonresponse___login___(request, ___application___security___from___modul
                     model = models.LDAPUser
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___
                     instance = model.objects.___instance___by_identifier___(identifier=identifier)
+                    if instance:
+                        if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
+                            ssh.generate__private__and__public__key(instance, password)
                 else:
                     model = models.LDAPUserImported
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSERIMPORTED___
                     instance = model.objects.___instance___by_ldap_group_and_identifier___(ldap_group=ldap_group, identifier=identifier)
+                    if instance:
+                        if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
+                            ssh.generate__private__and__public__key(instance, password)
             else:
                 messages.add_message(request, messages.ERROR, _('APPLICATION___SECURITY___MESSAGE ERROR.'))
                 return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)

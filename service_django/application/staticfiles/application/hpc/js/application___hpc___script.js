@@ -43,13 +43,12 @@ var ___HTML___application___hpc___module___hpc_script___SUBMIT___ = function(evt
             ___HTML___application___hpc___modal___SHOW_LOAD___();
         },
         success: function (data) {
-            ___HTML___application___hpc___content___SCROLL_DESTROY___();
-            ___HTML___application___hpc___content___SCROLL_CREATE___();
             if (data.___BOOLEAN___ERROR___) {
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
             }
             else {
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
+                ___HTML___application___hpc___modal___EVENTS_ON___();
             }
         }
     });

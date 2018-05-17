@@ -84,8 +84,6 @@ def generate_data_json(request, option, parameters=None):
 
 def run_command(request, option, parameters=None):
     instance = request.___APPLICATION___SECURITY___USER___
-    username = '42110027'
-    password = '12345*abc'
     command = 'ls'
     if option == 'nodes':
         command = 'sinfo -N --Format=all'
@@ -102,7 +100,7 @@ def run_command(request, option, parameters=None):
         else:
             return
     if option == 'groups user':
-        command = 'groups ' + username
+        command = 'groups ' + instance.__str__()
     if option == 'detail job':  # job id in parameters
         command = 'scontrol show job -o ' + parameters[0]
     if option == 'partitions':
@@ -111,7 +109,7 @@ def run_command(request, option, parameters=None):
         command = 'scancel --signal=STOP ' + parameters[0]
     if option == 'job cont':
         command = 'scancel --signal=CONT ' + parameters[0]
-    result = ssh.ssh_exec(username=username, password=password, command=command)
+    result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
     if result['HAS_ERROR']:
         messages.add_message(request, messages.ERROR, result['MESSAGE'])
     else:

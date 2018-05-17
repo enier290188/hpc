@@ -10,11 +10,13 @@ from . import ssh
 
 
 def edit_file(request, remoto, content):
-    return ssh.ssh_sftp_edit_file(username='42110027', password='12345*abc', remoto=remoto, content=content)
+    instance = request.___APPLICATION___SECURITY___USER___
+    return ssh.ssh_sftp_edit_file(username=instance.group_identifier(), private_key_path=instance.private_key.path, remoto=remoto, content=content)
 
 
 def open_file(request, remoto):
-    return ssh.ssh_sftp_open_file(username='42110027', password='12345*abc', remoto=remoto)
+    instance = request.___APPLICATION___SECURITY___USER___
+    return ssh.ssh_sftp_open_file(username=instance.group_identifier(), private_key_path=instance.private_key.path, remoto=remoto)
 
 
 def generate_data_dict(request, option, parameters=None):
@@ -54,8 +56,6 @@ def generate_data_json(request, option, parameters=None):
 
 def run_command(request, option, parameters=None):
     instance = request.___APPLICATION___SECURITY___USER___
-    username = '42110027'
-    password = '12345*abc'
     command = 'ls'
     if option == 'envVars':
         command = 'echo $USER $UID $HOME $PATH $SHELL'
@@ -66,7 +66,7 @@ def run_command(request, option, parameters=None):
         if option == 'list':
             command = 'ls --full-time -igGh --group-directories-first "' + parameters[0] + '"'
         if option == 'goto':
-            command = 'ls --full-time -igGh --group-directories-first "' + parameters[0] + '/' +parameters[1] + '"'
+            command = 'ls --full-time -igGh --group-directories-first "' + parameters[0] + '/' + parameters[1] + '"'
         if len(parameters) > 1:
             if option == 'rename':
                 command = 'mv ' \
@@ -85,7 +85,7 @@ def run_command(request, option, parameters=None):
                 for p in parameters[1:]:
                     string += ' "' + parameters[0] + '/' + p + '"'
                 command = 'rm -r' + string
-    result = ssh.ssh_exec(username=username, password=password, command=command)
+    result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
     if result['HAS_ERROR']:
         messages.add_message(request, messages.ERROR, result['MESSAGE'])
     else:

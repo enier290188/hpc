@@ -584,6 +584,9 @@ class LDAPUser(models.Model):
             return '%s' % (self.first_name,)
         return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), self.identifier,)
 
+    def group_identifier(self):
+        return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), self.identifier,)
+
     def save(self, *args, **kwargs):
         if self.password == '':
             self.___void___encrypt_password___(password='')
@@ -660,6 +663,12 @@ class LDAPUserImported(models.Model):
     def ___AVATAR_UPLOAD_TO___(instance, filename):
         return '%s/%s/%s/%s.jpg' % (___LDAPUSERIMPORTED_FOLDER_PATH___, instance.ldap_group, instance.identifier, instance.identifier,)
 
+    def ___PRVATE_KEY_UPLOAD_TO___(instance, filename):
+        return '%s/%s/%s/.ssh/%s' % (___LDAPUSERIMPORTED_FOLDER_PATH___, instance.ldap_group, instance.identifier, 'id_rsa',)
+
+    def ___PUBLIC_KEY_UPLOAD_TO___(instance, filename):
+        return '%s/%s/%s/.ssh/%s' % (___LDAPUSERIMPORTED_FOLDER_PATH___, instance.ldap_group, instance.identifier, 'id_rsa.pub',)
+
     id = models.AutoField(
         primary_key=True,
     )
@@ -682,6 +691,16 @@ class LDAPUserImported(models.Model):
         null=True,
         blank=True,
         upload_to=___AVATAR_UPLOAD_TO___,
+    )
+    public_key = models.FileField(
+        null=True,
+        blank=True,
+        upload_to=___PUBLIC_KEY_UPLOAD_TO___,
+    )
+    private_key = models.FileField(
+        null=True,
+        blank=True,
+        upload_to=___PRVATE_KEY_UPLOAD_TO___,
     )
     first_name = models.CharField(
         default='',
@@ -739,6 +758,9 @@ class LDAPUserImported(models.Model):
             return '%s %s' % (self.first_name, self.last_name,)
         if self.first_name:
             return '%s' % (self.first_name,)
+        return '%s_%s' % (self.ldap_group.lower(), self.identifier,)
+
+    def group_identifier(self):
         return '%s_%s' % (self.ldap_group.lower(), self.identifier,)
 
     def save(self, *args, **kwargs):
