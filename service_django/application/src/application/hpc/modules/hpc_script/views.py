@@ -25,6 +25,7 @@ from . import script
 def ___view___index___(request):
     dict___data = dict()
     if request.method == "POST":
+        instance = request.___APPLICATION___SECURITY___USER___
         form = forms.ScriptForm(request.POST, request=request)
         if form.is_valid():
             script_name = form.cleaned_data.get('script_name') + '.sl'
@@ -32,16 +33,13 @@ def ___view___index___(request):
             with open(file, 'wb') as f:
                 for line in script.build(form).splitlines():
                     f.write(bytes(line, 'utf-8') + b'\n')
-            instance = request.___APPLICATION___SECURITY___USER___
-            username = '42110027' # instance.username
-            password = '12345*abc' # instance.password
-            result = ssh.ssh_sftp_put(username, password, file, script_name)
+            result = ssh.ssh_sftp_put(instance.group_identifier(), instance.private_key.path, file, script_name)
             os.unlink(file)
             if result['HAS_ERROR']:
                 messages.add_message(request, messages.ERROR, result['MESSAGE'])
                 return utils___hpc.___jsonresponse___error___(request)
             if request.POST.get('submit') == 'run':
-                result = ssh.ssh_exec(username, password, 'sbatch "' + script_name + '"')
+                result = ssh.ssh_exec(instance.group_identifier(), instance.private_key.path, 'sbatch "' + script_name + '"')
                 if result['HAS_ERROR']:
                     messages.add_message(request, messages.ERROR, result['MESSAGE'])
                     return utils___hpc.___jsonresponse___error___(request)
@@ -49,7 +47,7 @@ def ___view___index___(request):
                     messages.add_message(request, messages.SUCCESS, 'El script se ha guardado en la carpeta de usuario y y se ha enviado a la cola de ejecucion.')
             else:
                 messages.add_message(request, messages.SUCCESS, 'El script se ha guardado satisfactoriamente en la carpeta del usuario.')
-            return utils___hpc.___jsonresponse___success___(request)
+            return utils___hpc.___jsonresponse___success___modal(request)
         else:
             dict___data['___HTML___APPLICATION___HPC___CONTENT___CENTER___'] = utils___hpc.___html___template___(
                 request=request,

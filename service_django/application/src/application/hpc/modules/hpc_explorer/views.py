@@ -103,9 +103,10 @@ def ___view___upload___(request):
         path = request.POST.get('path')
         files = request.FILES.getlist('files')
         form = forms.UploadMultipleFilesForm(request.POST, request.FILES)
+        instance = request.___APPLICATION___SECURITY___USER___
         if form.is_valid():
             for file in files:
-                ssh.ssh_sftp_putfo('42110027', '12345*abc', file, path + '/' + file.name)
+                ssh.ssh_sftp_putfo(instance.group_identifier(), instance.private_key.path, file, path + '/' + file.name)
             data = linux.generate_data_dict(request, option='list', parameters=[path])
             if data:
                 dict___data['list'] = utils___hpc.___html___template___(
@@ -133,9 +134,10 @@ def ___view___upload___(request):
 def ___view___download___(request):
     path = request.GET.get('path', None)
     name = request.GET.get('name', None)
+    instance = request.___APPLICATION___SECURITY___USER___
 
     with TemporaryFile() as f:
-        ssh.ssh_sftp_getfo('42110027', '12345*abc', path + '/' + name, f)
+        ssh.ssh_sftp_getfo(instance.group_identifier(), instance.private_key.path, path + '/' + name, f)
         f.seek(0)
         response = HttpResponse(f.read())
     response['Content-Type'] = 'application/octet-stream'

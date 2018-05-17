@@ -28,11 +28,11 @@ def build(form):
     partition = form.cleaned_data.get('partition')
     nodes = form.cleaned_data.get('nodes')
     ntasks = form.cleaned_data.get('ntasks')
-    tasks_per_node = form.cleaned_data.get('tasks_per_node')
-    cpus_per_task = form.cleaned_data.get('cpus_per_task')
-    mem = form.cleaned_data.get('mem')
+    tasks_per_node = form.cleaned_data.get('tasks_per_node', 0)
+    cpus_per_task = form.cleaned_data.get('cpus_per_task', 0)
+    mem = form.cleaned_data.get('mem', 0)
     size = form.cleaned_data.get('size')
-    mem_per_cpu = form.cleaned_data.get('mem_per_cpu')
+    mem_per_cpu = form.cleaned_data.get('mem_per_cpu', 0)
     size_per_cpu = form.cleaned_data.get('size_per_cpu')
     time = form.cleaned_data.get('time')
     test = form.cleaned_data.get('test')
@@ -91,15 +91,15 @@ def build(form):
         content += rc + "### Resource handling ###" + rc
         if nodes:
             content += '#SBATCH --nodes=' + escape_html(nodes) + rc
-        if ntasks > 0:
+        if ntasks:
             content += '#SBATCH --ntasks=' + str(ntasks) + rc
-        if tasks_per_node > 0:
+        if tasks_per_node:
             content += '#SBATCH --tasks-per-node=' + str(tasks_per_node) + rc
-        if cpus_per_task > 0:
+        if cpus_per_task:
             content += '#SBATCH --cpus-per-task=' + str(cpus_per_task) + rc
-        if mem > 0:
+        if mem:
             content += '#SBATCH --mem=' + str(mem) + size + rc
-        if mem_per_cpu > 0:
+        if mem_per_cpu:
             content += '#SBATCH --mem-per-cpu=' + str(mem_per_cpu) + size_per_cpu + rc
         if time:
             content += '#SBATCH --time=' + escape_html(time) + rc
