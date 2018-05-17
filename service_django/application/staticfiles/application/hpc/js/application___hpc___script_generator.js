@@ -132,6 +132,7 @@ function compose() {
             script_slurm += '#SBATCH --mail-type=NONE' + rc;
     }
     script_slurm += rc + "### Bash script ###" + rc + 'cd $SLURM_SUBMIT_DIR' + rc + script_body + rc + "exit 0" + rc;
-    $('#script_slurm').replaceWith(`<pre id="script_slurm" class="prettyprint linenums lang-bsh">${script_slurm}</pre>`);
+    /*$('#script_slurm').replaceWith(`<pre id="script_slurm" class="prettyprint linenums lang-bsh">${script_slurm}</pre>`);*/
+    $('#script_slurm').replaceWith('<pre id="script_slurm" class="prettyprint linenums lang-bsh">' + script_slurm + '</pre>');
     prettyPrint();
 }

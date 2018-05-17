@@ -38,7 +38,7 @@ $(document).ready(function(){
         $actions.each(function(){
             $(this).attr('disabled', 'disabled');
         });
-        if(path !== "/home/CLUSTER/42110027")
+        if(path !== home)
             $actions.eq(0).removeAttr('disabled');
         if(i === 1){
             $actions.eq(3).removeAttr('disabled');
