@@ -109,6 +109,8 @@ def run_command(request, option, parameters=None):
         command = 'scancel --signal=STOP ' + parameters[0]
     if option == 'job cont':
         command = 'scancel --signal=CONT ' + parameters[0]
+    if option == 'execute':
+        command = 'sbatch "' + parameters[0] + '/' + parameters[1] + '"'
     result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
     if result['HAS_ERROR']:
         messages.add_message(request, messages.ERROR, result['MESSAGE'])

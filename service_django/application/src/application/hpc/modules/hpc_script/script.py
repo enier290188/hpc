@@ -136,5 +136,6 @@ def build(form):
         else:
             content += '#SBATCH --mail-type=NONE' + rc
 
-    content += (rc + "### Bash script ###" + rc + re.sub('\r\n', rc, script_body) + rc + "exit 0")
+    content += (rc + "### Bash script ###" + rc + script_body.replace('\r\n', '\n') + rc + "exit 0")
+    # content += (rc + "### Bash script ###" + rc + re.sub('\r\n', rc, script_body) + rc + "exit 0")
     return content

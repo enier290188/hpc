@@ -14,8 +14,7 @@ from ....security import (
     utils as utils___application___security
 )
 from ... import utils as utils___hpc
-from ... import ssh
-from ... import linux
+from ... import ssh, linux, slurm
 from . import forms
 
 
@@ -210,10 +209,12 @@ def ___view___execute___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
     if request.method == 'POST':
-        
-        messages.add_message(request, messages.SUCCESS, "El archivo se ha guardado satisfactoriamente")
-        dict___data = dict()
-        dict___data['___BOOLEAN___ERROR___'] = False
+        values = request.POST.getlist('values[]')
+        slurm.generate_data_dict(request, 'execute', values)
+        if len(messages.get_messages(request=request)) <= 0:
+            messages.add_message(request, request.SUCCESS, 'Todo ok')
+        else:
+            dict___data['___BOOLEAN___ERROR___'] = True
         dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
         dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
         return http.JsonResponse(dict___data)
