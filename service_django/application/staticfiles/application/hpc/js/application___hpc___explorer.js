@@ -40,13 +40,16 @@ $(document).ready(function(){
         });
         if(path !== home)
             $actions.eq(0).removeAttr('disabled');
-        if(i === 1){
+        if(i === 1) {
             $actions.eq(3).removeAttr('disabled');
             $actions.eq(4).removeAttr('disabled');
-            if(d)
+            if (d)
                 $actions.eq(1).removeAttr('disabled');
-            if(f)
+            if (f) {
                 $actions.eq(2).removeAttr('disabled');
+                $actions.eq(9).removeAttr('disabled');
+
+            }
         }
         if(i > 0){
             $actions.eq(5).removeAttr('disabled');
@@ -135,7 +138,7 @@ $(document).ready(function(){
         });
     };
 
-    var hpc__module__explorer__button__click__not__modal = function (event) {
+    var hpc__module__explorer__button__click__not__modal = function(event) {
         if($(this).attr('disabled')!=='disabled'){
             $(this).attr('disabled', 'disabled');
             var index = Array.prototype.indexOf.call(this.parentNode.children, this);
@@ -375,15 +378,15 @@ $(document).ready(function(){
     };
 
     var hpc__module__explorer__modal__click__goto = function(){
-        var $btn = $('#modal-delete').find('.modal-footer').find('button').eq(0);
         var dir = $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
         path = '/' + path.split('/')[1] + '/' + path.split('/')[2] + '/' + path.split('/')[3];
         if (dir)
             path += '/' + $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
-        hpc__module__explorer__list()
+        hpc__module__explorer__list();
+        hpc__module__explorer__button__disabled();
     };
 
-    var hpc__module__explorer__modal__click__delete = function () {
+    var hpc__module__explorer__modal__click__delete = function() {
         var $btn = $('#modal-delete').find('.modal-footer').find('button').eq(0);
         var values = [path];
         $.each($hpc__tbody.find('tr.primary'), function(index, elem){
@@ -421,13 +424,71 @@ $(document).ready(function(){
         });
     };
 
+    var hpc__module__explorer__modal__execute = function() {
+        var $btn =$(this);
+        if($btn.attr('disabled'))
+            return;
+        var data = {
+            path: path,
+            file: $hpc__tbody.find('tr.primary').attr('data-name')
+        };
+        $.ajax({
+            url: $btn.attr("data-url"),
+            type: "GET",
+            data: data,
+            dataType: "json",
+            beforeSend: function () {
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+            },
+            success: function (data) {
+                if (data.___BOOLEAN___ERROR___) {
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                }
+                else {
+                    $hpc__modal.html(data.___HTML___APPLICATION___HPC___MODAL___);
+                    $hpc__modal.find(".modal___message").html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
+                    ___HTML___application___hpc___modal___EVENTS_ON___();
+                }
+            }
+        });
+
+    };
+
+    var hpc__module__explorer__modal__click__execute = function () {
+        var url = $('#modal-execute').find('.modal-footer').find('button').eq(0).attr('data-url');
+        var values = [path, $hpc__tbody.find('tr.primary').attr('data-name')];
+        $.ajax({
+            url: url,
+            data: {
+                'values': values
+            },
+            type: 'post',
+            dataType: "json",
+            cache: false,
+            beforeSend: function () {
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+            },
+            success: function (data) {
+                if(data.___BOOLEAN___ERROR___){
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                }
+                else {
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
+                    ___HTML___application___hpc___content___SCROLL_DESTROY___();
+                    ___HTML___application___hpc___content___SCROLL_CREATE___();
+                }
+            }
+        });
+    };
+
     $hpc__tbody
         .on('click', 'tr', hpc__module__explorer__table__tr__active)
         .on('dblclick', 'tr', hpc__module__explorer__tr__dblclick);
 
     $hpc__buttons
         .on('click', 'a.not-modal', hpc__module__explorer__button__click__not__modal)
-        .on("click", "a.has-modal", hpc__module__explorer__modal__generic);
+        .on("click", "a.has-modal", hpc__module__explorer__modal__generic)
+        .on("click", "a.btn-execute", hpc__module__explorer__modal__execute);
 
     $hpc__buttons__header
         .on("click", "a.has-modal", hpc__module__explorer__modal__generic);
@@ -437,6 +498,7 @@ $(document).ready(function(){
         .on('submit', '.hpc___modal___submit___edit', hpc__module__explorer__modal__submit__edit)
         .on('click', '.hpc___modal___click___goto', hpc__module__explorer__modal__click__goto)
         .on('click', '.hpc___modal___click___delete', hpc__module__explorer__modal__click__delete)
+        .on('click', '.hpc___modal___click___execute', hpc__module__explorer__modal__click__execute)
         .on('submit', '.hpc___modal___submit___upload', hpc__module__explorer__modal__submit__upload)
         .on('submit', '.hpc___modal___submit___generic', hpc__module__explorer__modal__submit__generic);
 

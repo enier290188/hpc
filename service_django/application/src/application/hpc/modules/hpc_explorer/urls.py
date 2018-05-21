@@ -10,4 +10,5 @@ urlpatterns = [
     url(regex=r'^download/$', view=views.___view___download___, name='download'),
     url(regex=r'^edit/$', view=views.___view___edit___, name='edit'),
     url(regex=r'^delete/$', view=views.___view___delete___, name='delete'),
+    url(regex=r'^execute/$', view=views.___view___execute___, name='execute'),
 ]

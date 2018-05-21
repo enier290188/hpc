@@ -50,6 +50,8 @@ msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___COLUMN___S
 msgstr "size"
 msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___COLUMN___Modified"
 msgstr "modified"
+msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___ROW___Loading"
+msgstr "Loading..."
 
 msgid "APPLICATION___HPC___CONTENT___HPC_EXPLORER___MODAL___GOTO"
 msgstr "Sistema de archivos"

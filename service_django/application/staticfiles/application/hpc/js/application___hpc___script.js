@@ -48,7 +48,8 @@ var ___HTML___application___hpc___module___hpc_script___SUBMIT___ = function(evt
             }
             else {
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
-                ___HTML___application___hpc___modal___EVENTS_ON___();
+                ___HTML___application___hpc___content___SCROLL_DESTROY___();
+                ___HTML___application___hpc___content___SCROLL_CREATE___();
             }
         }
     });

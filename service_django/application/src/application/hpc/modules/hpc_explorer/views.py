@@ -61,7 +61,7 @@ def ___view___modal___(request):
     dict___data['___BOOLEAN___ERROR___'] = False
     if request.method == 'POST':
         option = request.POST.get('option', None)
-        parameters= list()
+        parameters = list()
         parameters.append(request.POST.get('path', None))
         if option == 'rename':
             parameters.append(request.POST.get('name', None))
@@ -199,5 +199,28 @@ def ___view___delete___(request):
                 'data': data
             },
             template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
+        )
+        return http.JsonResponse(dict___data)
+
+
+@csrf_exempt
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___execute___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        
+        messages.add_message(request, messages.SUCCESS, "El archivo se ha guardado satisfactoriamente")
+        dict___data = dict()
+        dict___data['___BOOLEAN___ERROR___'] = False
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
+        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
+        return http.JsonResponse(dict___data)
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context=dict(),
+            template_name='application/hpc/___includes___/modal/hpc/execute.html'
         )
         return http.JsonResponse(dict___data)

@@ -100,9 +100,12 @@
         <a class="btn btn-sm btn-default select-all not-modal" title="Select All">
             <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <span class="hidden-xs">{% trans 'APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___SelectAll' %}</span>
         </a>
-
         <a class="btn btn-sm btn-danger pull-right has-modal" disabled title="Delete" data-option='delete' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___BUTTONS___Delete' %}
+        </a>
+
+        <a class="btn btn-sm btn-default btn-execute" title="Execute" disabled data-url="{% url "application___hpc:modules:hpc_explorer:execute" %}">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span class="hidden-xs">Run</span>
         </a>
     </div>
     <div id="tableFileSystem" class="table-responsive">
@@ -116,7 +119,7 @@
             <thead>
             <tbody>
                 <tr>
-                    <td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>
+                    <td colspan="3"><span class="fa fa-spinner fa-pulse"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_EXPLORER___CONTENT___TABLE___ROW___Loading' %}</td>
                 </tr>
             </tbody>
         </table>
