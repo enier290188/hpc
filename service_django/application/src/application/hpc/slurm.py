@@ -14,15 +14,36 @@ def generate_data_dict(request, option, parameters=None):
     str_in_bytes = run_command(request, option, parameters=parameters)
     if str_in_bytes:
         string_in_utf8 = str_in_bytes.decode('utf-8').rstrip('\n')
+        print(string_in_utf8)
         if option == 'nodes':
             # sinfo -N --Format=all
-            data = list()
+            nodes = list()
+            cpuload = cputotal = cpualloc = freemem = allocmem = 0
+            for node in string_in_utf8.split('\n'):
+                features = dict()
+                for feature in node.split():
+                    if len(feature.split('=')) == 2:
+                        features.update({
+                            feature.split('=')[0]: feature.split('=')[1]
+                        })
+                nodes.append(features)
+                cpuload = cpuload + float(features['CPULoad'])
+                cputotal = cputotal + float(features['CPUTot'])
+                cpualloc = cpualloc + float(features['CPUAlloc'])
+                freemem = freemem + float(features['FreeMem'])
+                allocmem = allocmem + float(features['AllocMem'])
+
+            __dict__['nodes'] = nodes
+            __dict__['statistics'] = {'cpuload': cpuload/len(string_in_utf8.split('\n')), 'freemem': freemem, 'allocmem': allocmem, 'cputot': cputotal, 'cpualloc': cpualloc}
+        if option == 'nodes-partitions':
+            # sinfo -N --Format=all
+            nodes = list()
             tmp = string_in_utf8.split('\n')
-            keys = tmp[1].split('|')
+            keys = tmp[0].split('|')
             for node in tmp[1:]:
-                data.append(node.split('|'))
+                nodes.append(node.split('|'))
             __dict__['keys'] = keys
-            __dict__['data'] = data
+            __dict__['nodes'] = nodes
         if option == 'cpusload':
             # sinfo -N --Format=nodelist,cpusload
             data = list()
@@ -86,6 +107,8 @@ def run_command(request, option, parameters=None):
     instance = request.___APPLICATION___SECURITY___USER___
     command = 'ls'
     if option == 'nodes':
+        command = 'scontrol show nodes -o'
+    if option == 'nodes-partitions':
         command = 'sinfo -N --Format=all'
     if option == 'cpusload':
         command = 'sinfo -N --Format=nodelist,cpusload'

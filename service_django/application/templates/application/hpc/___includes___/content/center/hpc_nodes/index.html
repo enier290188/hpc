@@ -1,18 +1,238 @@
 {% load i18n %}
 {% load staticfiles %}
-<link rel="stylesheet" href="{% static 'vendors/code-prettify-master/src/desert.css' %}">
+
+{% now "YmdHis" as ctx___now %}
+<!-- Application HPC Custom Theme Style -->
+<link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___nodes.css' %}?{% now "YmdHis" %}">
 
 <h3 id="center___header">
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_NODES' %}
 </h3>
 <div id="center___content">
-    <div class="row container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <canvas id="myLineChart"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <canvas id="myDoughnutChart2"></canvas>
+                <canvas id="myDoughnutChart"></canvas>
+            </div>
+        </div>
+        <hr>
+        <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Particion</td>
+                    <td>Direccion IP</td>
+                    <td>Estado</td>
+                    <td>CPUs</td>
+                    <td>CPUs asignadas</td>
+                    <td>Carga de CPU</td>
+                    <td>Recursos</td>
+                    <td>Memoria</td>
+                    <td>Memoria libre</td>
+                    <td>Memoria asignada</td>
+                    <td>S:C:T</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for node in nodes %}
+                <tr>
+                    <td>{{ node.NodeName }}</td>
+                    <td>{{ node.Partitions }}</td>
+                    <td>{{ node.NodeAddr }}</td>
+                    <td>{{ node.State | title }}</td>
+                    <td>{{ node.CPUTot }}</td>
+                    <td>{{ node.CPUAlloc }}</td>
+                    <td>{{ node.CPULoad }}</td>
+                    <td>{% ifequal node.Gres '(null)' %}cpu{% else %}{{ node.Gres }}{% endifequal %}</td>
+                    <td>{{ node.RealMemory }}mb</td>
+                    <td>{{ node.FreeMem }}mb</td>
+                    <td>{{ node.AllocMem }}mb</td>
+                    <td>{{ node.Sockets }}:{{ node.CoresPerSocket }}:{{ node.ThreadsPerCore }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-xs-12">
+                <p id="number-tasks">{% trans 'Número de trabajos en ejecución: ' %} <span class="badge">{{ statistics }}</span></p>
+            </div>
+        </div>
     </div>
 </div>
 
-<script src="{% static 'vendors/code-prettify-master/src/prettify.js' %}"></script>
+<script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
+<script src="{% static 'vendors/chartjs/chart.min.js' %}"></script>
 <script>
+    $(document).ready(function() {
+        var optionsDataTable = {
+            dom: "frti",
+            responsive: true
+        };
+        var handleDataTable = function() {
+            var  datatable = $("#datatable-nodes");
+            if ($(datatable).length) {
+                $(datatable).DataTable(optionsDataTable);
+            }
+        };
+
+        var TableManage = function() {
+            "use strict";
+            return {
+                init: function() {
+                    handleDataTable();
+                }
+            };
+        }();
+
+        TableManage.init();
+    });
+    var ctx = document.getElementById("myLineChart").getContext("2d");
+        var myLineChart, data = [,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,parseInt("{{ statistics.cpuload }}")];
+
+        var ctxDoughnut = document.getElementById("myDoughnutChart").getContext("2d");
+        var myDoughnutChart, percent;
+
+        var ctxDoughnut2 = document.getElementById("myDoughnutChart2").getContext("2d");
+        var myDoughnutChart2, percent2;
+
+        $(document).ready(function(){
+            graphics();
+            //setInterval(update, 2000);
+        });
+
+        function update(){
+            $.ajax({
+                url: "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}",
+                type: 'get',
+                cache: false,
+                dataType: 'json',
+                success: function(response){
+                    //LineChart
+                    var number = response[0].average;
+                    for(var i=0; i<data.length; i++)
+                        if(i === data.length-1)
+                            data[i] = number;
+                        else
+                            data[i] = data[i+1];
+                    myLineChart.data = data;
+                    myLineChart.update(0);
+
+                    //DoughnutChart
+                    percent = Math.round(100*response[0].occupied/(response[0].occupied+response[0].free));
+                    myDoughnutChart.data.labels[0] = '{% trans "Usados " %}'+ percent +'%';
+                    myDoughnutChart.data.labels[1] = '{% trans "Libres " %}'+ (100 - percent) +'%';
+                    myDoughnutChart.data.datasets[0].data[0] = response[0].occupied;
+                    myDoughnutChart.data.datasets[0].data[1] = response[0].free;
+                    myDoughnutChart.update(0);
+
+                    //DoughnutChart2
+                    percent2 = Math.round(100*response[0].np_used/response[0].np);
+                    myDoughnutChart2.data.labels[0] = '{% trans "Usados " %}'+ percent2 +'%';
+                    myDoughnutChart2.data.labels[1] = '{% trans "Libres " %}'+ (100 - percent2) +'%';
+                    myDoughnutChart2.data.datasets[0].data[0] = response[0].np_used;
+                    myDoughnutChart2.data.datasets[0].data[1] = response[0].np - response[0].np_used;
+                    myDoughnutChart2.update(0);
+                    $('#title-graph').text(response[0].np +'{% trans " núcleos de CPU. Porcentaje de uso." %}');
+                    $('#number-tasks').html('{% trans "Número de trabajos en ejecución: " %}<span class="badge">'+response[0].tasks+'</span>');
+                },
+                error: function(response){
+
+                }
+            });
+        }
+        function graphics(){
+            Chart.defaults.global.legend.labels.boxWidth = 12;
+            myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["60", , , , ,"50", , , , ,"40", , , , ,"30", , , , ,"20", , , , ,"10", , , , ,"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
+                    datasets: [{
+                        label: '{% trans "Rendimiento promedio por segundo" %}',
+                        fill: true,
+                        lineTension: 0,
+                        pointRadius: 0,
+                        borderWidth: 1,
+                        pointHitRadius: 0,
+                        backgroundColor: "rgba(255,10,10,0.6)",
+                        borderColor: "rgba(255,10,10,1)",
+                        borderJoinStyle: 'miter',
+                        data: data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                suggestedMax:100, suggestedMin:0
+                            }
+                        }]
+                    }/*,
+                    title: {
+                        display: true,
+                        text: 'The graph shows the average load on each node in the cluster.'
+                    }*/
+                }
+            });
+
+            percent = Math.round(100*parseInt("{{ statistics.allocmem }}")/parseInt("{{ statistics.freemem }}"));
+            myDoughnutChart = new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        '{% trans "Mem asignada " %}' + percent + '%',
+                        '{% trans "Mem libre " %}' +(100 - percent) + '%'
+                    ],
+                    datasets: [
+                        {
+                            data: [parseInt("{{ statistics.allocmem }}"), parseInt("{{ statistics.freemem }}") - parseInt("{{ statistics.allocmem }}")],
+                            backgroundColor: [
+                                "#FF6384", "#36A2EB"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384", "#36A2EB"
+                            ]
+                        }
+                    ]
+                },
+                options: {}
+            });
+
+            percent2 = Math.round(100*parseInt("{{ statistics.cpualloc }}")/parseInt("{{ statistics.cputot }}"));
+            myDoughnutChart2 = new Chart(ctxDoughnut2, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        '{% trans "CPUs asignadas " %}' + percent2 + '%',
+                        '{% trans "CPUs libres " %}' +(100 - percent2) + '%'
+                    ],
+                    datasets: [
+                        {
+                            data: [parseInt("{{ statistics.cpualloc }}"), parseInt("{{ statistics.cputot }}") - parseInt("{{ statistics.cpualloc }}")],
+                            backgroundColor: [
+                                "#FF6384", "#FF9933"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384", "#FF9933"
+                            ]
+                        }
+                    ]
+                },
+                options: {}
+            });
+        }
 </script>
 <script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{% now "YmdHis" %}"></script>
 
