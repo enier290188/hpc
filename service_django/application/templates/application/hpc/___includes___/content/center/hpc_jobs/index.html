@@ -29,11 +29,11 @@
                 <tr>
                 {% for key in DATA.keys %}
                     <th>
-                        {% if key == 'PARTITION' %}STATE
-                        {% elif key == 'NODELIST(REASON)' %}NODELIST
-                        {% elif key == 'TIME_LIMI' %}TIME_LIMIT
-                        {% elif key == 'STATE' %}QUEUE
-                        {% else %}{{ key }}{% endif %}
+                        {% if key == 'PARTITION' %}State
+                        {% elif key == 'NODELIST(REASON)' %}Nodelist
+                        {% elif key == 'TIME_LIMI' %}Time limit
+                        {% elif key == 'STATE' %}Partition
+                        {% else %}{{ key | title }}{% endif %}
                     </th>
                 {% endfor %}
                     <th class="none"></th>{# esta columna solo se muestra en la vista detallada #}

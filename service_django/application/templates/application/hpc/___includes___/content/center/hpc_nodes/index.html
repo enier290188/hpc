@@ -14,30 +14,57 @@
 <div id="center___content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8">
-                <canvas id="myLineChart"></canvas>
+            <div class="col-md-6 col-lg-4">
+                <div class="wrapper">
+                    <canvas id="myLineChart" height="1" width="1"></canvas>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <canvas id="myDoughnutChart2"></canvas>
-                <canvas id="myDoughnutChart"></canvas>
+            <div class="col-md-6 col-lg-4">
+                <div class="wrapper">
+                    <canvas id="myDoughnutChart2" height="150%"></canvas>
+                </div>
+                <div class="wrapper">
+                    <canvas id="myDoughnutChart" height="150%"></canvas>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <p style="padding-top: 8px; font-size: 12px">{% trans 'Particiones disponibles: ' %} <span class="badge">2</span></p>
+                <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                        {% for key in partitions.keys %}
+                            <th>{{ key | title }}</th>
+                        {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in partitions.data %}
+                        <tr>
+                            {% for field in data %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         <hr>
         <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <td>Nombre</td>
-                    <td>Particion</td>
-                    <td>Direccion IP</td>
-                    <td>Estado</td>
-                    <td>CPUs</td>
-                    <td>CPUs asignadas</td>
-                    <td>Carga de CPU</td>
-                    <td>Recursos</td>
-                    <td>Memoria</td>
-                    <td>Memoria libre</td>
-                    <td>Memoria asignada</td>
-                    <td>S:C:T</td>
+                    <th>Nombre</th>
+                    <th>Particion</th>
+                    <th>Direccion IP</th>
+                    <th>Estado</th>
+                    <th>CPUs</th>
+                    <th>CPUs asignadas</th>
+                    <th>Carga de CPU</th>
+                    <th>Recursos</th>
+                    <th>Memoria</th>
+                    <th>Memoria libre</th>
+                    <th>Memoria asignada</th>
+                    <th>S:C:T</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,180 +86,18 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="row">
-            <div class="col-xs-12">
-                <p id="number-tasks">{% trans 'Número de trabajos en ejecución: ' %} <span class="badge">{{ statistics }}</span></p>
-            </div>
-        </div>
     </div>
 </div>
-
-<script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-<script src="{% static 'vendors/chartjs/chart.min.js' %}"></script>
 <script>
-    $(document).ready(function() {
-        var optionsDataTable = {
-            dom: "frti",
-            responsive: true
-        };
-        var handleDataTable = function() {
-            var  datatable = $("#datatable-nodes");
-            if ($(datatable).length) {
-                $(datatable).DataTable(optionsDataTable);
-            }
-        };
-
-        var TableManage = function() {
-            "use strict";
-            return {
-                init: function() {
-                    handleDataTable();
-                }
-            };
-        }();
-
-        TableManage.init();
-    });
-    var ctx = document.getElementById("myLineChart").getContext("2d");
-        var myLineChart, data = [,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,parseInt("{{ statistics.cpuload }}")];
-
-        var ctxDoughnut = document.getElementById("myDoughnutChart").getContext("2d");
-        var myDoughnutChart, percent;
-
-        var ctxDoughnut2 = document.getElementById("myDoughnutChart2").getContext("2d");
-        var myDoughnutChart2, percent2;
-
-        $(document).ready(function(){
-            graphics();
-            //setInterval(update, 2000);
-        });
-
-        function update(){
-            $.ajax({
-                url: "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}",
-                type: 'get',
-                cache: false,
-                dataType: 'json',
-                success: function(response){
-                    //LineChart
-                    var number = response[0].average;
-                    for(var i=0; i<data.length; i++)
-                        if(i === data.length-1)
-                            data[i] = number;
-                        else
-                            data[i] = data[i+1];
-                    myLineChart.data = data;
-                    myLineChart.update(0);
-
-                    //DoughnutChart
-                    percent = Math.round(100*response[0].occupied/(response[0].occupied+response[0].free));
-                    myDoughnutChart.data.labels[0] = '{% trans "Usados " %}'+ percent +'%';
-                    myDoughnutChart.data.labels[1] = '{% trans "Libres " %}'+ (100 - percent) +'%';
-                    myDoughnutChart.data.datasets[0].data[0] = response[0].occupied;
-                    myDoughnutChart.data.datasets[0].data[1] = response[0].free;
-                    myDoughnutChart.update(0);
-
-                    //DoughnutChart2
-                    percent2 = Math.round(100*response[0].np_used/response[0].np);
-                    myDoughnutChart2.data.labels[0] = '{% trans "Usados " %}'+ percent2 +'%';
-                    myDoughnutChart2.data.labels[1] = '{% trans "Libres " %}'+ (100 - percent2) +'%';
-                    myDoughnutChart2.data.datasets[0].data[0] = response[0].np_used;
-                    myDoughnutChart2.data.datasets[0].data[1] = response[0].np - response[0].np_used;
-                    myDoughnutChart2.update(0);
-                    $('#title-graph').text(response[0].np +'{% trans " núcleos de CPU. Porcentaje de uso." %}');
-                    $('#number-tasks').html('{% trans "Número de trabajos en ejecución: " %}<span class="badge">'+response[0].tasks+'</span>');
-                },
-                error: function(response){
-
-                }
-            });
-        }
-        function graphics(){
-            Chart.defaults.global.legend.labels.boxWidth = 12;
-            myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["60", , , , ,"50", , , , ,"40", , , , ,"30", , , , ,"20", , , , ,"10", , , , ,"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
-                    datasets: [{
-                        label: '{% trans "Rendimiento promedio por segundo" %}',
-                        fill: true,
-                        lineTension: 0,
-                        pointRadius: 0,
-                        borderWidth: 1,
-                        pointHitRadius: 0,
-                        backgroundColor: "rgba(255,10,10,0.6)",
-                        borderColor: "rgba(255,10,10,1)",
-                        borderJoinStyle: 'miter',
-                        data: data
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                suggestedMax:100, suggestedMin:0
-                            }
-                        }]
-                    }/*,
-                    title: {
-                        display: true,
-                        text: 'The graph shows the average load on each node in the cluster.'
-                    }*/
-                }
-            });
-
-            percent = Math.round(100*parseInt("{{ statistics.allocmem }}")/parseInt("{{ statistics.freemem }}"));
-            myDoughnutChart = new Chart(ctxDoughnut, {
-                type: 'doughnut',
-                data: {
-                    labels: [
-                        '{% trans "Mem asignada " %}' + percent + '%',
-                        '{% trans "Mem libre " %}' +(100 - percent) + '%'
-                    ],
-                    datasets: [
-                        {
-                            data: [parseInt("{{ statistics.allocmem }}"), parseInt("{{ statistics.freemem }}") - parseInt("{{ statistics.allocmem }}")],
-                            backgroundColor: [
-                                "#FF6384", "#36A2EB"
-                            ],
-                            hoverBackgroundColor: [
-                                "#FF6384", "#36A2EB"
-                            ]
-                        }
-                    ]
-                },
-                options: {}
-            });
-
-            percent2 = Math.round(100*parseInt("{{ statistics.cpualloc }}")/parseInt("{{ statistics.cputot }}"));
-            myDoughnutChart2 = new Chart(ctxDoughnut2, {
-                type: 'doughnut',
-                data: {
-                    labels: [
-                        '{% trans "CPUs asignadas " %}' + percent2 + '%',
-                        '{% trans "CPUs libres " %}' +(100 - percent2) + '%'
-                    ],
-                    datasets: [
-                        {
-                            data: [parseInt("{{ statistics.cpualloc }}"), parseInt("{{ statistics.cputot }}") - parseInt("{{ statistics.cpualloc }}")],
-                            backgroundColor: [
-                                "#FF6384", "#FF9933"
-                            ],
-                            hoverBackgroundColor: [
-                                "#FF6384", "#FF9933"
-                            ]
-                        }
-                    ]
-                },
-                options: {}
-            });
-        }
+    var request = '{{ request }}';
+    var cpuload = "{{ statistics.cpuload }}";
+    var cputot = "{{ statistics.cputot }}";
+    var cpualloc = "{{ statistics.cpualloc }}";
+    var freemem = "{{ statistics.freemem }}";
+    var allocmem = "{{ statistics.allocmem }}";
+    var url_chartnodes = "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}";
+    hpc_nodes_datatable();
+    hpc_nodes_chart();
 </script>
-<script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{% now "YmdHis" %}"></script>
+
 

@@ -9,12 +9,17 @@ import json
 from . import ssh
 
 
+def to_float(s):
+    try:
+        return float(s)
+    except:
+        return 0
+
 def generate_data_dict(request, option, parameters=None):
     __dict__ = dict()
     str_in_bytes = run_command(request, option, parameters=parameters)
     if str_in_bytes:
         string_in_utf8 = str_in_bytes.decode('utf-8').rstrip('\n')
-        print(string_in_utf8)
         if option == 'nodes':
             # sinfo -N --Format=all
             nodes = list()
@@ -27,14 +32,20 @@ def generate_data_dict(request, option, parameters=None):
                             feature.split('=')[0]: feature.split('=')[1]
                         })
                 nodes.append(features)
-                cpuload = cpuload + float(features['CPULoad'])
-                cputotal = cputotal + float(features['CPUTot'])
-                cpualloc = cpualloc + float(features['CPUAlloc'])
-                freemem = freemem + float(features['FreeMem'])
-                allocmem = allocmem + float(features['AllocMem'])
-
+                cpuload = cpuload + to_float(features['CPULoad'])
+                cputotal = cputotal + to_float(features['CPUTot'])
+                cpualloc = cpualloc + to_float(features['CPUAlloc'])
+                freemem = freemem + to_float(features['FreeMem'])
+                allocmem = allocmem + to_float(features['AllocMem'])
             __dict__['nodes'] = nodes
             __dict__['statistics'] = {'cpuload': cpuload/len(string_in_utf8.split('\n')), 'freemem': freemem, 'allocmem': allocmem, 'cputot': cputotal, 'cpualloc': cpualloc}
+            __dict__.update(generate_data_dict(request, 'partitions-detail'))
+        if option == 'partitions-detail':
+            data = list()
+            keys = string_in_utf8.split('\n')[0].split()
+            for s in string_in_utf8.split('\n')[1:]:
+                data.append(s.split())
+            __dict__['partitions'] = {'data': data, 'keys': keys}
         if option == 'nodes-partitions':
             # sinfo -N --Format=all
             nodes = list()
@@ -128,6 +139,8 @@ def run_command(request, option, parameters=None):
         command = 'scontrol show job -o ' + parameters[0]
     if option == 'partitions':
         command = 'sinfo --format=%R'
+    if option == 'partitions-detail':
+        command = 'sinfo --format="%R %a %D %N"'
     if option == 'job stop':
         command = 'scancel --signal=STOP ' + parameters[0]
     if option == 'job cont':

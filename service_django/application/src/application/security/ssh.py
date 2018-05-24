@@ -33,7 +33,6 @@ def generate__private__and__public__key(instance, password):
 
     pubkey = open(instance.___string___folder_path___() + '/.ssh/id_rsa.pub').read()
 
-    print('#########', hostname, port, instance.group_identifier(), password)
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
