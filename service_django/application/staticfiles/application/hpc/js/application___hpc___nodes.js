@@ -111,47 +111,55 @@ var hpc_nodes_chart = function(){
             responsive: true
         }
     });
-    var myTimer = setInterval(function(){
-        $.ajax({
-            url: url_chartnodes,
-            type: 'get',
-            cache: false,
-            dataType: 'json',
-            success: function(response){
-                //LineChart
-                console.log(response);
-                var number = response.statistics.cpuload + 10;
-                for(var i=0; i<data.length; i++)
-                    if(i === data.length-1)
-                        data[i] = number;
-                    else
-                        data[i] = data[i+1];
-                myLineChart.data = data;
-                myLineChart.update(0);
 
-                //DoughnutChart
-                var freemem = response.statistics.freemem;
-                var allocmem = response.statistics.allocmem;
-                percent = Math.round(100*allocmem/freemem);
-                myDoughnutChart.data.labels[0] = 'Mem asignada ' + percent + '%';
-                myDoughnutChart.data.labels[1] = 'Mem libre ' +(100 - percent) + '%';
-                myDoughnutChart.data.datasets[0].data[0] = allocmem;
-                myDoughnutChart.data.datasets[0].data[1] = freemem - allocmem;
-                myDoughnutChart.update(0);
+    var myTimer = setInterval(function () {
+        if ($("#myLineChart").length) {
+            $.ajax({
+                url: url_chartnodes,
+                type: 'get',
+                cache: false,
+                dataType: 'json',
+                success: function (response) {
+                    //LineChart
+                    console.log(response);
+                    var number = response.statistics.cpuload + 10;
+                    for (var i = 0; i < data.length; i++)
+                        if (i === data.length - 1)
+                            data[i] = number;
+                        else
+                            data[i] = data[i + 1];
+                    myLineChart.data = data;
+                    myLineChart.update(0);
 
-                //DoughnutChart2
-                var cpualloc = response.statistics.cpualloc;
-                var cputot = response.statistics.cputot;
-                percent2 = Math.round(100*cpualloc/cputot);
-                myDoughnutChart2.data.labels[0] = 'CPUs asignadas ' + percent2 +'%';
-                myDoughnutChart2.data.labels[1] = 'CPUs libres ' +(100 - percent2) + '%';
-                myDoughnutChart2.data.datasets[0].data[0] = cpualloc;
-                myDoughnutChart2.data.datasets[0].data[1] = cputot - cpualloc;
-                myDoughnutChart2.update(0);
-            },
-            error: function(response){
-            }
-        });
+                    //DoughnutChart
+                    var freemem = response.statistics.freemem;
+                    var allocmem = response.statistics.allocmem;
+                    percent = Math.round(100 * allocmem / freemem);
+                    myDoughnutChart.data.labels[0] = 'Mem asignada ' + percent + '%';
+                    myDoughnutChart.data.labels[1] = 'Mem libre ' + (100 - percent) + '%';
+                    myDoughnutChart.data.datasets[0].data[0] = allocmem;
+                    myDoughnutChart.data.datasets[0].data[1] = freemem - allocmem;
+                    myDoughnutChart.update(0);
+
+                    //DoughnutChart2
+                    var cpualloc = response.statistics.cpualloc;
+                    var cputot = response.statistics.cputot;
+                    percent2 = Math.round(100 * cpualloc / cputot);
+                    myDoughnutChart2.data.labels[0] = 'CPUs asignadas ' + percent2 + '%';
+                    myDoughnutChart2.data.labels[1] = 'CPUs libres ' + (100 - percent2) + '%';
+                    myDoughnutChart2.data.datasets[0].data[0] = cpualloc;
+                    myDoughnutChart2.data.datasets[0].data[1] = cputot - cpualloc;
+                    myDoughnutChart2.update(0);
+                },
+                error: function (response) {
+                }
+            });
+        }
+        else {
+            clearInterval(myTimer);
+        }
     }, 5000);
-    //clearInterval(myTimer);
 };
+
+hpc_nodes_datatable();
+hpc_nodes_chart();
