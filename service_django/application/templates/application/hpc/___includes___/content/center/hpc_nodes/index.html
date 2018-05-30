@@ -90,14 +90,13 @@
 </div>
 <script>
     var request = '{{ request }}';
-    var cpuload = "{{ statistics.cpuload }}";
-    var cputot = "{{ statistics.cputot }}";
-    var cpualloc = "{{ statistics.cpualloc }}";
-    var freemem = "{{ statistics.freemem }}";
-    var allocmem = "{{ statistics.allocmem }}";
+    var cpuload = '{{ statistics.cpuload }}';
+    var cputot = '{{ statistics.cputot }}';
+    var cpualloc = '{{ statistics.cpualloc }}';
+    var freemem = '{{ statistics.freemem }}';
+    var allocmem = '{{ statistics.allocmem }}';
     var url_chartnodes = "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}";
-    hpc_nodes_datatable();
-    hpc_nodes_chart();
 </script>
+<script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
 
 
