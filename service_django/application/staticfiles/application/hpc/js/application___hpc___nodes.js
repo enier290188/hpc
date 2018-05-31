@@ -3,23 +3,7 @@ var hpc_nodes_datatable = function(){
         dom: "frti",
         responsive: true
     };
-    var handleDataTable = function() {
-        var datatable = $("#datatable-nodes");
-        if ($(datatable).length) {
-            $(datatable).DataTable(optionsDataTable);
-        }
-    };
-
-    var TableManage = function() {
-        "use strict";
-        return {
-            init: function() {
-                handleDataTable();
-            }
-        };
-    }();
-
-    TableManage.init();
+    $("#datatable-nodes").DataTable(optionsDataTable);
 };
 
 var hpc_nodes_chart = function(){

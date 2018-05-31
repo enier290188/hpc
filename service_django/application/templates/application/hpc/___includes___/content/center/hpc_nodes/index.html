@@ -2,10 +2,7 @@
 {% load staticfiles %}
 
 {% now "YmdHis" as ctx___now %}
-<!-- Application HPC Custom Theme Style -->
-<link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
+
 <link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___nodes.css' %}?{% now "YmdHis" %}">
 
 <h3 id="center___header">
@@ -89,7 +86,6 @@
     </div>
 </div>
 <script>
-    var request = '{{ request }}';
     var cpuload = '{{ statistics.cpuload }}';
     var cputot = '{{ statistics.cputot }}';
     var cpualloc = '{{ statistics.cpualloc }}';
@@ -98,5 +94,3 @@
     var url_chartnodes = "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}";
 </script>
 <script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
-
-

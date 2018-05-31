@@ -3,9 +3,6 @@
 
 {% now "YmdHis" as ctx___now %}
 <!-- Application HPC Custom Theme Style -->
-<link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static "application/hpc/css/application___hpc___content___center___jobs.css" %}?{{ ctx___now }}" rel="stylesheet">
 
 <h3 id="center___header">
@@ -24,7 +21,7 @@
 </h3>
 <div id="center___content">
     <div class="row container-fluid">
-        <table id="datatable-buttons" class="table dt-responsive nowrap" cellspacing="0" width="100%">
+        <table id="datatable-buttons" class="table nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
                 {% for key in DATA.keys %}
@@ -55,12 +52,5 @@
 </script>
 
 <!-- Application Website Help Custom Theme JavaScript -->
-<script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-<script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog' 'hpc' %}?{% now "YmdHis" %}"></script>
 <script src="{% static "application/hpc/js/application___hpc___jobs.js" %}?{{ ctx___now }}"></script>
