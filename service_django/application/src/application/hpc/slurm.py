@@ -126,7 +126,8 @@ def run_command(request, option, parameters=None):
     if option == 'keys':
         command = 'squeue -all'
     if option == 'jobs all':
-        command = 'squeue -all --states=all'  # PENDING,RUNNING,SUSPENDED,CANCELLED,COMPLETING,COMPLETED,CONFIGURING,FAILED,TIMEOUT,PREEMPTED,NODE_FAIL,REVOKED,SPECIAL_EXIT'
+        command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
+        # PENDING,RUNNING,SUSPENDED,CANCELLED,COMPLETING,COMPLETED,CONFIGURING,FAILED,TIMEOUT,PREEMPTED,NODE_FAIL,REVOKED,SPECIAL_EXIT'
     if option == 'jobs group':
         group = run_command(request, 'groups user') or None
         if group:
