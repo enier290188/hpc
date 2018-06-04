@@ -1,12 +1,15 @@
 table.dataTable>tbody>tr.child ul {
     min-width: 100%;
-    width: 100%;
+    width: 100%
 }
 @media (max-width: 991px) {
     table.dataTable>tbody>tr.child span.dtr-title, table.dataTable>tbody>tr.child span.dtr-data {
         display: block;
         min-width: 100%;
-        width: 100%;
+        width: 100%
+    }
+    #datatable-buttons_wrapper > .dt-buttons {
+        display: none
     }
 }
 @media (min-width: 992px) {
@@ -15,14 +18,15 @@ table.dataTable>tbody>tr.child ul {
         min-width: 70%;
         width: 70%;
     }
+    #datatable-buttons_wrapper > .dt-buttons {
+        display: block;
+        margin: auto;
+        width: 200px
+    }
 }
 @media (max-width: 767px) {
-    .dt-buttons {
-        display: none;
-    }
-
     #datatable-buttons_length > label {
-        display: none;
+        display: none
     }
 }
 table.dataTable>tbody>tr.child>td:first-child  {
@@ -34,3 +38,4 @@ table.dataTable>tbody>tr.child>td:first-child  {
 #center___content {
     display: none;
 }
+

@@ -15,7 +15,6 @@ def generate__private__and__public__key(instance, password):
     """
     hostname = settings.CLUSTER_SERVER_HOST
     port = int(settings.CLUSTER_SERVER_PORT)
-    print(instance.___string___folder_path___() + '/.ssh/id_rsa.pub', password, hostname, port)
     if isinstance(hostname, str) and \
             isinstance(port, int) and \
             isinstance(instance.identifier, str) and \
@@ -54,21 +53,6 @@ def generate__private__and__public__key(instance, password):
     instance.private_key = instance.___string___folder_path___() + '/.ssh/id_rsa'
     instance.public_key = instance.___string___folder_path___() + '/.ssh/id_rsa.pub'
     instance.save()
-    '''
-    ssh_client = paramiko.SSHClient()
-    ssh_client.load_system_host_keys()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(hostname=hostname, port=port, username=instance.__str__(), key_filename=instance.private_key.path)
-    try:
-        h_input, h_output, h_error = ssh_client.exec_command('ls')
-        error__private__and__public__key(h_error)
-    except Exception as e:
-        raise Exception(e.__str__())
-    else:
-        print(h_output.read().decode('utf-8'))
-    finally:
-        ssh_client.close()
-    '''
 
 
 def error__private__and__public__key(h_error):

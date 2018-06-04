@@ -14,15 +14,7 @@ $(document).ready(function() {
             {
                 extend: "copy",
                 text: "copy",
-                className: "btn-sm",
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] //':visible'
-                }
-            },
-            {
-                extend: "csv",
-                text: "csv",
-                className: "btn-sm",
+                className: "btn-primary btn-sm",
                 exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] //':visible'
                 }
@@ -30,7 +22,15 @@ $(document).ready(function() {
             {
                 extend: "print",
                 text: "print",
-                className: "btn-sm",
+                className: "btn-primary btn-sm",
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] //':visible'
+                }
+            },
+            {
+                extend: "csv",
+                text: "csv",
+                className: "btn-primary btn-sm",
                 exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] //':visible'
                 }
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 if ($('#yourjobs').parent().hasClass('active')) {
                     data = {
                         'option': 'jobs user',
-                        'parameters': ['42110027']
+                        'parameters': ['uclv_vmarreros']
                     };
                 }
                 if ($('#groupjobs').parent().hasClass('active')) {
@@ -156,9 +156,8 @@ $(document).ready(function() {
 
     TableManageButtons.init();
 
-    $('#datatable-buttons_length').addClass('col-xs-6').css('padding', '0');
-    $('#dataTables_filter').addClass('col-xs-6');
-    $('.dt-buttons').css('text-align', 'center');
+    $('#datatable-buttons_length').addClass('col-sm-6').css('padding', '0');
+    $('#datatable-buttons_filter').addClass('col-sm-6').css('padding', '0');
     $('#center___content').css('display', 'block');
     var $datatable = $('#datatable-buttons');
     $datatable.find('tbody').on('click', 'td:first-child', function () {
