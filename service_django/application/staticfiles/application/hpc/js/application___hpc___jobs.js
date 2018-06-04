@@ -12,8 +12,8 @@ $(document).ready(function() {
         dom: "Blfrtip",
         buttons: [
             {
-                extend: "copy",
-                text: "copy",
+                extend: "pdf",
+                text: "pdf",
                 className: "btn-primary btn-sm",
                 exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ] //':visible'
@@ -37,42 +37,26 @@ $(document).ready(function() {
             }
         ],
         ajax: {
-            "url": url_list,
-            "type": "GET",
-            "data": function() {
-                var data;
-                if ($('#yourjobs').parent().hasClass('active')) {
-                    data = {
-                        'option': 'jobs user',
-                        'parameters': ['uclv_vmarreros']
-                    };
+            url: url_list,
+            type: "GET",
+            data: function() {
+                return {
+                    'option': 'jobs all'
                 }
-                if ($('#groupjobs').parent().hasClass('active')) {
-                    data = {
-                        'option': 'jobs group'
-                    };
-                }
-                if ($('#alljobs').parent().hasClass('active')) {
-                    data = {
-                        'option': 'jobs all'
-                    };
-                }
-                return data;
             },
-            /*"beforeSend": function () {
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-            },*/
-            "dataSrc": function(response) {
+            dataSrc: function(response) {
                 if(response.___BOOLEAN___ERROR___){
                     ___HTML___application___hpc___modal___SHOW_LOAD___();
                     ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(response);
                     return [];
                 }
-                else{
-                    for (i=0; i<response.data.length; i++ ){
-                        tmp = response.data[i][1];
-                        response.data[i][1] = response.data[i][4];
-                        response.data[i][4] = tmp;
+                else {
+                    for (var i=0; i<response.data.length; i++ ) {
+                        if(response.data[i][2].length > 15)
+                            response.data[i][2] = response.data[i][2].slice(0,14)+'...';
+                        if(response.data[i][3].length > 15)
+                            response.data[i][3] = response.data[i][3].slice(0,14)+'...';
+                        response.data[i][6] = capitalize(response.data[i][6])
                     }
                     return response.data;
                 }
@@ -94,7 +78,7 @@ $(document).ready(function() {
                 "targets": 0
             }
         ],
-        "aoColumns": [
+        aoColumns: [
             null,
             null,
             null,
@@ -112,8 +96,8 @@ $(document).ready(function() {
             }
         ],
         responsive: true,
-        "lengthMenu": [[15, 50, -1], [15, 50, "All"]],
-        "language":{
+        lengthMenu: [[10, 50, -1], [10, 50, "All"]],
+        language:{
             "sProcessing":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Processing'),
             "sLengthMenu":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Length_Menu'),
             "sZeroRecords":    gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Zero_Records'),
@@ -136,7 +120,8 @@ $(document).ready(function() {
                 "sSortAscending":  gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Ascending'),
                 "sSortDescending": gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Descending')
             }
-        }
+        },
+        sPaginationType: 'numbers'
     };
     var handleDataTableButtons = function() {
         var  datatable = $("#datatable-buttons");
@@ -187,6 +172,12 @@ $(document).ready(function() {
     });
 });
 
+function capitalize(s){
+    return s.toLowerCase().replace(/\b./g, function(a){
+        return a.toUpperCase();
+    });
+}
+
 var ___HTML___application___hpc___job___detail___ = function(row, id){
     $.getJSON(url_detail, {'parameters': [id]}, function(data) {
         var datatable = $('#datatable-buttons').DataTable();
@@ -217,8 +208,6 @@ var ___HTML___application___hpc___job___stop___ = function(row, id){
             datatable.cell(row, 5).data($(data.detail).find('.panel-body').find('tr:nth-child(8)').find('td:nth-child(2)'));
             datatable.cell(row, 9).data(data.detail).page(datatable.page()).draw('page');
         }
-    }).always(function() {
-        console.log( "complete" );
     });
 };
 

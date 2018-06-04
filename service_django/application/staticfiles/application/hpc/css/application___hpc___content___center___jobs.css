@@ -38,4 +38,19 @@ table.dataTable>tbody>tr.child>td:first-child  {
 #center___content {
     display: none;
 }
-
+.dataTables_paginate > .pagination > li > a {
+    background-color: #ffffff;
+    border-color: #d9dee4;
+    color: #2a3f54;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5
+}
+.dataTables_paginate > .pagination > li > a:hover {
+    background-color: #ededed;
+}
+.dataTables_paginate > .pagination > li.active > a {
+    background-color: #2a3f54;
+    border-color: #2a3f54;
+    color: #ffffff
+}
