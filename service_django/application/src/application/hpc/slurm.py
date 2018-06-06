@@ -127,17 +127,26 @@ def run_command(request, option, parameters=None):
     if option == 'keys':
         command = 'squeue -all'
     if option == 'jobs all':
-        command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
+        # command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
+        command = 'squeue -o "%i %T %j %u %P %M %l %D %R"'
     if option == 'detail job':  # job id in parameters
         command = 'scontrol show job -o ' + parameters[0]
     if option == 'job kill':
-        command = 'scancel --signal=KILL ' + parameters[0]
-    if option == 'job pause':
-        command = 'scontrol hold ' + parameters[0]
+        command = 'scancel --signal=KILL ' + parameters[0]  # Cancela el trabajo de la cola de ejecución.
+    if option == 'job hold':
+        command = 'scontrol hold ' + parameters[0]  # Impide que se inicie una tarea pendiente (establece su prioridad en 0) si se esta ejecutando su prioridad se establece en 0 en caso de una nueva ejecución
+    if option == 'job release':
+        command = 'scontrol release ' + parameters[0]  # Libere un trabajo retenido anteriormente para comenzar la ejecución.
+    if option == 'job suspend':
+        command = 'scontrol suspend ' + parameters[0]  # Suspender un trabajo en ejecución. Si se pone en cola un trabajo suspendido, se colocará en estado retenido.
     if option == 'job resume':
-        command = 'scontrol resume ' + parameters[0]
+        command = 'scontrol resume ' + parameters[0]  # Reanudar un trabajo previamente suspendido. Un trabajo suspendido libera sus CPU para su asignación a otros trabajos.
     if option == 'job requeue':
-        command = 'scontrol requeue ' + parameters[0]
+        command = 'scontrol requeue ' + parameters[0]  # Re-encolar un trabajo por lotes Slurm en ejecución, suspendido o terminado en estado pendiente.
+    if option == 'job continue':
+        command = 'scancel --signal=CONT ' + parameters[0]  # Reanuda la ejecución de un trabajo suspendido con sus recursos retenidos.
+    if option == 'job stop':
+        command = 'scancel --signal=STOP ' + parameters[0]  # Suspender un trabajo en ejecución y retiene los recursos asignados.
     if option == 'jobs group':
         group = run_command(request, 'groups user') or None
         if group:

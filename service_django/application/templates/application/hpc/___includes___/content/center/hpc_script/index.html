@@ -8,8 +8,8 @@
 </h3>
 <div id="center___content">
     <div class="row container-fluid">
-        <div class="col-lg-7 base-content-padding-no -padding-lg-right-si">
-            <div id="div_form_qsub_create" class="border-radius-shadows">
+        <div class="col-lg-7" >
+            <div id="div_form_qsub_create">
                 <form method="POST" action="{% url "application___hpc:modules:hpc_script:index" %}" class="form___application___hpc___module___hpc_script___submit" name="hpc_script_create" >
                     {% csrf_token %}
                     <fieldset><!-- Fieldset General Options -->
@@ -89,7 +89,7 @@
             </div>
             <br/>
         </div>
-        <aside class="col-lg-5 base-content-padding-no -padding-lg-left-si">
+        <div class="col-lg-5">
             <fieldset class="">
                 <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_TITLE_2' %}</legend>
                 <p>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_P_2' %}</p>
@@ -108,16 +108,7 @@
                 </div>
                 <br/>
             </fieldset>
-            <fieldset class="">
-                <legend><a href="" target="_blank">{% trans 'MODULES_HEADER' %}</a></legend>
-                <p>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_P_3' %}</p>
-                <br/>
-            </fieldset>
-            <fieldset class="">
-                <legend><a href="" target="_blank">{% trans 'NODES_STATUS_HEADER' %}</a></legend>
-                <p>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_P_4' %}</p>
-            </fieldset>
-        </aside>
+        </div>
     </div>
 </div>
 

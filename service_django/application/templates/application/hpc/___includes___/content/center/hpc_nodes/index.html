@@ -9,44 +9,44 @@
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_NODES' %}
 </h3>
 <div id="center___content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-lg-4">
-                <div class="wrapper">
-                    <canvas id="myLineChart" height="1" width="1"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="wrapper">
-                    <canvas id="myDoughnutChart2" height="150%"></canvas>
-                </div>
-                <div class="wrapper">
-                    <canvas id="myDoughnutChart" height="150%"></canvas>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-4">
-                <p style="padding-top: 8px; font-size: 12px">{% trans 'Particiones disponibles: ' %} <span class="badge">2</span></p>
-                <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                        {% for key in partitions.keys %}
-                            <th>{{ key | title }}</th>
-                        {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for data in partitions.data %}
-                        <tr>
-                            {% for field in data %}
-                                <td>{{ field }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+    <div class="row container-fluid">
+        <div class="col-md-6 col-lg-4">
+            <div class="wrapper">
+                <canvas id="myLineChart" height="1" width="1"></canvas>
             </div>
         </div>
-        <hr>
+        <div class="col-md-6 col-lg-4">
+            <div class="wrapper">
+                <canvas id="myDoughnutChart2" height="150%"></canvas>
+            </div>
+            <div class="wrapper">
+                <canvas id="myDoughnutChart" height="150%"></canvas>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+            <p style="padding-top: 8px; font-size: 12px">{% trans 'Particiones disponibles: ' %} <span class="badge">2</span></p>
+            <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                    {% for key in partitions.keys %}
+                        <th>{{ key | title }}</th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in partitions.data %}
+                    <tr>
+                        {% for field in data %}
+                            <td>{{ field }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row container-fluid">
         <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
