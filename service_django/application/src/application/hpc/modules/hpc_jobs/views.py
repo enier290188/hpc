@@ -84,4 +84,3 @@ def ___view___action___(request):
             return utils___hpc.___httpresponse___error___(request)
     else:
         return utils___hpc.___httpresponse___error___(request)
-
