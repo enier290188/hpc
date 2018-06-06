@@ -6,16 +6,16 @@
         <b>{{ data.JobName }}({{ data.JobId }})</b>
         {% if True %}
         <div class="pull-right">
-            <button class="btn btn-xs btn-default" type="button" title="Continue" {% ifnotequal data.JobState 'STOPPED' %}disabled{% endifnotequal %}>
+            <button class="btn btn-xs btn-default" type="button" data-url="{% url 'application___hpc:modules:hpc_jobs:action' %}" data-option="job resume" title="Resume" {% ifnotequal data.JobState 'STOPPED' %}disabled{% endifnotequal %}>
                 <span class="fa fa-play"></span>
             </button>
-            <button class="btn btn-xs btn-default" type="button" title="Stop" {% ifnotequal data.JobState 'RUNNING' %}disabled{% endifnotequal %}>
-                <span class="fa fa-stop"></span>
+            <button class="btn btn-xs btn-default" type="button" data-url="{% url 'application___hpc:modules:hpc_jobs:action' %}" data-option="job pause" title="Pause" {% ifnotequal data.JobState 'RUNNING' %}disabled{% endifnotequal %}>
+                <span class="fa fa-pause"></span>
             </button>
-            <button class="btn btn-xs btn-default" type="button" title="Requeue" {{ data.JobState | ___disable_if_cant_requeue___ }}>
+            <button class="btn btn-xs btn-default" type="button" data-url="{% url 'application___hpc:modules:hpc_jobs:action' %}" data-option="job requeue" title="Requeue" {{ data.JobState | ___disable_if_cant_requeue___ }}>
                 <span class="fa fa-refresh"></span>
             </button>
-            <button class="btn btn-xs btn-default" type="button" title="Remove">
+            <button class="btn btn-xs btn-default" type="button" data-url="{% url 'application___hpc:modules:hpc_jobs:action' %}" data-option="job kill" title="Remove" {{ data.JobState | ___disable_if_cant_cancelled___ }}>
                 <span class="fa fa-remove"></span>
             </button>
         </div>

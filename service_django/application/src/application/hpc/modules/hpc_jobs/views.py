@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # django modules import
 from django import http
+from django.views.decorators.csrf import csrf_exempt
 
 # user modules import
 from ....security import (
@@ -60,33 +61,27 @@ def ___view___detail___(request):
         return utils___hpc.___httpresponse___error___(request)
 
 
+@csrf_exempt
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___stop___(request):
-    parameters = request.GET.getlist('parameters[]', None)
-    slurm.generate_data_dict(request, option='job stop', parameters=parameters)
-    return ___view___detail___(request)
+def ___view___action___(request):
+    if request.method == 'POST':
+        dict___data = dict()
+        option = request.POST.get('option', None)
+        parameters = [request.POST.get('jobID', None)]
+        try:
+            slurm.generate_data_dict(request, option=option, parameters=parameters)
+            data = slurm.generate_data_dict(request, option='detail job', parameters=parameters)
+            dict___data['detail'] = utils___hpc.___html___template___(
+                request=request,
+                context={
+                    'data': data
+                },
+                template_name='application/hpc/___includes___/content/center/hpc_jobs/___includes___/detail.html'
+            )
+            return http.JsonResponse(dict___data)
+        except:
+            return utils___hpc.___httpresponse___error___(request)
+    else:
+        return utils___hpc.___httpresponse___error___(request)
 
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___continue___(request):
-    parameters = request.GET.getlist('parameters[]', None)
-    slurm.generate_data_dict(request, option='job cont', parameters=parameters)
-    return ___view___detail___(request)
-
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___requeue___(request):
-    parameters = request.GET.getlist('parameters[]', None)
-    slurm.generate_data_dict(request, option='job requeue', parameters=parameters)
-    return ___view___list___(request)
-
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___kill___(request):
-    parameters = request.GET.getlist('parameters[]', None)
-    slurm.generate_data_dict(request, option='job kill', parameters=parameters)
-    return ___view___list___(request)

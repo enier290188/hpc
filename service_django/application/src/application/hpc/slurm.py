@@ -15,6 +15,7 @@ def to_float(s):
     except:
         return 0
 
+
 def generate_data_dict(request, option, parameters=None):
     __dict__ = dict()
     str_in_bytes = run_command(request, option, parameters=parameters)
@@ -75,8 +76,12 @@ def generate_data_dict(request, option, parameters=None):
                 if len(data.split()) > 9:
                     l.append(data.split()[0:8])
                     l[-1].append(" ".join(data.split()[8:]))
-                else:
+                elif len(data.split()) == 9:
                     l.append(data.split())
+                else:
+                    row = data.split()
+                    row.append('')
+                    l.append(row)
             __dict__['data'] = l
         if option == 'detail job':
             keys = [
@@ -117,17 +122,22 @@ def generate_data_json(request, option, parameters=None):
 def run_command(request, option, parameters=None):
     instance = request.___APPLICATION___SECURITY___USER___
     command = 'ls'
-    if option == 'nodes':
-        command = 'scontrol show nodes -o'
-    if option == 'nodes-partitions':
-        command = 'sinfo -N --Format=all'
-    if option == 'cpusload':
-        command = 'sinfo -N --Format=nodelist,cpusload'
+
+    # hpc jobs ########
     if option == 'keys':
         command = 'squeue -all'
     if option == 'jobs all':
         command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
-        # PENDING,RUNNING,SUSPENDED,CANCELLED,COMPLETING,COMPLETED,CONFIGURING,FAILED,TIMEOUT,PREEMPTED,NODE_FAIL,REVOKED,SPECIAL_EXIT'
+    if option == 'detail job':  # job id in parameters
+        command = 'scontrol show job -o ' + parameters[0]
+    if option == 'job kill':
+        command = 'scancel --signal=KILL ' + parameters[0]
+    if option == 'job pause':
+        command = 'scontrol hold ' + parameters[0]
+    if option == 'job resume':
+        command = 'scontrol resume ' + parameters[0]
+    if option == 'job requeue':
+        command = 'scontrol requeue ' + parameters[0]
     if option == 'jobs group':
         group = run_command(request, 'groups user') or None
         if group:
@@ -136,18 +146,23 @@ def run_command(request, option, parameters=None):
             return
     if option == 'groups user':
         command = 'groups ' + instance.__str__()
-    if option == 'detail job':  # job id in parameters
-        command = 'scontrol show job -o ' + parameters[0]
+
+    # hpc script ########
     if option == 'partitions':
         command = 'sinfo --format=%R'
-    if option == 'partitions-detail':
-        command = 'sinfo --format="%R %a %D %N"'
-    if option == 'job stop':
-        command = 'scancel --signal=STOP ' + parameters[0]
-    if option == 'job cont':
-        command = 'scancel --signal=CONT ' + parameters[0]
     if option == 'execute':
         command = 'sbatch "' + parameters[0] + '/' + parameters[1] + '"'
+
+    # hpc nodes ########
+    if option == 'nodes':
+        command = 'scontrol show nodes -o'
+    if option == 'nodes-partitions':
+        command = 'sinfo -N --Format=all'
+    if option == 'cpusload':
+        command = 'sinfo -N --Format=nodelist,cpusload'
+    if option == 'partitions-detail':
+        command = 'sinfo --format="%R %a %D %N"'
+
     result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
     if result['HAS_ERROR']:
         messages.add_message(request, messages.ERROR, result['MESSAGE'])

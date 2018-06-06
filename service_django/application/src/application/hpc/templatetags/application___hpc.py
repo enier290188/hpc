@@ -7,34 +7,34 @@ register = template.Library()
 @register.filter()
 def ___get_label___(state):
     if state == 'PENDING':
-        return "danger"
+        return 'danger'
     if state == 'RUNNING':
-        return "info"
+        return 'info'
     if state == 'SUSPENDED':
-        return "warning"
+        return 'warning'
     if state == 'CANCELLED':
-        return "warning"
+        return 'warning'
     if state == 'COMPLETING':
-        return "primary"
+        return 'primary'
     if state == 'COMPLETED':
-        return "success"
+        return 'success'
     if state == 'COMPLETE':
-        return "success"
+        return 'success'
     if state == 'CONFIGURING':
-        return "info"
+        return 'info'
     if state == 'FAILED':
-        return "danger"
+        return 'danger'
     if state == 'TIMEOUT':
-        return "danger"
+        return 'danger'
     if state == 'PREEMPTED':
-        return "warning"
+        return 'warning'
     if state == 'NODE_FAIL':
-        return "danger"
+        return 'danger'
     if state == 'REVOKED':
-        return "danger"
+        return 'danger'
     if state == 'SPECIAL_EXIT':
-        return "default"
-    return "default"
+        return 'default'
+    return 'default'
 
 
 @register.filter()
@@ -42,4 +42,12 @@ def ___disable_if_cant_requeue___(state):
     if state == 'RUNNING' or state == 'SUSPENDED' or state == 'COMPLETED' or state == 'FAILED':
         return
     else:
-        return "disabled"
+        return 'disabled'
+
+
+@register.filter()
+def ___disable_if_cant_cancelled___(state):
+    if state == 'CANCELLED':
+        return 'disabled'
+    else:
+        return
