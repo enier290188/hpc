@@ -76,7 +76,6 @@ def ___view___vars___(request):
     dict___data['___BOOLEAN___ERROR___'] = False
     data = linux.generate_data_dict(request, option='envVars')
     if data:
-        messages.add_message(request, messages.SUCCESS, 'Esto es la ostia')
         dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
             request=request,
             context={
@@ -84,7 +83,6 @@ def ___view___vars___(request):
             },
             template_name='application/hpc/___includes___/modal/hpc/variables.html'
         )
-        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
         return http.JsonResponse(dict___data)
     else:
         return utils___hpc.___jsonresponse___error___(request)

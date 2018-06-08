@@ -5,7 +5,7 @@ register = template.Library()
 
 
 @register.filter()
-def ___get_label___(state):
+def ___data_background___(state):
     """
     JOB STATE CODES
        Jobs typically pass through several states in the course of their exe-
@@ -37,24 +37,24 @@ def ___get_label___(state):
        TO  TIMEOUT         Job terminated upon reaching its time limit.
    """
     if state == 'PENDING':
-        return 'danger'
+        return 'red'
     if state == 'RUNNING':
-        return 'info'
+        return 'blue'
     if state == 'SUSPENDED':
-        return 'warning'
+        return 'darker'
     if state == 'CANCELLED':
-        return 'primary'
+        return 'orange'
     if state == 'COMPLETING':
-        return 'primary'
+        return 'purple'
     if state == 'COMPLETED':
-        return 'success'
+        return 'green'
     if state == 'FAILED':
-        return 'danger'
+        return 'red'
     if state == 'TIMEOUT':
-        return 'danger'
+        return 'red'
     if state == 'NODE_FAIL':
-        return 'danger'
-    return 'default'
+        return 'red'
+    return ''
 
 
 @register.filter()

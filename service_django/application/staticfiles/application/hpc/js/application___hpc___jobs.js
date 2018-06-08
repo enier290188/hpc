@@ -7,36 +7,26 @@ function capitalize(s){
     });
 }
 
-function ___get_label___(state){
+function ___data_background___(state){
     if(state==='PENDING')
-        return "danger";
+        return "red";
     if(state==='RUNNING')
-        return "info";
+        return "blue";
     if(state==='SUSPENDED')
-        return "warning";
+        return "darker";
     if(state==='CANCELLED')
-        return "warning";
+        return "orange";
     if(state==='COMPLETING')
-        return "primary";
+        return "purple";
     if(state==='COMPLETED')
-        return "success";
-    if(state==='COMPLETE')
-        return "success";
-    if(state==='CONFIGURING')
-        return "info";
+        return "green";
     if(state==='FAILED')
-        return "danger";
+        return "red";
     if(state==='TIMEOUT')
-        return "danger";
-    if(state==='PREEMPTED')
-        return "warning";
+        return "red";
     if(state==='NODE_FAIL')
-        return "danger";
-    if(state==='REVOKED')
-        return "danger";
-    if(state==='SPECIAL_EXIT')
-        return "default";
-    return "default";
+        return "red";
+    return "";
 }
 
 var hpc_jobs_datatable_init = function(){
@@ -99,7 +89,7 @@ var hpc_jobs_datatable_init = function(){
         columnDefs: [
             {
                 "render": function ( data/*, type, row*/ ) {
-                    return '<span class="label label-' + ___get_label___(data) + '">' + data + '</span>'
+                    return '<span class="label" data-background-color="'+___data_background___(data)+'">' + data + '</span>'
                 },
                 "targets": 1
             },

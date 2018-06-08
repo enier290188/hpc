@@ -8,12 +8,14 @@
 </h3>
 <div id="center___content">
     <div class="row container-fluid">
-        <div class="col-lg-7" >
-            <div id="div_form_qsub_create">
-                <form method="POST" action="{% url "application___hpc:modules:hpc_script:index" %}" class="form___application___hpc___module___hpc_script___submit" name="hpc_script_create" >
-                    {% csrf_token %}
-                    <fieldset><!-- Fieldset General Options -->
-                        <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___GENERAL_OPTION' %}</legend>
+        <div id="form_script" class="col-lg-7">
+            <form method="POST" action="{% url "application___hpc:modules:hpc_script:index" %}" class="form___application___hpc___module___hpc_script___submit" name="hpc_script_create" >
+                {% csrf_token %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___GENERAL_OPTION' %}
+                    </div>
+                    <div class="panel-body">
                         {% with field=form.script_name title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___SCRIPT_NAME___TITLE" addon=".sl"%}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
@@ -26,9 +28,13 @@
                         {% with field=form.partition title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___PARTITION___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
-                    </fieldset>
-                    <fieldset> <!-- Fieldset Resource Handling -->
-                        <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___RESOURCE_HANDLING' %}</legend>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___RESOURCE_HANDLING' %}
+                    </div>
+                    <div class="panel-body">
                         {% with field1=form.nodes field2=form.ntasks title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___RESOURCE_LIST_NODES___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/group2field.html' %}
                         {% endwith %}
@@ -53,60 +59,93 @@
                         {% with field=form.exclude title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___EXCLUDE___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
-                    </fieldset>
-                    <fieldset> <!-- Fieldset Output Stream Options -->
-                        <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___STREAM_OPTIONS' %}</legend>
-                        <!-- Stream requested -->
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___STREAM_OPTIONS' %}
+                    </div>
+                    <div class="panel-body">
                         {% with field=form.output title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___OUTPUT_STREAM___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field=form.error title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___ERROR_STREAM___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
-                    </fieldset>
-                    <fieldset ><!--Fieldset Mail Options-->
-                        <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___MAIL_OPTIONS' %}</legend>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___MAIL_OPTIONS' %}
+                    </div>
+                    <div class="panel-body">
                         {% with field=form.mail_user title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_ADDRESS___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textfield.html' %}
                         {% endwith %}
                         {% with field1=form.mail_begin field2=form.mail_end field3=form.mail_abort field4=form.mail_requeue title="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___POPOVER___TITLE" content="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___POPOVER___CONTENT" name="APPLICATION___HPC___CONTENT___HPC_SCRIPT___FIELD___MAIL_EVENT___TITLE" %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/checkgroupfield.html' %}
                         {% endwith %}
-                    </fieldset>
-                    <fieldset><!--Fieldset Script Body-->
-                        <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___SCRIPT_BODY' %}</legend>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___LEGEND___SCRIPT_BODY' %}
+                        <div class="form-inline input-group-sm pull-right">
+                            <label class="hidden-xs">Lang</label>
+                            <select class="form-control" onchange="selectLang(this)">
+                                <option value="default" selected>default</option>
+                                <option value="text/x-csrc">c</option>
+                                <option value="text/x-c++src">c++</option>
+                                <option value="text/x-csharp">c#</option>
+                                <option value="text/x-haskell">haskell</option>
+                                <option value="text/x-java">java</option>
+                                <option value="text/x-mathematica">mathematica</option>
+                                <option value="text/x-octave">matlab</option>
+                                <option value="text/x-perl">perl</option>
+                                <option value="text/x-python">python</option>
+                                <option value="text/x-cython">cython</option>
+                                <option value="text/x-rsrc">r</option>
+                                <option value="text/x-scala">scala</option>
+                                <option value="text/x-sh">shell</option>
+                            </select>
+                            <label class="hidden-xs">Theme</label>
+                            <select class="form-control" onchange="selectTheme(this)">
+                                <option value="default" selected>default</option>
+                                <option value="bespin">bespin</option>
+                                <option value="cobalt">cobalt</option>
+                                <option value="eclipse">eclipse</option>
+                                <option value="elegant">elegant</option>
+                                <option value="idea">idea</option>
+                                <option value="material">material</option>
+                                <option value="monokai">monokai</option>
+                                <option value="neo">neo</option>
+                                <option value="seti">seti</option>
+                                <option value="solarized">solarized</option>
+                                <option value="twilight">twilight</option>
+                                <option value="yeti">yeti</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
                         {% with field=form.script_body %}
                             {% include 'application/hpc/___includes___/content/center/hpc_script/___includes___/form/textarea.html' %}
                         {% endwith %}
-                    </fieldset>
-                    <hr>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-large" value="save" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-upload"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_SCRIPT' %}</button>
-                        <button type="submit" class="btn btn-primary btn-large" value="run" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-play"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_AND_RUN_SCRIPT' %}</button>
-                        <button type="button" class="btn btn-default pull-right btn___application___hpc___module___hpc_script___modal___help" data-url="{% url "application___hpc:modules:hpc_script:vars" %}"><i class="glyphicon glyphicon-info-sign"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___HELP' %}</button>
                     </div>
-                </form>
-            </div>
-            <br/>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-large" value="save" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-upload"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_SCRIPT' %}</button>
+                    <button type="submit" class="btn btn-primary btn-large" value="run" onclick="$(this).addClass('active');"><i class="glyphicon glyphicon-play"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___SAVE_AND_RUN_SCRIPT' %}</button>
+                    <button type="button" class="btn btn-default pull-right btn___application___hpc___module___hpc_script___modal___help" data-url="{% url "application___hpc:modules:hpc_script:vars" %}"><i class="glyphicon glyphicon-info-sign"></i>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___BUTTON___HELP' %}</button>
+                </div>
+            </form>
         </div>
-        <div class="col-lg-5">
+        <div id="preview_script" class="col-lg-5">
             <fieldset class="">
                 <legend>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_TITLE_2' %}</legend>
                 <p>{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT_P_2' %}</p>
-                <div class="form-inline input-group-sm">
-                    <label for="script-format">{% trans 'APPLICATION___HPC___CONTENT___HPC_SCRIPT___SCRIPT_FORMAT' %}</label>
-                    <select id="script-format" class="form-control">
-                        <option value="slurm">Slurm</option>
-                        <option value="pbs" >PBS</option>
-                    </select>
-                </div>
-                <div class="hidden">
-                    <pre id="script_pbs"></pre>
-                </div>
-                <div>
-                    <pre id="script_slurm"></pre>
-                </div>
-                <br/>
+                <textarea id="script_slurm"></textarea>
             </fieldset>
         </div>
     </div>
@@ -114,6 +153,20 @@
 
 <script>
     var method = '{{ method }}';
+
+    var cmEditor = CodeMirror.fromTextArea(document.getElementById('id_script_body'), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        lineSeparator: "\n",
+        smartIndent: false
+    });
+    var cmShow = CodeMirror.fromTextArea(document.getElementById('script_slurm'), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        lineSeparator: "\n",
+        smartIndent: false,
+        readOnly: true
+    });
 </script>
 <script src="{% static 'application/hpc/js/application___hpc___script.js' %}?{% now "YmdHis" %}"></script>
 <script src="{% static 'application/hpc/js/application___hpc___script_generator.js' %}?{% now "YmdHis" %}"></script>

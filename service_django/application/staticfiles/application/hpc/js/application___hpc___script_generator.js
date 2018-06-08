@@ -35,7 +35,6 @@ $(function () {
 
     /*resize*/
     $(window).resize(function () {
-        console.log("Ok");
     });
 });
 
@@ -50,12 +49,27 @@ var entityMap = {
     '=': '&#x3D;'
 };
 
+cmEditor.on('change', function (cm) {
+    document.getElementById('id_script_body').value = cm.getValue();
+});
+function selectLang(e) {
+    var mime = $(e).find('option:selected' ).val();
+    cmEditor.setOption("mode", mime);
+    cmShow.setOption("mode", mime);
+}
+function selectTheme(e) {
+    var theme = $(e).find('option:selected' ).text();
+    cmEditor.setOption("theme", theme);
+    cmShow.setOption("theme", theme);
+}
+
 function escapeHtml (string) {
     /*return String(string).replace(/[&<>"'`=\/]/g, function (s) {
         return entityMap[s];
     });*/
     return string;
 }
+
 function compose() {
     var scriptForm = $('form[name=hpc_script_create]'),
         job_name = scriptForm.find('input[name="job_name"]').val(),
@@ -82,7 +96,7 @@ function compose() {
         mail_abort = scriptForm.find('input[name="mail_abort"]').prop("checked"),
         mail_requeue = scriptForm.find('input[name="mail_requeue"]').prop("checked"),
         script_body = scriptForm.find('textarea[name=script_body]').val();
-    const rc='\n';
+    const rc = cmShow.doc.lineSeparator();
     var script_slurm = "#!/bin/sh " + rc;
     script_slurm += "#Submit this script with: sbatch thefilename" +rc;
 
@@ -125,14 +139,12 @@ function compose() {
         {
             if (mail_begin) script_slurm += '#SBATCH --mail-type=BEGIN' + rc;
             if (mail_end) script_slurm += '#SBATCH --mail-type=END' + rc;
-            if (mail_abort) script_slurm += '#SBATCH --mail-type=ABORT' + rc;
+            if (mail_abort) script_slurm += '#SBATCH --mail-type=FAIL' + rc;
             if (mail_requeue) script_slurm += '#SBATCH --mail-type=REQUEUE' + rc;
         }
         else
             script_slurm += '#SBATCH --mail-type=NONE' + rc;
     }
-    script_slurm += rc + "### Bash script ###" + rc + 'cd $SLURM_SUBMIT_DIR' + rc + script_body + rc + "exit 0" + rc;
-    /*$('#script_slurm').replaceWith(`<pre id="script_slurm" class="prettyprint linenums lang-bsh">${script_slurm}</pre>`);*/
-    $('#script_slurm').replaceWith('<pre id="script_slurm" class="prettyprint linenums lang-bsh">' + script_slurm + '</pre>');
-    prettyPrint();
+    script_slurm += rc + "### Bash script ###" + rc + 'cd $SLURM_SUBMIT_DIR' + rc + cmEditor.getValue() + rc + "exit 0" + rc;
+    cmShow.setValue(script_slurm)
 }

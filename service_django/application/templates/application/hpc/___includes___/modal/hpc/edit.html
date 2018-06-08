@@ -71,7 +71,10 @@
     var textarea = document.getElementById('id_file_content');
     var editor = CodeMirror.fromTextArea(textarea, {
         lineNumbers: true,
-        styleActiveLine: true
+        styleActiveLine: true,
+        lineSeparator: "\n",
+        smartIndent: false,
+        autofocus: true
     });
     function selectLang(e) {
         var mime = $(e).find('option:selected' ).val();

@@ -2,7 +2,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <span class="label label-{{ data.JobState| ___get_label___ }}">{{ data.JobState }}</span>
+        <span class="label" data-background-color="{{ data.JobState| ___data_background___ }}">{{ data.JobState }}</span>
         <b>{{ data.JobName }}({{ data.JobId }})</b>
         {% if True %}
         <div class="pull-right">

@@ -82,15 +82,13 @@ footer{
 #application___hpc___modal > #modal-edit > .modal-content {
     border-radius: 0;
 }
-#application___hpc___modal > #modal-edit > .modal-content > form > .modal-body {
-    height: calc(100vh - 118px);
-    overflow-y: auto
-}
 #application___hpc___modal > #modal-edit > .modal-content > form > .modal-body > .modal___form {
     padding: 0;
 }
 #application___hpc___modal > #modal-edit > .modal-content > form > .modal-body > .modal___form > div.form-group {
     margin: 0;
+    height: calc(100vh - 120px);
+    overflow-y: auto
 }
 #application___hpc___modal > #modal-edit > .modal-content > form > .modal-footer select {
     display: inline-block;

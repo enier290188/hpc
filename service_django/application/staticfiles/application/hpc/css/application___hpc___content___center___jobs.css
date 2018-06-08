@@ -54,3 +54,7 @@ table.dataTable>tbody>tr.child>td:first-child  {
     border-color: #2a3f54;
     color: #ffffff
 }
+table.dataTable span[data-background-color]{
+    border-radius: 3px;
+    padding: 5px;
+}

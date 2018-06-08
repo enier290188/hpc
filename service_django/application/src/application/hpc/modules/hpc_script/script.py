@@ -47,30 +47,6 @@ def build(form):
     mail_abort = form.cleaned_data.get('mail_abort')
     mail_requeue = form.cleaned_data.get('mail_requeue')
     script_body = form.cleaned_data.get('script_body')
-    print(job_name, type(job_name))
-    print(export_variables, type(export_variables))
-    print(partition, type(partition))
-    print(nodes, type(nodes))
-    print(ntasks, type(ntasks))
-    print(tasks_per_node, type(tasks_per_node))
-    print(cpus_per_task, type(cpus_per_task))
-    print(mem, type(mem))
-    print(size, type(size))
-    print(mem_per_cpu, type(mem_per_cpu))
-    print(size_per_cpu, type(size_per_cpu))
-    print(time, type(time))
-    print(test, type(test))
-    print(require_gpus, type(require_gpus))
-    print(nodelist, type(nodelist))
-    print(exclude, type(exclude))
-    print(output, type(output))
-    print(error, type(error))
-    print(mail_user, type(mail_user))
-    print(mail_begin, type(mail_begin))
-    print(mail_end, type(mail_end))
-    print(mail_abort, type(mail_abort))
-    print(mail_requeue, type(mail_requeue))
-    print(script_body, type(script_body))
 
     rc = '\n'
     content = "#!/bin/bash " + rc
@@ -130,12 +106,11 @@ def build(form):
             if mail_end:
                 content += '#SBATCH --mail-type=END' + rc
             if mail_abort:
-                content += '#SBATCH --mail-type=ABORT' + rc
+                content += '#SBATCH --mail-type=FAIL' + rc
             if mail_requeue:
                 content += '#SBATCH --mail-type=REQUEUE' + rc
         else:
             content += '#SBATCH --mail-type=NONE' + rc
 
-    content += (rc + "### Bash script ###" + rc + script_body.replace('\r\n', '\n') + rc + "exit 0")
-    # content += (rc + "### Bash script ###" + rc + re.sub('\r\n', rc, script_body) + rc + "exit 0")
+    content += (rc + "### Bash script ###" + rc + script_body + rc + "exit 0")
     return content
