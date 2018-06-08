@@ -63,7 +63,7 @@
         overflow-y: auto;
     }
     #application___hpc___content div#preview_script .CodeMirror{
-        height: calc(100vh - 265px);
+        height: calc(100vh - 250px);
         overflow-y: auto;
     }
 }
