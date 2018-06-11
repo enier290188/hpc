@@ -6,7 +6,7 @@ var hpc_nodes_datatable = function(){
     $("#datatable-nodes").DataTable(optionsDataTable);
 };
 
-var hpc_nodes_chart = function(){
+var hpc_nodes_chart = function(snapshot){
     var ctx = document.getElementById("myLineChart").getContext("2d");
     var myLineChart, data = [,,,,,,,,,,,,parseInt(cpuload)];
 
@@ -97,7 +97,7 @@ var hpc_nodes_chart = function(){
     });
 
     var myTimer = setInterval(function () {
-        if ($("#myLineChart").length) {
+        if (snapshot === $('#center___content').attr('data-snapshot')) {
             $.ajax({
                 url: url_chartnodes,
                 type: 'get',
@@ -145,5 +145,10 @@ var hpc_nodes_chart = function(){
     }, 5000);
 };
 
-hpc_nodes_datatable();
-hpc_nodes_chart();
+
+$('#application___hpc___content___center').on('change', '#center___content', function(){
+    var snapshot = $('#center___content').attr('data-snapshot');
+    console.log(snapshot);
+    hpc_nodes_datatable();
+    hpc_nodes_chart(snapshot);
+});

@@ -8,7 +8,7 @@
 <h3 id="center___header">
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'HPC___CONTENT___NODES' %}
 </h3>
-<div id="center___content">
+<div id="center___content" data-snapshot="{{ ctx___now }}">
     <div class="row container-fluid">
         <div class="col-md-6 col-lg-4">
             <div class="wrapper">
@@ -93,5 +93,5 @@
     var freemem = '{{ statistics.freemem }}';
     var allocmem = '{{ statistics.allocmem }}';
     var url_chartnodes = "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}";
+    $('#center___content').trigger('change')
 </script>
-<script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
