@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+# *****************************************************************************
+# HPC CONTENT NODES CHART
+# *****************************************************************************
+
+msgid "HPC___CONTENT___NODES___CHART_LINE"
+msgstr "Rendimiento promedio por segundo"
+msgid "HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Assigned_mem"
+msgstr "Mem asignada "
+msgid "HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Free_mem"
+msgstr "Mem libre "
+msgid "HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Assigned_CPUs"
+msgstr "CPUs asignadas "
+msgid "HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Free_CPUs"
+msgstr "CPUs libres "

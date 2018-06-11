@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___nodes.css' %}?{% now "YmdHis" %}">
 
 <h3 id="center___header">
-    <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_NODES' %}
+    <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'HPC___CONTENT___NODES' %}
 </h3>
 <div id="center___content">
     <div class="row container-fluid">
@@ -24,13 +24,14 @@
             </div>
         </div>
         <div class="col-md-12 col-lg-4">
-            <p style="padding-top: 8px; font-size: 12px">{% trans 'Particiones disponibles: ' %} <span class="badge">2</span></p>
+            <p style="padding-top: 8px; font-size: 12px">{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions' %} <span class="badge">{{ partitions.data | length }}</span></p>
             <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                    {% for key in partitions.keys %}
-                        <th>{{ key | title }}</th>
-                    {% endfor %}
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist' %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,17 +51,17 @@
         <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Particion</th>
-                    <th>Direccion IP</th>
-                    <th>Estado</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Name' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Partition' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_IP_address' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_State' %}</th>
                     <th>CPUs</th>
-                    <th>CPUs asignadas</th>
-                    <th>Carga de CPU</th>
-                    <th>Recursos</th>
-                    <th>Memoria</th>
-                    <th>Memoria libre</th>
-                    <th>Memoria asignada</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_CPUs' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_CPU_load' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Resources' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Memory' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Free_memory' %}</th>
+                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_memory' %}</th>
                     <th>S:C:T</th>
                 </tr>
             </thead>

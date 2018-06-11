@@ -7,9 +7,41 @@ msgstr ""
 
 
 
-msgid "APPLICATION___HPC___CONTENT___HPC_NODES"
+msgid "HPC___CONTENT___NODES"
 msgstr "Estado de los nodos"
 
 # *****************************************************************************
-# APPLICATION HPC CONTENT HPC_NODES
+# HPC CONTENT NODES
 # *****************************************************************************
+
+msgid "HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions"
+msgstr "Particiones: "
+msgid "HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition"
+msgstr "Partición"
+msgid "HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available"
+msgstr "Disponible"
+msgid "HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes"
+msgstr "Nodos"
+msgid "HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist"
+msgstr "Lista de nodos"
+
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Name"
+msgstr "Nombre"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Partition"
+msgstr "Partición"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_IP_address"
+msgstr "Dirección IP"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_State"
+msgstr "Estado"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_CPUs"
+msgstr "CPUs asignadas"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_CPU_load"
+msgstr "Carga de CPU"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Resources"
+msgstr "Recursos"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Memory"
+msgstr "Memoria"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Free_memory"
+msgstr "Memoria libre"
+msgid "HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_memory"
+msgstr "Memoria asignada"

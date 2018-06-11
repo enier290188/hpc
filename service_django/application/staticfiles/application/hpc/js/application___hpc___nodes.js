@@ -22,7 +22,7 @@ var hpc_nodes_chart = function(){
         data: {
             labels: ["60",,"50",,"40",,"30",,"20",,"10",,"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
             datasets: [{
-                label: 'Rendimiento promedio por segundo',
+                label: gettext('HPC___CONTENT___NODES___CHART_LINE'),
                 fill: true,
                 lineTension: 0,
                 pointRadius: 0,
@@ -51,8 +51,8 @@ var hpc_nodes_chart = function(){
         type: 'doughnut',
         data: {
             labels: [
-                'Mem asignada ' + percent + '%',
-                'Mem libre ' +(100 - percent) + '%'
+               gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Assigned_mem') + percent + '%',
+               gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Free_mem') +(100 - percent) + '%'
             ],
             datasets: [
                 {
@@ -76,8 +76,8 @@ var hpc_nodes_chart = function(){
         type: 'doughnut',
         data: {
             labels: [
-                'CPUs asignadas ' + percent2 + '%',
-                'CPUs libres ' +(100 - percent2) + '%'
+                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Assigned_CPUs') + percent2 + '%',
+                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Free_CPUs') +(100 - percent2) + '%'
             ],
             datasets: [
                 {
@@ -106,7 +106,7 @@ var hpc_nodes_chart = function(){
                 success: function (response) {
                     //LineChart
                     console.log(response);
-                    var number = response.statistics.cpuload + 10;
+                    var number = response.statistics.cpuload;
                     for (var i = 0; i < data.length; i++)
                         if (i === data.length - 1)
                             data[i] = number;
@@ -119,8 +119,8 @@ var hpc_nodes_chart = function(){
                     var freemem = response.statistics.freemem;
                     var allocmem = response.statistics.allocmem;
                     percent = Math.round(100 * allocmem / freemem);
-                    myDoughnutChart.data.labels[0] = 'Mem asignada ' + percent + '%';
-                    myDoughnutChart.data.labels[1] = 'Mem libre ' + (100 - percent) + '%';
+                    myDoughnutChart.data.labels[0] = gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Assigned_mem') + percent + '%';
+                    myDoughnutChart.data.labels[1] = gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Free_mem') + (100 - percent) + '%';
                     myDoughnutChart.data.datasets[0].data[0] = allocmem;
                     myDoughnutChart.data.datasets[0].data[1] = freemem - allocmem;
                     myDoughnutChart.update(0);
@@ -129,8 +129,8 @@ var hpc_nodes_chart = function(){
                     var cpualloc = response.statistics.cpualloc;
                     var cputot = response.statistics.cputot;
                     percent2 = Math.round(100 * cpualloc / cputot);
-                    myDoughnutChart2.data.labels[0] = 'CPUs asignadas ' + percent2 + '%';
-                    myDoughnutChart2.data.labels[1] = 'CPUs libres ' + (100 - percent2) + '%';
+                    myDoughnutChart2.data.labels[0] = gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Assigned_CPUs') + percent2 + '%';
+                    myDoughnutChart2.data.labels[1] = gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Free_CPUs') + (100 - percent2) + '%';
                     myDoughnutChart2.data.datasets[0].data[0] = cpualloc;
                     myDoughnutChart2.data.datasets[0].data[1] = cputot - cpualloc;
                     myDoughnutChart2.update(0);
