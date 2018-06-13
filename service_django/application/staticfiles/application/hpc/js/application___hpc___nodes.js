@@ -148,7 +148,6 @@ var hpc_nodes_chart = function(snapshot){
 
 $('#application___hpc___content___center').on('change', '#center___content', function(){
     var snapshot = $('#center___content').attr('data-snapshot');
-    console.log(snapshot);
     hpc_nodes_datatable();
     hpc_nodes_chart(snapshot);
 });
