@@ -1,32 +1,31 @@
-.button-width{
-    width: 125px;
-    text-align: center;
-}
-.modal___tab{
-    margin: 0;
-    padding: 5px 15px 15px 15px;
-    border: none
-}
-#application___hpc___modal .modal___tab table td {
-    color: #73879c;
-}
-.application___hpc___script___error {
-    color: red;
-}
 @media (max-width: 1199px) {
     #center___content > .container-fluid > div:nth-child(n) {
         padding: 0;
     }
 }
 @media (min-width: 1200px) {
-    #center___content > .container-fluid > div:nth-child(1) {
+    #application___hpc___content #center___content > .container-fluid > div:nth-child(1) {
         padding-left: 0;
     }
-    #center___content > .container-fluid > div:nth-child(2) {
+    #application___hpc___content #center___content > .container-fluid > div:nth-child(2) {
         padding-right: 0;
     }
+    #application___hpc___content #form_script {
+        height: calc(100vh - 152px);
+        overflow-y: auto;
+    }
+    #application___hpc___content #preview_script .CodeMirror{
+        height: calc(100vh - 250px);
+        overflow-y: auto;
+    }
 }
-#application___hpc___content div#form_script .CodeMirror, #application___hpc___content div#preview_script .CodeMirror {
+
+/*** #application___hpc___content ***/
+#application___hpc___content #form_script .button-width{
+    width: 130px;
+    text-align: center;
+}
+#application___hpc___content #form_script .CodeMirror, #application___hpc___content div#preview_script .CodeMirror {
     font-size: 12px;
     line-height: 1.5;
     border-radius: 3px;
@@ -37,36 +36,46 @@
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-#application___hpc___content div#form_script .CodeMirror-focused {
+#application___hpc___content #form_script .CodeMirror-focused {
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6)
 }
-#application___hpc___content div#form_script > form > .panel {
+#application___hpc___content #form_script > form > .panel {
     border-radius: 3px
 }
-#application___hpc___content div#form_script > form > .panel > .panel-heading {
+#application___hpc___content #form_script > form > .panel > .panel-heading {
     font-size: 16px;
     color: #fff;
     background: linear-gradient(60deg, #2a3f54, #2a0f34);
 }
-#application___hpc___content div#form_script > form > .panel > .panel-heading:nth-child(5) select {
+#application___hpc___content #form_script > form > .panel > .panel-heading:nth-child(5) select {
     padding: 2px 8px
 }
-#application___hpc___content div#form_script > form > .panel > .panel-body {
+#application___hpc___content #form_script > form > .panel > .panel-body {
     padding: 15px 15px 0 15px;
 }
-@media (min-width: 1200px) {
-    #application___hpc___content div#form_script {
-        height: calc(100vh - 152px);
-        overflow-y: auto;
-    }
-    #application___hpc___content div#preview_script .CodeMirror{
-        height: calc(100vh - 250px);
-        overflow-y: auto;
-    }
+#application___hpc___content #form_script .application___hpc___script___error {
+    color: red;
 }
-#application___hpc___content___footer {
-    display: none;
+
+/*** #application___hpc___modal ***/
+#application___hpc___modal > #modal-variables .modal-body {
+    max-height: 600px;
+    overflow-y: auto;
+}
+#application___hpc___modal > #modal-variables .modal-body > .modal___tab .tab-content{
+    margin-top: 10px;
+}
+#application___hpc___modal > #modal-variables .modal-body > .modal___tab {
+    margin: 0;
+    padding: 5px 15px 15px 15px;
+    border: none
+}
+#application___hpc___modal > #modal-variables .modal-body > .modal___tab table > thead > tr > th:nth-child(2){
+    min-width: 300px
+}
+#application___hpc___modal > #modal-variables .modal-body > .modal___tab table > tbody > tr > td {
+    color: #73879c
 }

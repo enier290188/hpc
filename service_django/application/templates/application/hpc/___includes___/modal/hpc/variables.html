@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="modal-dialog" role="document">
+<div id="modal-variables" class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
@@ -8,20 +8,19 @@
             </button>
             <h4 class="modal-title"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> {% trans "APPLICATION___HPC___CONTENT___HPC_SCRIPT___MODAL___VARIABLES___TITLE" %}</h4>
         </div>
-        <div class="modal-body" style="height:450px; overflow-y: scroll;">
+        <div class="modal-body">
             <!-- Modal Menssage -->
             <div class="modal___message">
             </div>
             <!-- Nav tabs -->
             <div class="modal___tab">
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-pills" role="tablist">
                     <li role="presentation" class="active"><a href="#env" aria-controls="env" role="tab" data-toggle="tab">BASH</a></li>
                     <li role="presentation"><a href="#slurm" aria-controls="slurm" role="tab" data-toggle="tab">SLURM</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="env">
-                        <br>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -54,7 +53,6 @@
                         </table>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="slurm">
-                        <br>
                         <table class="table">
                             <thead>
                                 <tr>

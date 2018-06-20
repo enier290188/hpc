@@ -24,33 +24,123 @@
         <table id="datatable-buttons" class="table nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                {% for key in DATA.keys %}
-                    <th>
-                        {% if key == 'PARTITION' %}State
-                        {% elif key == 'NODELIST(REASON)' %}Nodelist
-                        {% elif key == 'TIME_LIMI' %}Time limit
-                        {% elif key == 'STATE' %}Partition
-                        {% else %}{{ key | title }}{% endif %}
-                    </th>
-                {% endfor %}
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Job_ID' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_State' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Name' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_User' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Partition' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Time' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Time_limit' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Nodes' %}</th>
+                    <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Nodelist' %}</th>
                     <th class="none"></th>{# esta columna solo se muestra en la vista detallada #}
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
+        <hr>
+        <div id="job-codes-info" class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TITLE' %}
+                </div>
+                <div class="panel-body">
+                    <p>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___PARAGRAPH' %}</p>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>CA</th>
+                                <td>CANCELLED</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_CANCELLED' %}</td>
+                            </tr>
+                            <tr>
+                                <th>CD</th>
+                                <td>COMPLETED</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_COMPLETED' %}</td>
+                            </tr>
+                            <tr>
+                                <th>CG</th>
+                                <td>COMPLETING</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_COMPLETING' %}</td>
+                            </tr>
+                            <tr>
+                                <th>F</th>
+                                <td>FAILED</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_FAILED' %}</td>
+                            </tr>
+                            <tr>
+                                <th>NF</th>
+                                <td>NODE_FAIL</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_NODE_FAIL' %}</td>
+                            </tr>
+                            <tr>
+                                <th>PD</th>
+                                <td>PENDING</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_PENDING' %}</td>
+                            </tr>
+                            <tr>
+                                <th>R</th>
+                                <td>RUNNING</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_RUNNING' %}</td>
+                            </tr>
+                            <tr>
+                                <th>S</th>
+                                <td>SUSPENDED</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_SUSPENDED' %}</td>
+                            </tr>
+                            <tr>
+                                <th>TO</th>
+                                <td>TIMEOUT</td>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_STATE___TABLE___ROW_TIMEOUT' %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <div data-background-color="darker" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
-        <br>
-        <div data-background-color="green" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
-        <br>
-        <div data-background-color="blue" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
-        <br>
-        <div data-background-color="orange" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
-        <br>
-        <div data-background-color="red" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
-        <br>
-        <div data-background-color="purple" style="border-radius: 3px; padding: 20px;width: 100%"><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TITLE' %}
+                </div>
+                <div class="panel-body">
+                    <p>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___PARAGRAPH' %}</p>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Dependency</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_DEPENDENCY' %}</td>
+                            </tr>
+                            <tr>
+                                <th>None</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_NONE' %}</td>
+                            </tr>
+                            <tr>
+                                <th>PartitionDown</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_DOWN' %}</td>
+                            </tr>
+                            <tr>
+                                <th>PartitionNodeLimit</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_NODE_LIMIT' %}</td>
+                            </tr>
+                            <tr>
+                                <th>PartitionTimeLimit</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_TIME_LIMIT' %}</td>
+                            </tr>
+                            <tr>
+                                <th>Priority</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PRIORITY' %}</td>
+                            </tr>
+                            <tr>
+                                <th>Resources</th>
+                                <td>{% trans 'HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_RESOURCES' %}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+        </div>
+        </div>
     </div>
 </div>
 

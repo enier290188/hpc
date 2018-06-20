@@ -1,44 +1,48 @@
-table.dataTable>tbody>tr.child ul {
-    min-width: 100%;
-    width: 100%
-}
-@media (max-width: 991px) {
-    table.dataTable>tbody>tr.child span.dtr-title, table.dataTable>tbody>tr.child span.dtr-data {
-        display: block;
-        min-width: 100%;
-        width: 100%
-    }
-    #datatable-buttons_wrapper > .dt-buttons {
-        display: none
-    }
-}
 @media (min-width: 992px) {
-    table.dataTable>tbody>tr.child span.dtr-title, table.dataTable>tbody>tr.child span.dtr-data {
+    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
+    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
         display: block;
         min-width: 70%;
         width: 70%;
     }
-    #datatable-buttons_wrapper > .dt-buttons {
+    #application___hpc___content #datatable-buttons_wrapper > .dt-buttons {
         display: block;
         margin: auto;
         width: 200px
     }
+    #application___hpc___content #job-codes-info {
+        padding-left: 0;
+    }
 }
+@media (max-width: 991px) {
+    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
+    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
+        display: block;
+        min-width: 100%;
+        width: 100%
+    }
+    #application___hpc___content #datatable-buttons_wrapper > .dt-buttons {
+        display: none
+    }
+    #application___hpc___content #job-codes-info {
+        padding: 0;
+    }
+}
+
 @media (max-width: 767px) {
-    #datatable-buttons_length > label {
+    #application___hpc___content #datatable-buttons_wrapper > .dataTables_length > label {
         display: none
     }
 }
-table.dataTable>tbody>tr.child>td:first-child  {
+
+#application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child ul {
+    min-width: 100%;
+    width: 100%
+}
+#application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child>td:first-child  {
     padding-left: 5px;
 }
-.dropdown>ul>li {
-    cursor: pointer;
-}
-#center___content {
-    display: none;
-}
-.dataTables_paginate > .pagination > li > a {
+#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate>.pagination>li>a {
     background-color: #ffffff;
     border-color: #d9dee4;
     color: #2a3f54;
@@ -46,15 +50,43 @@ table.dataTable>tbody>tr.child>td:first-child  {
     font-size: 12px;
     line-height: 1.5
 }
-.dataTables_paginate > .pagination > li > a:hover {
+#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate >.pagination>li>a:hover {
     background-color: #ededed;
 }
-.dataTables_paginate > .pagination > li.active > a {
+#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate>.pagination>li.active>a {
     background-color: #2a3f54;
     border-color: #2a3f54;
     color: #ffffff
 }
-table.dataTable span[data-background-color]{
+#application___hpc___content #datatable-buttons_wrapper > table.dataTable span[data-background-color]{
     border-radius: 3px;
     padding: 5px;
+}
+
+#application___hpc___content #job-codes-info .panel {
+    border-radius: 3px
+}
+#application___hpc___content #job-codes-info .panel > .panel-heading {
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(60deg, #2a3f54, #2a0f34);
+}
+#application___hpc___content #job-codes-info .panel > .panel-heading:nth-child(5) select {
+    padding: 2px 8px
+}
+#application___hpc___content #job-codes-info .panel > .panel-body {
+    padding: 15px 15px 0 15px;
+}
+#application___hpc___content #job-codes-info .panel > .panel-body {
+    overflow-x: auto
+}
+#application___hpc___content #job-codes-info .panel:nth-child(1) > .panel-body > table > tbody > tr > td:nth-child(3) {
+    min-width: 280px
+}
+#application___hpc___content #job-codes-info .panel:nth-child(2) > .panel-body > table > tbody > tr > td:nth-child(2) {
+    min-width: 280px
+}
+
+#center___content {
+    display: none;
 }

@@ -75,6 +75,10 @@
     color            :#2a3f54;
 }
 
+#application___hpc___content___footer {
+    display: none;
+}
+
 [data-background-color] {
     color: #FFFFFF;
 }
@@ -113,4 +117,14 @@
 }
 [data-box-shadow="blue"] {
     box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0 rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    background: linear-gradient(60deg, #2a3f54, #2a0f34);
+}
+
+.nav-pills>li>a {
+    color: #2a3f54;
 }
