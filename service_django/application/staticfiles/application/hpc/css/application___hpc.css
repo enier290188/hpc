@@ -128,3 +128,7 @@
 .nav-pills>li>a {
     color: #2a3f54;
 }
+
+footer{
+    display: none;
+}

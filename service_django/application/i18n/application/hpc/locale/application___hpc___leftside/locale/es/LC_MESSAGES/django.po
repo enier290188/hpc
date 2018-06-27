@@ -11,7 +11,7 @@ msgid "APPLICATION___HPC___LEFTSIDE___USER___TEXT___WELCOME"
 msgstr "Bienvenido"
 
 msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___JOBS"
-msgstr "Jobs Activos"
+msgstr "Trabajos Activos"
 
 msgid "APPLICATION___HPC___LEFTSIDE___NAV___MODULE___SCRIPT"
 msgstr "Generador de Scripts"

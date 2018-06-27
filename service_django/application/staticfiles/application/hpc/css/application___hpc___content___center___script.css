@@ -11,11 +11,11 @@
         padding-right: 0;
     }
     #application___hpc___content #form_script {
-        height: calc(100vh - 152px);
+        height: calc(100vh - 155px);
         overflow-y: auto;
     }
     #application___hpc___content #preview_script .CodeMirror{
-        height: calc(100vh - 250px);
+        height: calc(100vh - 260px);
         overflow-y: auto;
     }
 }

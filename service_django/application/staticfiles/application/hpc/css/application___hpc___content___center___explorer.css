@@ -13,7 +13,7 @@
 
 /*content center table*/
 #tableFileSystem {
-    padding: 0 10px; margin: 0; font-size: 15px; color: gray;
+    margin: 0; font-size: 15px; color: gray;
 }
 #tableFileSystem > .table {
     margin: 0;
@@ -59,9 +59,6 @@
         max-height: 100% !important;
         overflow-y: hidden !important;
     }
-}
-footer{
-    display: none;
 }
 
 /*content modal*/

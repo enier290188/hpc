@@ -62,20 +62,26 @@
     border-radius: 3px;
     padding: 5px;
 }
+#application___hpc___content #datatable-buttons tr.child .panel > .panel-body .panel:last-child {
+    margin-bottom: 0;
+}
 
 #application___hpc___content #job-codes-info .panel {
     border-radius: 3px
+}
+#application___hpc___content #job-codes-info .panel table {
+    margin-bottom: 0
+}
+#application___hpc___content #job-codes-info .panel:nth-child(2){
+    margin-bottom: 0;
 }
 #application___hpc___content #job-codes-info .panel > .panel-heading {
     font-size: 16px;
     color: #fff;
     background: linear-gradient(60deg, #2a3f54, #2a0f34);
 }
-#application___hpc___content #job-codes-info .panel > .panel-heading:nth-child(5) select {
-    padding: 2px 8px
-}
 #application___hpc___content #job-codes-info .panel > .panel-body {
-    padding: 15px 15px 0 15px;
+    padding: 15px 15px 15px 15px;
 }
 #application___hpc___content #job-codes-info .panel > .panel-body {
     overflow-x: auto
@@ -84,9 +90,5 @@
     min-width: 280px
 }
 #application___hpc___content #job-codes-info .panel:nth-child(2) > .panel-body > table > tbody > tr > td:nth-child(2) {
-    min-width: 280px
-}
-
-#center___content {
-    display: none;
+    min-width: 280px;
 }

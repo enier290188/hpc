@@ -45,39 +45,53 @@ import logging
 
 
 def ssh_exec(username, private_key_path, command):
+    logger = paramiko.util.logging.getLogger()
+    hdlr = logging.FileHandler('/app.log')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
+    logger.setLevel(logging.INFO)
+
     result = dict()
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    try:
-        ssh_client.connect(
-            hostname=settings.CLUSTER_SERVER_HOST,
-            port=int(settings.CLUSTER_SERVER_PORT),
-            username=username,
-            key_filename=private_key_path,
-        )
-        h_input, h_output, h_error = ssh_client.exec_command(command)
-    except Exception as e:
-        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
-        result.update({
-            'HAS_ERROR': True,
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
-        })
-    else:
-        error = h_error.read().decode('utf-8')
-        output = h_output.read()
-        if error == '':
-            result.update({
-                'HAS_ERROR': False,
-                'OUTPUT': output
-            })
-        else:
+    boolean = True
+    while boolean:
+        try:
+            k = paramiko.RSAKey.from_private_key_file(private_key_path)
+            ssh_client.connect(
+                hostname=settings.CLUSTER_SERVER_HOST,
+                port=int(settings.CLUSTER_SERVER_PORT),
+                username=username,
+                # key_filename=private_key_path,
+                pkey=k
+            )
+            h_input, h_output, h_error = ssh_client.exec_command(command)
+        except Exception as e:
+            logging.debug(e)
+            logging.info('Error connecting to Server')
+            logging.exception('Error connecting to Server', e)
             result.update({
                 'HAS_ERROR': True,
-                'MESSAGE': error
+                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
             })
-    finally:
-        ssh_client.close()
+        else:
+            error = h_error.read().decode('utf-8')
+            output = h_output.read()
+            if error == '':
+                result.update({
+                    'HAS_ERROR': False,
+                    'OUTPUT': output
+                })
+            else:
+                result.update({
+                    'HAS_ERROR': True,
+                    'MESSAGE': error
+                })
+            boolean = False
+        finally:
+            ssh_client.close()
     return result
 
 
@@ -115,35 +129,38 @@ def ssh_sftp_put(username, private_key_path, local, remoto):
     result = dict()
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    try:
-        ssh_client.connect(
-            hostname=settings.CLUSTER_SERVER_HOST,
-            port=settings.CLUSTER_SERVER_PORT,
-            username=username,
-            key_filename=private_key_path
-        )
-    except Exception as e:
-        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
-        result.update({
-            'HAS_ERROR': True,
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
-        })
-    else:
-        sftp = ssh_client.open_sftp()
+    boolean = True
+    while boolean:
         try:
-            output = sftp.put(local, remoto)
-            result.update({
-                'HAS_ERROR': False
-            })
+            ssh_client.connect(
+                hostname=settings.CLUSTER_SERVER_HOST,
+                port=settings.CLUSTER_SERVER_PORT,
+                username=username,
+                key_filename=private_key_path
+            )
         except Exception as e:
-            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
+            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
             result.update({
                 'HAS_ERROR': True,
-                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException')
+                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
             })
-        sftp.close()
-    finally:
-        ssh_client.close()
+        else:
+            sftp = ssh_client.open_sftp()
+            try:
+                output = sftp.put(local, remoto)
+                result.update({
+                    'HAS_ERROR': False
+                })
+            except Exception as e:
+                logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
+                result.update({
+                    'HAS_ERROR': True,
+                    'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException')
+                })
+            sftp.close()
+            boolean = False
+        finally:
+            ssh_client.close()
     return result
 
 
@@ -172,7 +189,7 @@ def ssh_sftp_get(username, private_key_path, remoto, local):
                 'HAS_ERROR': False
             })
         except Exception as e:
-            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
+            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException'), e)
             result.update({
                 'HAS_ERROR': True,
                 'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException'),
@@ -187,45 +204,49 @@ def ssh_sftp_edit_file(username, private_key_path, remoto, content):
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    try:
-        ssh_client.connect(
-            hostname=settings.CLUSTER_SERVER_HOST,
-            port=int(settings.CLUSTER_SERVER_PORT),
-            username=username,
-            key_filename=private_key_path
-        )
+    boolean = True
+    while boolean:
+        try:
+            ssh_client.connect(
+                hostname=settings.CLUSTER_SERVER_HOST,
+                port=int(settings.CLUSTER_SERVER_PORT),
+                username=username,
+                key_filename=private_key_path
+            )
 
-        sftp = ssh_client.open_sftp()
-        file = sftp.file(remoto, "w", -1)
-        file.write(content)
-        file.flush()
-        sftp.close()
-    except Exception as e:
-        logging.exception('Write file is not posible.', e)
-        return True
-    finally:
-        ssh_client.close()
-    return False
+            sftp = ssh_client.open_sftp()
+            file = sftp.file(remoto, "w", -1)
+            file.write(content)
+            file.flush()
+            sftp.close()
+        except Exception as e:
+            logging.exception('Write file is not posible.', e)
+        else:
+            return False
+        finally:
+            ssh_client.close()
 
 
 def ssh_sftp_open_file(username, private_key_path, remoto):
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    try:
-        ssh_client.connect(
-            hostname=settings.CLUSTER_SERVER_HOST,
-            port=int(settings.CLUSTER_SERVER_PORT),
-            username=username,
-            key_filename=private_key_path
-        )
-        sftp = ssh_client.open_sftp()
-        file = sftp.file(remoto, "r", -1)
-        file_content = file.read()
-        sftp.close()
-    except Exception as e:
-        logging.exception('Open file is not posible.', e)
-        return True
-    finally:
-        ssh_client.close()
-    return file_content
+    boolean = True
+    while boolean:
+        try:
+            ssh_client.connect(
+                hostname=settings.CLUSTER_SERVER_HOST,
+                port=int(settings.CLUSTER_SERVER_PORT),
+                username=username,
+                key_filename=private_key_path
+            )
+            sftp = ssh_client.open_sftp()
+            file = sftp.file(remoto, "r", -1)
+            file_content = file.read()
+            sftp.close()
+        except Exception as e:
+            logging.exception('Open file is not posible.', e)
+        else:
+            return file_content
+        finally:
+            ssh_client.close()

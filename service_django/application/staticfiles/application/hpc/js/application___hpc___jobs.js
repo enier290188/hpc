@@ -169,7 +169,6 @@ var hpc_jobs_datatable_detail = function() {
                 datatable.cell(row, 9).data(data.detail).page(datatable.page()).draw('page');
             }
         }).always(function () {
-            console.log("complete");
         });
     }
 };

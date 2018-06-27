@@ -8,7 +8,7 @@ msgstr ""
 
 
 msgid "APPLICATION___HPC___CONTENT___HPC_JOBS"
-msgstr "Jobs Activos"
+msgstr "Trabajos Activos"
 
 # *****************************************************************************
 # APPLICATION HPC CONTENT HPC_JOBS
@@ -22,7 +22,7 @@ msgid "HPC___CONTENT___JOBS___BTN_USER_JOBS"
 msgstr "Jobs (Usuario)"
 
 msgid "HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Job_ID"
-msgstr "Id Job"
+msgstr "Id de trabajo"
 msgid "HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_State"
 msgstr "Estado"
 msgid "HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Name"
@@ -72,7 +72,7 @@ msgstr "Este trabajo está esperando a que se complete un trabajo dependiente."
 msgid "HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_NONE"
 msgstr "No hay una razón establecida para este trabajo."
 msgid "HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_DOWN"
-msgstr "TLa partición requerida por este trabajo está en un estado DOWN."
+msgstr "La partición requerida por este trabajo está en un estado DOWN."
 msgid "HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_NODE_LIMIT"
 msgstr "La cantidad de nodos requeridos por este trabajo está fuera de los límites actuales de sus particiones."
 msgid "HPC___CONTENT___JOBS___PANEL_REASON___TABLE___ROW_PARTITION_TIME_LIMIT"

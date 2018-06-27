@@ -1,6 +1,6 @@
 #application___hpc___content___center
 {
-    margin           :10px 10px 0 10px;
+    margin           :10px 10px 10px 10px;
     padding          :0;
     background-color :#ffffff;
     border           :1px solid #d9dee4;
@@ -85,4 +85,9 @@
 #center___header > .dropdown > ul.dropdown-menu > li.active > a{
     background-color: #2a3f54 !important;
     color: white !important;
+}
+@media (min-width :992px) {
+    #application___hpc___content___center {
+        min-height: calc(100vh - 70px) !important;
+    }
 }
