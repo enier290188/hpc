@@ -55,9 +55,6 @@ var ___HTML___application___hpc___module___hpc_script___SUBMIT___ = function(evt
     });
 };
 
-$(function () {
-    const $application___hpc___content___center = $("#application___hpc___content___center");
-    $application___hpc___content___center
-        .on("submit", ".form___application___hpc___module___hpc_script___submit", ___HTML___application___hpc___module___hpc_script___SUBMIT___)
-        .on("click", ".btn___application___hpc___module___hpc_script___modal___help", ___HTML___application___hpc___module___hpc_script___modal___HELP___);
-});
+$("#application___hpc___content")
+    .on("submit", ".form___application___hpc___module___hpc_script___submit", ___HTML___application___hpc___module___hpc_script___SUBMIT___)
+    .on("click", ".btn___application___hpc___module___hpc_script___modal___help", ___HTML___application___hpc___module___hpc_script___modal___HELP___);

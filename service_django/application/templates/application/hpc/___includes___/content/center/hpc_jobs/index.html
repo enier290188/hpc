@@ -4,7 +4,7 @@
     <span class="fa fa-dashboard fa-fw"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS' %}
 </h3>
 <div id="center___content">
-    <div class="row container-fluid">
+    <div id="jobs___content" class="row container-fluid">
         <table id="datatable-jobs" class="table nowrap" cellspacing="0" width="100%"
                data-url-list="{% url "application___hpc:modules:hpc_jobs:list" %}" data-url-detail="{% url "application___hpc:modules:hpc_jobs:detail" %}">
 
