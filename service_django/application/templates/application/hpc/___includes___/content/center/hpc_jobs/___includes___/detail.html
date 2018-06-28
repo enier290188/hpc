@@ -1,11 +1,12 @@
 {% load i18n %}
 {% load application___hpc %}
+{% load application___security %}
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <span class="label" data-background-color="{{ data.JobState| ___data_background___ }}">{{ data.JobState }}</span>
         <b>{{ data.JobName }}({{ data.JobId }})</b>
-        {% if True %}
+        {% ifequal data.Username request|___get_string___group_user___ %}
         <div class="pull-right">
             <button class="btn btn-xs btn-default" type="button" data-url="{% url 'application___hpc:modules:hpc_jobs:action' %}" data-option="job resume" title="Resume" {% ifnotequal data.JobState 'STOPPED' %}disabled{% endifnotequal %}>
                 <span class="fa fa-play"></span>
@@ -20,7 +21,7 @@
                 <span class="fa fa-remove"></span>
             </button>
         </div>
-        {% endif %}
+        {% endifequal %}
     </div>
     <div class="panel-body">
         <table class="table table-bordered table-striped table-condensed">

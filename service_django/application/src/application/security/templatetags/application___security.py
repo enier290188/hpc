@@ -14,6 +14,11 @@ def ___get_string___title___(request):
 
 
 @register.filter()
+def ___get_string___group_user___(request):
+    return '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), request.___APPLICATION___SECURITY___USER___.identifier)
+
+
+@register.filter()
 def ___get_boolean___not___(boolean):
     return not boolean
 

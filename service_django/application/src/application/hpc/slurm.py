@@ -103,6 +103,7 @@ def generate_data_dict(request, option, parameters=None):
                             __dict__[key] = field.split('=')[1]
                         break
                 fields.pop(i)
+            __dict__['Username'] = __dict__['UserId'].split('(')[0]
             __dict__['CPUsTask'] = __dict__.pop('CPUs/Task')
         if option == 'partitions':
             tmp = string_in_utf8.split('\n')
