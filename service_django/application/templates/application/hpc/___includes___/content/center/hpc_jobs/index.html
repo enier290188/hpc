@@ -1,27 +1,13 @@
 {% load i18n %}
-{% load staticfiles %}
-
-{% now "YmdHis" as ctx___now %}
-<!-- Application HPC Custom Theme Style -->
-<link href="{% static "application/hpc/css/application___hpc___content___center___jobs.css" %}?{{ ctx___now }}" rel="stylesheet">
 
 <h3 id="center___header">
     <span class="fa fa-dashboard fa-fw"></span> {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS' %}
-    {% comment %}<div class="dropdown pull-right">
-        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-            {% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            <li><a id="yourjobs" onclick="dropJobs(this)"><span class="fa fa-user fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_USER_JOBS' %}</a></li>
-            <li><a id="groupjobs" onclick="dropJobs(this)"><span class="fa fa-users fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_GROUP_JOBS' %}</a></li>
-            <li class="divider"></li>
-            <li class="active"><a id="alljobs" onclick="dropJobs(this)"><span class="fa fa-users fa-fw"></span>{% trans 'APPLICATION___HPC___CONTENT___HPC_JOBS_BTN_ALL_JOBS' %}</a></li>
-        </ul>
-    </div>{% endcomment %}
 </h3>
 <div id="center___content">
     <div class="row container-fluid">
-        <table id="datatable-buttons" class="table nowrap" cellspacing="0" width="100%">
+        <table id="datatable-jobs" class="table nowrap" cellspacing="0" width="100%"
+               data-url-list="{% url "application___hpc:modules:hpc_jobs:list" %}" data-url-detail="{% url "application___hpc:modules:hpc_jobs:detail" %}">
+
             <thead>
                 <tr>
                     <th>{% trans 'HPC___CONTENT___JOBS___TABLE_JOBS___TITLE_Job_ID' %}</th>
@@ -138,17 +124,11 @@
                         </tbody>
                     </table>
                 </div>
-
-        </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    var url_list = "{% url "application___hpc:modules:hpc_jobs:list" %}";
-    var url_detail = "{% url "application___hpc:modules:hpc_jobs:detail" %}";
+    hpc_jobs_datatable_init();
 </script>
-
-<!-- Application Website Help Custom Theme JavaScript -->
-<script type="text/javascript" src="{% url 'javascript-catalog' 'hpc' %}?{% now "YmdHis" %}"></script>
-<script src="{% static "application/hpc/js/application___hpc___jobs.js" %}?{{ ctx___now }}"></script>

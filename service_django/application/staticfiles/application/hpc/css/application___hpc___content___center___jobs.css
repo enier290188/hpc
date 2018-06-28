@@ -1,11 +1,11 @@
 @media (min-width: 992px) {
-    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
-    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
+    #application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
+    #application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
         display: block;
         min-width: 70%;
         width: 70%;
     }
-    #application___hpc___content #datatable-buttons_wrapper > .dt-buttons {
+    #application___hpc___content #datatable-jobs_wrapper > .dt-buttons {
         display: block;
         margin: auto;
         width: 200px
@@ -15,13 +15,13 @@
     }
 }
 @media (max-width: 991px) {
-    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
-    #application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
+    #application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child span.dtr-title,
+    #application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child span.dtr-data {
         display: block;
         min-width: 100%;
         width: 100%
     }
-    #application___hpc___content #datatable-buttons_wrapper > .dt-buttons {
+    #application___hpc___content #datatable-jobs_wrapper > .dt-buttons {
         display: none
     }
     #application___hpc___content #job-codes-info {
@@ -30,19 +30,19 @@
 }
 
 @media (max-width: 767px) {
-    #application___hpc___content #datatable-buttons_wrapper > .dataTables_length > label {
+    #application___hpc___content #datatable-jobs_wrapper > .dataTables_length > label {
         display: none
     }
 }
 
-#application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child ul {
+#application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child ul {
     min-width: 100%;
     width: 100%
 }
-#application___hpc___content #datatable-buttons_wrapper > table.dataTable>tbody>tr.child>td:first-child  {
+#application___hpc___content #datatable-jobs_wrapper > table.dataTable>tbody>tr.child>td:first-child  {
     padding-left: 5px;
 }
-#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate>.pagination>li>a {
+#application___hpc___content #datatable-jobs_wrapper > .dataTables_paginate>.pagination>li>a {
     background-color: #ffffff;
     border-color: #d9dee4;
     color: #2a3f54;
@@ -50,19 +50,19 @@
     font-size: 12px;
     line-height: 1.5
 }
-#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate >.pagination>li>a:hover {
+#application___hpc___content #datatable-jobs_wrapper > .dataTables_paginate >.pagination>li>a:hover {
     background-color: #ededed;
 }
-#application___hpc___content #datatable-buttons_wrapper > .dataTables_paginate>.pagination>li.active>a {
+#application___hpc___content #datatable-jobs_wrapper > .dataTables_paginate>.pagination>li.active>a {
     background-color: #2a3f54;
     border-color: #2a3f54;
     color: #ffffff
 }
-#application___hpc___content #datatable-buttons_wrapper > table.dataTable span[data-background-color]{
+#application___hpc___content #datatable-jobs_wrapper > table.dataTable span[data-background-color]{
     border-radius: 3px;
     padding: 5px;
 }
-#application___hpc___content #datatable-buttons tr.child .panel > .panel-body .panel:last-child {
+#application___hpc___content #datatable-jobs tr.child .panel > .panel-body .panel:last-child {
     margin-bottom: 0;
 }
 

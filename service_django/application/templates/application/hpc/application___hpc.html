@@ -56,6 +56,7 @@
             <link href="{% static "application/hpc/css/application___hpc___leftside.css" %}?{{ ctx___now }}" rel="stylesheet">
             <link href="{% static "application/hpc/css/application___hpc___content.css" %}?{{ ctx___now }}" rel="stylesheet">
             <link href="{% static "application/hpc/css/application___hpc___content___center.css" %}?{{ ctx___now }}" rel="stylesheet">
+            <link href="{% static "application/hpc/css/application___hpc___content___center___jobs.css" %}?{{ ctx___now }}" rel="stylesheet">
             <link href="{% static "application/hpc/css/application___hpc___content___footer.css" %}?{{ ctx___now }}" rel="stylesheet">
             <link href="{% static "application/hpc/css/application___hpc___modal.css" %}?{{ ctx___now }}" rel="stylesheet">
             <link href="{% static "application/hpc/css/application___hpc___modal___message.css" %}?{{ ctx___now }}" rel="stylesheet">
@@ -147,6 +148,8 @@
             <script type="text/javascript" src="{% static 'vendors/DataTables/Select-1.2.5/js/dataTables.select.min.js' %}"></script>
             <!-- Application HPC Custom Theme JavaScript -->
             <script src="{% static "application/hpc/js/application___hpc.js" %}?{{ ctx___now }}"></script>
+            <script type="text/javascript" src="{% url 'javascript-catalog' 'hpc' %}?{% now "YmdHis" %}"></script>
+            <script src="{% static "application/hpc/js/application___hpc___jobs.js" %}?{{ ctx___now }}"></script>
             <script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
         </body>
     </html>

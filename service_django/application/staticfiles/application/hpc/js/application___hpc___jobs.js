@@ -1,6 +1,3 @@
-var $datatable = $('#datatable-buttons');
-var $tbody = $datatable.find('tbody');
-
 function capitalize(s){
     return s.toLowerCase().replace(/\b./g, function(a){
         return a.toUpperCase();
@@ -30,6 +27,7 @@ function ___data_background___(state){
 }
 
 var hpc_jobs_datatable_init = function(){
+    var $datatable = $('#datatable-jobs');
     var optionsDataTable = {
         dom: "Blfrtip",
         buttons: [
@@ -59,7 +57,7 @@ var hpc_jobs_datatable_init = function(){
             }
         ],
         ajax: {
-            url: url_list,
+            url: $datatable.attr('data-url-list'),
             type: "GET",
             data: function() {
                 return {
@@ -67,7 +65,7 @@ var hpc_jobs_datatable_init = function(){
                 }
             },
             dataSrc: function(response) {
-                if(response.___BOOLEAN___ERROR___){
+                if(response['___BOOLEAN___ERROR___']){
                     ___HTML___application___hpc___modal___SHOW_LOAD___();
                     ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(response);
                     return [];
@@ -145,24 +143,22 @@ var hpc_jobs_datatable_init = function(){
         },
         sPaginationType: 'numbers'
     };
-    $("#datatable-buttons").DataTable(optionsDataTable);
-    $('#datatable-buttons_length').addClass('col-sm-6').css('padding', '0');
-    $('#datatable-buttons_filter').addClass('col-sm-6').css('padding', '0');
-    $('#center___content').css('display', 'block');
+    $datatable.DataTable(optionsDataTable);
+    $('#datatable-jobs_length').addClass('col-sm-6').css('padding', '0');
+    $('#datatable-jobs_filter').addClass('col-sm-6').css('padding', '0');
 };
 
 var hpc_jobs_datatable_detail = function() {
+    var $datatable = $('#datatable-jobs');
     var tr = $(this).closest('tr');
     if (tr.hasClass('parent')) {
         var datatable = $datatable.DataTable();
         var row = datatable.row(tr).index();
-        var id = datatable.cell(row, 0).data();
-        $.getJSON(url_detail, {'parameters': [id]}, function (data) {
-            var datatable = $('#datatable-buttons').DataTable();
-            if (data.___BOOLEAN___ERROR___) {
+        $.getJSON($datatable.attr('data-url-detail'), {'parameters': [datatable.cell(row, 0).data()]}, function (data) {
+            if (data['___BOOLEAN___ERROR___']) {
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                var text = $(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___).find('.alert___message___text').text();
+                var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                 datatable.cell(row, 9).data(text).page(datatable.page()).draw('page');
             }
             else {
@@ -173,25 +169,15 @@ var hpc_jobs_datatable_detail = function() {
     }
 };
 
-function dropJobs(elem) {
-    $('#dropdownMenu1').html($(elem).text() + ' <span class="caret"></span>');
-    $(elem).parent().siblings().removeClass('active');
-    $(elem).parent().addClass('active');
-    $('#datatable-buttons').DataTable().ajax.reload();
-}
-
-hpc_jobs_datatable_init();
-
 var hpc_jobs_datatable_actionJob = function(){
+    var datatable = $('#datatable-jobs').DataTable();
     var tr = $(this).closest('tr').prev();
-    var datatable = $datatable.DataTable();
     var row = datatable.row(tr).index();
-    var id = datatable.cell(row, 0).data();
     $.ajax({
         url: $(this).attr('data-url'),
         data: {
             'option': $(this).attr('data-option'),
-            'jobID': id
+            'jobID': datatable.cell(row, 0).data()
         },
         type: 'post',
         dataType: "json",
@@ -200,24 +186,21 @@ var hpc_jobs_datatable_actionJob = function(){
 
         },
         success: function (data) {
-            var datatable = $('#datatable-buttons').DataTable();
-            if(data.___BOOLEAN___ERROR___){
+            if(data['___BOOLEAN___ERROR___']){
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
                 datatable.cell(row, 9).data(text).page(datatable.page()).draw('page');
             }
             else {
                 datatable.cell(row, 1).data($(data.detail).find('.panel-heading').find('span').text());
-                //datatable.cell(row, 5).data($(data.detail).find('.panel-body').find('tr:nth-child(8)').find('td:nth-child(2)').text());
                 datatable.cell(row, 9).data(data.detail).page(datatable.page()).draw('page');
             }
         }
     });
 };
 
-
-$tbody
-    .on('click', 'td:first-child', hpc_jobs_datatable_detail)
+$('#application___hpc___content___center')
+    .on('click', '#datatable-jobs tbody td:first-child', hpc_jobs_datatable_detail)
     .on('click', '.panel-heading button:nth-child(1)', hpc_jobs_datatable_actionJob)
     .on('click', '.panel-heading button:nth-child(2)', hpc_jobs_datatable_actionJob)
     .on('click', '.panel-heading button:nth-child(3)', hpc_jobs_datatable_actionJob)
