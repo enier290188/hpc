@@ -137,13 +137,13 @@
     var cmEditor = CodeMirror.fromTextArea(document.getElementById('id_script_body'), {
         lineNumbers: true,
         styleActiveLine: true,
-        lineSeparator: "\n",
+        lineSeparator: "LF",
         smartIndent: false
     });
     var cmShow = CodeMirror.fromTextArea(document.getElementById('script_slurm'), {
         lineNumbers: true,
         styleActiveLine: true,
-        lineSeparator: "\n",
+        lineSeparator: "LF",
         smartIndent: false,
         readOnly: true
     });
