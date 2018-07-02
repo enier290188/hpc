@@ -1,15 +1,10 @@
 {% load i18n %}
-{% load staticfiles %}
-
-{% now "YmdHis" as ctx___now %}
-
-<link rel="stylesheet" href="{% static 'application/hpc/css/application___hpc___content___center___nodes.css' %}?{% now "YmdHis" %}">
 
 <h3 id="center___header">
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'HPC___CONTENT___NODES' %}
 </h3>
 <div id="center___content" data-snapshot="{{ ctx___now }}">
-    <div class="row container-fluid">
+    <div id="nodes___content" class="row container-fluid">
         <div class="col-md-6 col-lg-4">
             <div class="wrapper">
                 <canvas id="myLineChart" height="1" width="1"></canvas>

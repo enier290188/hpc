@@ -1,10 +1,10 @@
-$(document).ready(function(){
+var hpc_explorer_init = function(){
     const
         $hpc__content__center = $("#application___hpc___content___center"),
         $hpc__modal =  $('#application___hpc___modal'),
 
         $hpc__tbody =  $hpc__content__center.find('#tableFileSystem').find('tbody'),
-        $hpc__breadcumbs = $hpc__content__center.find('#center___content').find('div').eq(0),
+        $hpc__pwd = $hpc__content__center.find('#center___content').find('div').eq(0),
         $hpc__buttons = $hpc__content__center.find('#center___content').find('div').eq(1),
         $hpc__buttons__header = $hpc__content__center.find('#center___header').find('div');
     var cp = false,
@@ -73,7 +73,7 @@ $(document).ready(function(){
             }
             else {
                 $hpc__tbody.html(data.list);
-                $hpc__breadcumbs.find('strong').text(path);
+                $hpc__pwd.find('strong').text(path);
                 hpc__module__explorer__button__disabled();
             }
         }).always(function() {});
@@ -327,7 +327,7 @@ $(document).ready(function(){
                 }
                 else {
                     $hpc__tbody.html(data.list);
-                    $hpc__breadcumbs.find('strong').text(path);
+                    $hpc__pwd.find('strong').text(path);
                     hpc__module__explorer__button__disabled();
                 }
             }
@@ -370,7 +370,7 @@ $(document).ready(function(){
                 }
                 else {
                     $hpc__tbody.html(data.list);
-                    $hpc__breadcumbs.find('strong').text(path);
+                    $hpc__pwd.find('strong').text(path);
                     hpc__module__explorer__button__disabled();
                 }
             }
@@ -417,7 +417,7 @@ $(document).ready(function(){
                 }
                 else {
                     $hpc__tbody.html(data.list);
-                    $hpc__breadcumbs.find('strong').text(path);
+                    $hpc__pwd.find('strong').text(path);
                     hpc__module__explorer__button__disabled();
                 }
             }
@@ -528,4 +528,4 @@ $(document).ready(function(){
         .on('keyup', '#modal-file #id_generic', ekeyup)
         .on('keyup', '#modal-folder #id_generic', ekeyup)
         .on('keyup', '#modal-rename #id_generic', ekeyup)
-});
+};

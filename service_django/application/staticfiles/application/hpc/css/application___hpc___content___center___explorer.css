@@ -1,13 +1,13 @@
 /*content header*/
 
 
-/*content center breadcumbs*/
-#application___hpc___content___center > #center___content > div:nth-child(1) {
+/*content center pwd*/
+#application___hpc___content #explorer___content > #printWorkingDirectory {
    background-color: #2a3f54; color: white; padding: 5px 10px; margin-bottom: 10px;
 }
 
 /*content center buttons*/
-#application___hpc___content___center > #center___content > div:nth-child(2) {
+#application___hpc___content #explorer___content > #actionsFileSystem {
     margin-bottom: 10px;
 }
 
