@@ -1,24 +1,32 @@
+#application___hpc___content #nodes___content {
+    padding: 0;
+}
 @media (max-width: 991px) {
-    #application___hpc___content #nodes___content > div:nth-child(n) {
+    #application___hpc___content #nodes___content > div > div:nth-child(n) {
         padding: 0;
     }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-    #application___hpc___content #nodes___content > div:nth-child(1) {
+    #application___hpc___content #nodes___content > div > div:nth-child(1) {
         padding-left: 0;
     }
-    #application___hpc___content #nodes___content > div:nth-child(2) {
+    #application___hpc___content #nodes___content > div > div:nth-child(2) {
         padding-right: 0;
     }
-    #application___hpc___content #nodes___content > div:nth-child(3) {
+    #application___hpc___content #nodes___content > div > div:nth-child(3) {
         padding: 0;
     }
 }
 @media (min-width: 1200px) {
-    #application___hpc___content #nodes___content > div:nth-child(1) {
+    #application___hpc___content #nodes___content > div > div:nth-child(1) {
         padding-left: 0;
     }
-    #application___hpc___content #nodes___content > div:nth-child(3) {
+    #application___hpc___content #nodes___content > div > div:nth-child(3) {
         padding-right: 0;
+    }
+}
+@media (max-width: 767px) {
+    #application___hpc___content #nodes___content > div > div:nth-child(3) {
+        padding: 15px;
     }
 }

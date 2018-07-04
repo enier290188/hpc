@@ -1,48 +1,49 @@
 {% load i18n %}
+{% now "YmdHis" as ctx___now %}
 
 <h3 id="center___header">
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'HPC___CONTENT___NODES' %}
 </h3>
-<div id="center___content" data-snapshot="{{ ctx___now }}">
-    <div id="nodes___content" class="row container-fluid">
-        <div class="col-md-6 col-lg-4">
-            <div class="wrapper">
-                <canvas id="myLineChart" height="1" width="1"></canvas>
+<div id="center___content">
+    <div id="nodes___content" class="container-fluid" data-url="{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}" data-snapshot="{{ ctx___now }}">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="wrapper">
+                    <canvas id="myLineChart" height="1" width="1"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="wrapper">
+                    <canvas id="myDoughnutChart2" height="150%"></canvas>
+                </div>
+                <div class="wrapper">
+                    <canvas id="myDoughnutChart" height="150%"></canvas>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <p style="padding-top: 8px; font-size: 12px">{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions' %} <span class="badge">{{ partitions.data | length }}</span></p>
+                <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition' %}</th>
+                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available' %}</th>
+                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes' %}</th>
+                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in partitions.data %}
+                        <tr>
+                            {% for field in data %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="wrapper">
-                <canvas id="myDoughnutChart2" height="150%"></canvas>
-            </div>
-            <div class="wrapper">
-                <canvas id="myDoughnutChart" height="150%"></canvas>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-4">
-            <p style="padding-top: 8px; font-size: 12px">{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions' %} <span class="badge">{{ partitions.data | length }}</span></p>
-            <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition' %}</th>
-                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available' %}</th>
-                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes' %}</th>
-                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist' %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for data in partitions.data %}
-                    <tr>
-                        {% for field in data %}
-                            <td>{{ field }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <hr>
-    <div class="row container-fluid">
+        <hr>
         <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -87,6 +88,5 @@
     var cpualloc = '{{ statistics.cpualloc }}';
     var freemem = '{{ statistics.freemem }}';
     var allocmem = '{{ statistics.allocmem }}';
-    var url_chartnodes = "{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}";
     $('#center___content').trigger('change')
 </script>

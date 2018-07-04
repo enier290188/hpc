@@ -20,7 +20,7 @@ var hpc_nodes_chart = function(snapshot){
     myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["60",,"50",,"40",,"30",,"20",,"10",,"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
+            labels: ["60",'',"50",'',"40",'',"30",'',"20",'',"10",'',"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
             datasets: [{
                 label: gettext('HPC___CONTENT___NODES___CHART_LINE'),
                 fill: true,
@@ -97,19 +97,20 @@ var hpc_nodes_chart = function(snapshot){
     });
 
     var myTimer = setInterval(function () {
-        if (snapshot === $('#center___content').attr('data-snapshot')) {
+        var $nodes___content = $('#nodes___content');
+        var data_snapshot = $nodes___content.attr('data-snapshot');
+        if (typeof data_snapshot !== 'undefined' && snapshot === data_snapshot) {
             $.ajax({
-                url: url_chartnodes,
+                url: $nodes___content.attr('data-url'),
                 type: 'get',
                 cache: false,
                 dataType: 'json',
                 success: function (response) {
                     //LineChart
-                    console.log(response);
                     var number = response.statistics.cpuload;
                     for (var i = 0; i < data.length; i++)
                         if (i === data.length - 1)
-                            data[i] = number;
+                            data[i] = /*Math.floor(Math.random() * Math.floor(100)) + */number;
                         else
                             data[i] = data[i + 1];
                     myLineChart.data = data;
@@ -147,7 +148,7 @@ var hpc_nodes_chart = function(snapshot){
 
 
 $('#application___hpc___content___center').on('change', '#center___content', function(){
-    var snapshot = $('#center___content').attr('data-snapshot');
+    var snapshot = $('#nodes___content').attr('data-snapshot');
     hpc_nodes_datatable();
     hpc_nodes_chart(snapshot);
 });
