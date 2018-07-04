@@ -129,8 +129,6 @@
             <script src="{% static 'vendors/DataTables/pdfmake-0.1.32/vfs_fonts.js' %}"></script>
             <script src="{% static 'vendors/DataTables/DataTables-1.10.16/js/jquery.dataTables.min.js' %}"></script>
             <script src="{% static 'vendors/DataTables/DataTables-1.10.16/js/dataTables.bootstrap.min.js' %}"></script>
-            <script src="{% static 'vendors/DataTables/Editor-2018-06-14-1.7.3/js/dataTables.editor.min.js' %}"></script>
-            <script src="{% static 'vendors/DataTables/Editor-2018-06-14-1.7.3/js/editor.bootstrap.min.js' %}"></script>
             <script src="{% static 'vendors/DataTables/AutoFill-2.2.2/js/dataTables.autoFill.min.js' %}"></script>
             <script src="{% static 'vendors/DataTables/AutoFill-2.2.2/js/autoFill.bootstrap.min.js' %}"></script>
             <script src="{% static 'vendors/DataTables/Buttons-1.5.1/js/dataTables.buttons.min.js' %}"></script>
@@ -153,10 +151,10 @@
             <script src="{% url 'javascript-catalog' 'hpc' %}?{{ ctx___now }}"></script>
             <script src="{% static "application/hpc/js/application___hpc.js" %}?{{ ctx___now }}"></script>
             <script src="{% static "application/hpc/js/application___hpc___jobs.js" %}?{{ ctx___now }}"></script>
-            <script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
+            {% comment %}<script src="{% static 'application/hpc/js/application___hpc___nodes.js' %}?{{ ctx___now }}"></script>
             <script src="{% static 'application/hpc/js/application___hpc___script.js' %}?{{ ctx___now }}"></script>
             <script src="{% static 'application/hpc/js/application___hpc___script_generator.js' %}?{{ ctx___now }}"></script>
-            <script src="{% static "application/hpc/js/application___hpc___explorer.js" %}?{{ ctx___now }}"></script>
+            <script src="{% static "application/hpc/js/application___hpc___explorer.js" %}?{{ ctx___now }}"></script>{% endcomment %}
         </body>
     </html>
 {% endspaceless %}
