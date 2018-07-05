@@ -3,7 +3,7 @@
 from django import http
 from django.contrib import messages
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 
 # python libraries import
 from tempfile import TemporaryFile
@@ -183,7 +183,6 @@ def ___view___edit___(request):
             return http.JsonResponse(dict___data)
 
 
-@csrf_exempt
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___delete___(request):
@@ -202,7 +201,6 @@ def ___view___delete___(request):
         return http.JsonResponse(dict___data)
 
 
-@csrf_exempt
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___execute___(request):
