@@ -246,10 +246,13 @@ var ___HTML___application___hpc___leftside___RELOAD___ = function (boolean___is_
 /* */
 /* */
 /* */
+var searchRequest = null;
 var ___HTML___application___hpc___content___center___RELOAD___ = function (event) {
     var $link = $(this);
     var boolean___is_scroll_disable = event.data.boolean___is_scroll_disable;
-    $.ajax({
+    if (searchRequest)
+        searchRequest.abort();
+    searchRequest = $.ajax({
         url: $link.attr("data-url"),
         type: "get",
         dataType: "json",
