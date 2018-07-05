@@ -223,3 +223,39 @@ def ___view___execute___(request):
             template_name='application/hpc/___includes___/modal/hpc/execute.html'
         )
         return http.JsonResponse(dict___data)
+
+
+'''
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___create_folder___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        parameters = list()
+        parameters.append(request.POST.get('path', None))
+        parameters.append(request.POST.get('generic', None))
+        data = linux.generate_data_dict(request, option='folder', parameters=parameters)
+        dict___data['___BOOLEAN___ERROR___'] = True
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
+        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
+        dict___data['list'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'data': data
+            },
+            template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
+        )
+        return http.JsonResponse(dict___data)
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'form': forms.GenericForm(option='folder')
+            },
+            template_name='application/hpc/___includes___/modal/hpc/folder.html'
+        )
+        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
+        return http.JsonResponse(dict___data)
+
+'''

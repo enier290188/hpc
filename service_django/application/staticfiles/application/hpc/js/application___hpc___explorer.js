@@ -6,9 +6,24 @@ var hpc_explorer_init = function(){
         $hpc__tbody =  $hpc__content__center.find('#explorer___content').find('#tableFileSystem').find('tbody'),
         $hpc__pwd = $hpc__content__center.find('#explorer___content').find('#printWorkingDirectory'),
         $hpc__buttons = $hpc__content__center.find('#explorer___content').find('#actionsFileSystem'),
-        $hpc__buttons__header = $hpc__content__center.find('#center___header').find('div');
+        $hpc__buttons__header = $hpc__content__center.find('#center___header').find('#actionsInHeader');
     var cp = false,
         cp_array = [];
+
+    function getCookie(c_name) {
+        if (document.cookie.length > 0)
+        {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1)
+            {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
+            }
+        }
+        return "";
+    }
 
     var hpc__module__explorer__button__disabled__all = function(){
         $hpc__buttons.find('a').each(function(){
@@ -362,12 +377,11 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__module__explorer__button__disabled__all();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
             },
             success: function (data) {
                 if(data.___BOOLEAN___ERROR___){
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
                     var text = $(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___).find('.alert___message___text').text();
                 }
                 else {
@@ -428,21 +442,7 @@ var hpc_explorer_init = function(){
             }
         });
     };
-    function getCookie(c_name)
-    {
-        if (document.cookie.length > 0)
-        {
-            c_start = document.cookie.indexOf(c_name + "=");
-            if (c_start != -1)
-            {
-                c_start = c_start + c_name.length + 1;
-                c_end = document.cookie.indexOf(";", c_start);
-                if (c_end == -1) c_end = document.cookie.length;
-                return unescape(document.cookie.substring(c_start,c_end));
-            }
-        }
-        return "";
-    }
+
     var hpc__module__explorer__modal__execute = function() {
         var $btn =$(this);
         if($btn.attr('disabled'))
