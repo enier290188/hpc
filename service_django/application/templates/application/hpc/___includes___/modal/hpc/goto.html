@@ -6,16 +6,16 @@
             <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title"><span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> Ir a...</h4>
+            <h4 class="modal-title"><span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> {% trans 'HPC___EXPLORER___MODAL___GOTO___TITLE' %}</h4>
         </div>
         <div class="modal-body">
             <div class="modal___message">
             </div>
             <div class="modal___form">
                 <div class="form-group">
-                    <label>Path</label>
+                    <label>{% trans 'HPC___EXPLORER___MODAL___GOTO___FORM___LABEL___Nombre' %}</label>
                     <div class="input-group">
-                        <span class="input-group-addon" onclick="$(this).siblings().eq(0).focus()">/home/CLUSTER/42110027/</span>
+                        <span class="input-group-addon" onclick="$(this).siblings().eq(0).focus()"></span>
                         <input type="text" name="goto" class="input-sm form-control" maxlength="200">
                     </div>
                 </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-sm btn-primary pull-left hpc___modal___click___goto">
-                <span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> Ir
+                <span class="fa fa-folder-open fa-fw" aria-hidden="true"></span> {% trans 'HPC___EXPLORER___MODAL___GOTO___FORM___SUBMIT' %}
             </button>
             <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>

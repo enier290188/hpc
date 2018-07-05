@@ -1,6 +1,6 @@
 var hpc_explorer_init = function(){
     const
-        $hpc__content__center = $("#application___hpc___content___center"),
+        $hpc__content__center = $('#application___hpc___content___center'),
         $hpc__modal =  $('#application___hpc___modal'),
 
         $hpc__tbody =  $hpc__content__center.find('#explorer___content').find('#tableFileSystem').find('tbody'),
@@ -109,7 +109,7 @@ var hpc_explorer_init = function(){
         var $btn =$(this);
         if($btn.attr('disabled'))
             return;
-        var option = $btn.attr("data-option");
+        var option = $btn.attr('data-option');
         var data = {
             option: option,
             path: path
@@ -118,10 +118,10 @@ var hpc_explorer_init = function(){
             data.file_name = $hpc__tbody.find('tr.primary').attr('data-name');
         }
         $.ajax({
-            url: $btn.attr("data-url"),
-            type: "GET",
+            url: $btn.attr('data-url'),
+            type: 'GET',
             data: data,
-            dataType: "json",
+            dataType: 'json',
             beforeSend: function () {
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
             },
@@ -131,7 +131,9 @@ var hpc_explorer_init = function(){
                 }
                 else {
                     $hpc__modal.html(data.___HTML___APPLICATION___HPC___MODAL___);
-                    $hpc__modal.find(".modal___message").html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
+                    $hpc__modal.find('.modal___message').html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
+                    if(option === 'goto')
+                        $hpc__modal.find('.modal___form').find('span').text(home);
                     ___HTML___application___hpc___modal___EVENTS_ON___();
                 }
             }
@@ -178,7 +180,7 @@ var hpc_explorer_init = function(){
                 });
                 /*
                 var name = $hpc__tbody.find('tr.primary').attr('data-name');
-                var link = document.createElement("a");
+                var link = document.createElement('a');
                 link.download = name;
                 link.href = $(this).attr('data-url') + '?path=' + path + '&name=' + name;
                 document.body.appendChild(link);
@@ -204,8 +206,8 @@ var hpc_explorer_init = function(){
             $hpc__modal__footer = $hpc__modal.find('.modal-footer');
         var files = $hpc__modal__body.find('#files').get(0).files,
             $input = $hpc__modal__body.find('#files_selected');
-        if (files.length > 1) $input.val(files.length+" archivos seleccionados");
-        if (files.length === 1) $input.val("Un archivo seleccionado: "+files[0].name);
+        if (files.length > 1) $input.val(files.length + ' archivos seleccionados');
+        if (files.length === 1) $input.val('Un archivo seleccionado: '+files[0].name);
         if (files.length === 0) $input.val('');
         var i = 0,
             error = false;
@@ -264,10 +266,10 @@ var hpc_explorer_init = function(){
         formData.append('path', path);
         formData.append('file_name', $hpc__tbody.find('tr.primary').attr('data-name'));
         $.ajax({
-            url: $form.attr("action") + "?save=",
+            url: $form.attr('action') + '?save=',
             data: formData,
-            type: $form.attr("method"),
-            dataType: "json",
+            type: $form.attr('method'),
+            dataType: 'json',
             cache: false,
             processData: false,
             contentType: false,
@@ -303,10 +305,10 @@ var hpc_explorer_init = function(){
         var formData = new FormData(this);
         formData.append('path', path);
         $.ajax({
-            url: $form.attr("action") + "?upload=",
+            url: $form.attr('action') + '?upload=',
             data: formData,
-            type: $form.attr("method"),
-            dataType: "json",
+            type: $form.attr('method'),
+            dataType: 'json',
             cache: false,
             processData: false,
             contentType: false,
@@ -346,10 +348,10 @@ var hpc_explorer_init = function(){
         if ($(this).attr('data-option')==='rename')
             formData.append('name', $hpc__tbody.find('tr.primary').attr('data-name'));
         $.ajax({
-            url: $form.attr("action") + "?" + $form.attr('data-option') + "=",
+            url: $form.attr('action') + '?' + $form.attr('data-option') + '=',
             data: formData,
-            type: $form.attr("method"),
-            dataType: "json",
+            type: $form.attr('method'),
+            dataType: 'json',
             cache: false,
             processData: false,
             contentType: false,
@@ -398,7 +400,7 @@ var hpc_explorer_init = function(){
                 'values': values
             },
             type: 'post',
-            dataType: "json",
+            dataType: 'json',
             cache: false,
             beforeSend: function () {
                 $hpc__tbody.html('' +
@@ -433,10 +435,10 @@ var hpc_explorer_init = function(){
             file: $hpc__tbody.find('tr.primary').attr('data-name')
         };
         $.ajax({
-            url: $btn.attr("data-url"),
-            type: "GET",
+            url: $btn.attr('data-url'),
+            type: 'GET',
             data: data,
-            dataType: "json",
+            dataType: 'json',
             beforeSend: function () {
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
             },
@@ -446,7 +448,7 @@ var hpc_explorer_init = function(){
                 }
                 else {
                     $hpc__modal.html(data.___HTML___APPLICATION___HPC___MODAL___);
-                    $hpc__modal.find(".modal___message").html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
+                    $hpc__modal.find('.modal___message').html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
                     ___HTML___application___hpc___modal___EVENTS_ON___();
                 }
             }
@@ -463,7 +465,7 @@ var hpc_explorer_init = function(){
                 'values': values
             },
             type: 'post',
-            dataType: "json",
+            dataType: 'json',
             cache: false,
             beforeSend: function () {
                 ___HTML___application___hpc___modal___ACTION_CLOSE___();
@@ -486,11 +488,11 @@ var hpc_explorer_init = function(){
 
     $hpc__buttons
         .on('click', 'a.not-modal', hpc__module__explorer__button__click__not__modal)
-        .on("click", "a.has-modal", hpc__module__explorer__modal__generic)
-        .on("click", "a.btn-execute", hpc__module__explorer__modal__execute);
+        .on('click', 'a.has-modal', hpc__module__explorer__modal__generic)
+        .on('click', 'a.btn-execute', hpc__module__explorer__modal__execute);
 
     $hpc__buttons__header
-        .on("click", "a.has-modal", hpc__module__explorer__modal__generic);
+        .on('click', 'a.has-modal', hpc__module__explorer__modal__generic);
 
     $hpc__modal
         .on('change', '#files', hpc__module__explorer__modal__upload__validation)
@@ -513,8 +515,8 @@ var hpc_explorer_init = function(){
 
     var ekeyup = function(){
         var $btn = $hpc__modal.find('.modal-footer').find('button').eq(0);
-        // var expreg = new RegExp(".*(/|\\\\).*");
-        var expreg = new RegExp(".*/.*");
+        // var expreg = new RegExp('.*(/|\\\\).*');
+        var expreg = new RegExp('.*/.*');
         if($(this).val().length>0){
             if(expreg.test($(this).val()))
                 $btn.attr('disabled', 'disabled');

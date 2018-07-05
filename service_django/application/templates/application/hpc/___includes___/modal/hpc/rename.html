@@ -7,7 +7,7 @@
                 <button type="button" class="btn btn-sm btn-default close LINK___application___hpc___modal___action_close" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title"><span class="fa fa-pencil fa-fw" aria-hidden="true"></span> Renombrar elemento</h4>
+                <h4 class="modal-title"><span class="fa fa-pencil fa-fw" aria-hidden="true"></span> {% trans 'HPC___EXPLORER___MODAL___RENAME___TITLE' %}</h4>
             </div>
             <div class="modal-body">
                 <div class="modal___message">
@@ -15,14 +15,14 @@
                 <div class="modal___form">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label>Nuevo nombre</label>
+                        <label>{% trans 'HPC___EXPLORER___MODAL___RENAME___FORM___LABEL___Nombre' %}</label>
                         {{ form.generic }}
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-primary pull-left" disabled>
-                    <span class="fa fa-pencil fa-fw" aria-hidden="true"></span> Rename
+                    <span class="fa fa-pencil fa-fw" aria-hidden="true"></span> {% trans 'HPC___EXPLORER___MODAL___RENAME___FORM___SUBMIT' %}
                 </button>
                 <button class="btn btn-sm btn-default pull-left LINK___application___hpc___modal___action_close" data-dismiss="modal" title="{% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="hidden-xs"> {% trans "APPLICATION___SECURITY___ACTION_CLOSE" %}</span>

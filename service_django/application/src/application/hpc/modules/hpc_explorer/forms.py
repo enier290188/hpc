@@ -19,11 +19,11 @@ class GenericForm(forms.Form):
         self.option = kwargs.pop('option', None)
         super().__init__(*args, **kwargs)
         if self.option == 'rename':
-            self.fields['generic'].widget.attrs['placeholder'] = "- Especifique el nuevo nombre del elemento -"
+            self.fields['generic'].widget.attrs['placeholder'] = _("HPC___EXPLORER___MODAL___RENAME___FORM___PLACEHOLDER___Nombre")
         elif self.option == 'folder':
-            self.fields['generic'].widget.attrs['placeholder'] = "- Especifique el nombre del directorio -"
+            self.fields['generic'].widget.attrs['placeholder'] = _("HPC___EXPLORER___MODAL___FOLDER___FORM___PLACEHOLDER___Nombre")
         elif self.option == 'file':
-            self.fields['generic'].widget.attrs['placeholder'] = "- Especifique el nombre del archivo -"
+            self.fields['generic'].widget.attrs['placeholder'] = _("HPC___EXPLORER___MODAL___FILE___FORM___PLACEHOLDER___Nombre")
 
 
 class FileEditForm(forms.Form):
