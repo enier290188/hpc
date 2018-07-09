@@ -84,7 +84,7 @@ var hpc_explorer_init = function(){
             if(data['___BOOLEAN___ERROR___']){
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+               $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
             }
             else {
                 $hpc__tbody.html(data.list);
@@ -221,7 +221,7 @@ var hpc_explorer_init = function(){
                 if(data['___BOOLEAN___ERROR___']){
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                 }
                 else {
                     $hpc__tbody.html(data.list);
@@ -263,7 +263,7 @@ var hpc_explorer_init = function(){
                 if(data['___BOOLEAN___ERROR___']){
                     ___HTML___application___hpc___modal___SHOW_LOAD___();
                     ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                 }
                 else {
                     $hpc__tbody.html(data.list);
@@ -313,7 +313,7 @@ var hpc_explorer_init = function(){
                 if(data['___BOOLEAN___ERROR___']){
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
                 ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                 }
                 else {
                     $hpc__tbody.html(data.list);
@@ -521,7 +521,7 @@ var hpc_explorer_init = function(){
                     if (data['___BOOLEAN___ERROR___']) {
                         ___HTML___application___hpc___modal___SHOW_LOAD___();
                         ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                        var text = $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                        $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                     }
                     else {
                         $hpc__tbody.html(data.list);
