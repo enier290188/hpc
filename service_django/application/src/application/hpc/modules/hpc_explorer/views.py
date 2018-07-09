@@ -55,6 +55,154 @@ def ___view___list___(request):
 
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___edit___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        path = request.POST.get('path')
+        file_name = request.POST.get('file_name')
+        form = forms.FileEditForm(request.POST)
+        if form.is_valid():
+            file_content = form.cleaned_data.get('file_content')
+            if linux.edit_file(request, path + '/' + file_name, file_content) is True:
+                dict___data['___BOOLEAN___ERROR___'] = True
+        return http.JsonResponse(dict___data)
+    else:
+        path = request.GET.get('path')
+        file_name = request.GET.get('file_name')
+        file_content = linux.open_file(request, path + '/' + file_name)
+        if file_content is True:
+            dict___data['___BOOLEAN___ERROR___'] = True
+            messages.add_message(request, messages.ERROR, 'Open file is not posible')
+            return utils___hpc.___jsonresponse___error___(request)
+        else:
+            dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+                request=request,
+                context={
+                    'form': forms.FileEditForm(content=file_content)
+                },
+                template_name='application/hpc/___includes___/modal/hpc/edit.html'
+            )
+            dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
+            return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___rename___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        pass
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'form': forms.GenericForm(option='rename')
+            },
+            template_name='application/hpc/___includes___/modal/hpc/rename.html'
+        )
+        return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___download___(request):
+    path = request.GET.get('path', None)
+    name = request.GET.get('name', None)
+    instance = request.___APPLICATION___SECURITY___USER___
+
+    with TemporaryFile() as f:
+        ssh.ssh_sftp_getfo(instance.group_identifier(), instance.private_key.path, path + '/' + name, f)
+        f.seek(0)
+        response = HttpResponse(f.read())
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Description'] = 'File Transfer'
+    response['Content-Encoding'] = 'binary'
+    response['Content-Disposition'] = 'attachment; filename=%s' % name
+    response['Expires'] = 0
+    response['Cache-Control'] = 'must-revalidate'
+    response['Pragma'] = 'public'
+    return response
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___paste___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        from_path = request.POST.get('from', None)
+        to_path = request.POST.get('to', None)
+        files_to_copy = request.POST.getlist('filesToCopy[]', None)
+        parameters = [to_path, from_path]
+        for file in files_to_copy:
+            parameters.append(file)
+        data = linux.generate_data_dict(request, option='paste', parameters=parameters)
+        if not data:
+            dict___data['list'] = utils___hpc.___html___template___(
+                request=request,
+                context={
+                    'data': data
+                },
+                template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
+            )
+            return http.JsonResponse(dict___data)
+        else:
+            return utils___hpc.___httpresponse___error___(request)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___execute___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        values = request.POST.getlist('values[]')
+        slurm.generate_data_dict(request, 'execute', values)
+        if len(messages.get_messages(request=request)) <= 0:
+            messages.add_message(request, request.SUCCESS, 'Todo ok')
+        else:
+            dict___data['___BOOLEAN___ERROR___'] = True
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
+        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
+        return http.JsonResponse(dict___data)
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context=dict(),
+            template_name='application/hpc/___includes___/modal/hpc/execute.html'
+        )
+        return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___delete___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        values = request.POST.getlist('values[]', None)
+        data = linux.generate_data_dict(request, option='delete', parameters=values)
+        if data:
+            dict___data['list'] = utils___hpc.___html___template___(
+                request=request,
+                context={
+                    'data': data
+                },
+                template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
+            )
+            return http.JsonResponse(dict___data)
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context=dict(),
+            template_name='application/hpc/___includes___/modal/hpc/delete.html'
+        )
+        return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___modal___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
@@ -127,103 +275,6 @@ def ___view___upload___(request):
         )
         dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
         return http.JsonResponse(dict___data)
-
-
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___download___(request):
-    path = request.GET.get('path', None)
-    name = request.GET.get('name', None)
-    instance = request.___APPLICATION___SECURITY___USER___
-
-    with TemporaryFile() as f:
-        ssh.ssh_sftp_getfo(instance.group_identifier(), instance.private_key.path, path + '/' + name, f)
-        f.seek(0)
-        response = HttpResponse(f.read())
-    response['Content-Type'] = 'application/octet-stream'
-    response['Content-Description'] = 'File Transfer'
-    response['Content-Encoding'] = 'binary'
-    response['Content-Disposition'] = 'attachment; filename=%s' % name
-    response['Expires'] = 0
-    response['Cache-Control'] = 'must-revalidate'
-    response['Pragma'] = 'public'
-    return response
-
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___edit___(request):
-    dict___data = dict()
-    dict___data['___BOOLEAN___ERROR___'] = False
-    if request.method == 'POST':
-        path = request.POST.get('path')
-        file_name = request.POST.get('file_name')
-        form = forms.FileEditForm(request.POST)
-        if form.is_valid():
-            file_content = form.cleaned_data.get('file_content')
-            if linux.edit_file(request, path + '/' + file_name, file_content) is True:
-                dict___data['___BOOLEAN___ERROR___'] = True
-        return http.JsonResponse(dict___data)
-    else:
-        path = request.GET.get('path')
-        file_name = request.GET.get('file_name')
-        file_content = linux.open_file(request, path + '/' + file_name)
-        if file_content is True:
-            dict___data['___BOOLEAN___ERROR___'] = True
-            messages.add_message(request, messages.ERROR, 'Open file is not posible')
-            return utils___hpc.___jsonresponse___error___(request)
-        else:
-            dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
-                request=request,
-                context={
-                    'form': forms.FileEditForm(content=file_content)
-                },
-                template_name='application/hpc/___includes___/modal/hpc/edit.html'
-            )
-            dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
-            return http.JsonResponse(dict___data)
-
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___delete___(request):
-    dict___data = dict()
-    dict___data['___BOOLEAN___ERROR___'] = False
-    values = request.POST.getlist('values[]', None)
-    data = linux.generate_data_dict(request, option='delete', parameters=values)
-    if data:
-        dict___data['list'] = utils___hpc.___html___template___(
-            request=request,
-            context={
-                'data': data
-            },
-            template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
-        )
-        return http.JsonResponse(dict___data)
-
-
-@decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___execute___(request):
-    dict___data = dict()
-    dict___data['___BOOLEAN___ERROR___'] = False
-    if request.method == 'POST':
-        values = request.POST.getlist('values[]')
-        slurm.generate_data_dict(request, 'execute', values)
-        if len(messages.get_messages(request=request)) <= 0:
-            messages.add_message(request, request.SUCCESS, 'Todo ok')
-        else:
-            dict___data['___BOOLEAN___ERROR___'] = True
-        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
-        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
-        return http.JsonResponse(dict___data)
-    else:
-        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
-            request=request,
-            context=dict(),
-            template_name='application/hpc/___includes___/modal/hpc/execute.html'
-        )
-        return http.JsonResponse(dict___data)
-
 
 '''
 @decorators___application___security.___required___request_is_ajax___()

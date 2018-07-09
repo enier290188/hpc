@@ -79,7 +79,10 @@ def run_command(request, option, parameters=None):
                 command = 'touch ' \
                           '"' + parameters[0] + '/' + parameters[1] + '"'
             if option == 'paste':
-                command = 'cp'
+                command = 'cp '
+                for file in parameters[2:]:
+                    command += '"' + parameters[1] + '/' + file + '" '
+                command += '"' + parameters[0] + '" '
             if option == 'delete':
                 string = ''
                 for p in parameters[1:]:
