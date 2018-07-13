@@ -3,7 +3,6 @@
 from django import http
 from django.contrib import messages
 from django.http import HttpResponse
-# from django.views.decorators.csrf import csrf_exempt
 
 # python libraries import
 from tempfile import TemporaryFile
@@ -23,15 +22,18 @@ from . import forms
 def ___view___index___(request):
     dict___data = dict()
     path = linux.generate_data_dict(request, 'path')
-    dict___data['___HTML___APPLICATION___HPC___CONTENT___CENTER___'] = utils___hpc.___html___template___(
-        request=request,
-        context={
-            'home': path,
-            'path': path,
-        },
-        template_name='application/hpc/___includes___/content/center/hpc_explorer/index.html'
-    )
-    return http.JsonResponse(dict___data)
+    if path:
+        dict___data['___HTML___APPLICATION___HPC___CONTENT___CENTER___'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'home': path,
+                'path': path,
+            },
+            template_name='application/hpc/___includes___/content/center/hpc_explorer/index.html'
+        )
+        return http.JsonResponse(dict___data)
+    else:
+        return utils___hpc.___httpresponse___error___(request)
 
 
 @decorators___application___security.___required___request_is_ajax___()
@@ -64,22 +66,22 @@ def ___view___edit___(request):
         form = forms.FileEditForm(request.POST)
         if form.is_valid():
             file_content = form.cleaned_data.get('file_content')
-            if linux.edit_file(request, path + '/' + file_name, file_content) is True:
+            if isinstance(linux.edit_file(request, path + '/' + file_name, file_content), tuple):
                 dict___data['___BOOLEAN___ERROR___'] = True
         return http.JsonResponse(dict___data)
     else:
         path = request.GET.get('path')
         file_name = request.GET.get('file_name')
-        file_content = linux.open_file(request, path + '/' + file_name)
-        if file_content is True:
+        result = linux.open_file(request, path + '/' + file_name)
+        if result[0] is True:
             dict___data['___BOOLEAN___ERROR___'] = True
-            messages.add_message(request, messages.ERROR, 'Open file is not posible')
+            messages.add_message(request, messages.ERROR, result[1])
             return utils___hpc.___jsonresponse___error___(request)
         else:
             dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
                 request=request,
                 context={
-                    'form': forms.FileEditForm(content=file_content)
+                    'form': forms.FileEditForm(content=result[1])
                 },
                 template_name='application/hpc/___includes___/modal/hpc/edit.html'
             )
@@ -93,7 +95,21 @@ def ___view___rename___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
     if request.method == 'POST':
-        pass
+        path = request.POST.get('path', None)
+        name = request.POST.get('name', None)
+        new_name = request.POST.get('generic', None)
+        data = linux.generate_data_dict(request, option='rename', parameters=[path, name, new_name])
+        if data:
+            dict___data['list'] = utils___hpc.___html___template___(
+                request=request,
+                context={
+                    'data': data
+                },
+                template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
+            )
+            return http.JsonResponse(dict___data)
+        else:
+            return utils___hpc.___jsonresponse___error___(request)
     else:
         dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
             request=request,
@@ -110,9 +126,10 @@ def ___view___download___(request):
     path = request.GET.get('path', None)
     name = request.GET.get('name', None)
     instance = request.___APPLICATION___SECURITY___USER___
-
     with TemporaryFile() as f:
-        ssh.ssh_sftp_getfo(instance.group_identifier(), instance.private_key.path, path + '/' + name, f)
+        result = ssh.ssh_sftp_getfo(instance.group_identifier(), instance.private_key.path, path + '/' + name, f)
+        if isinstance(result, tuple):
+            return HttpResponse()
         f.seek(0)
         response = HttpResponse(f.read())
     response['Content-Type'] = 'application/octet-stream'
@@ -138,7 +155,7 @@ def ___view___paste___(request):
         for file in files_to_copy:
             parameters.append(file)
         data = linux.generate_data_dict(request, option='paste', parameters=parameters)
-        if not data:
+        if data:
             dict___data['list'] = utils___hpc.___html___template___(
                 request=request,
                 context={
@@ -203,17 +220,26 @@ def ___view___delete___(request):
 
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___modal___(request):
+def ___view___go_to___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+        request=request,
+        context=dict(),
+        template_name='application/hpc/___includes___/modal/hpc/goto.html'
+    )
+    return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___create_folder___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
     if request.method == 'POST':
-        option = request.POST.get('option', None)
-        parameters = list()
-        parameters.append(request.POST.get('path', None))
-        if option == 'rename':
-            parameters.append(request.POST.get('name', None))
-        parameters.append(request.POST.get('generic', None))
-        data = linux.generate_data_dict(request, option=option, parameters=parameters)
+        path = request.POST.get('path', None)
+        name = request.POST.get('generic', None)
+        data = linux.generate_data_dict(request, option='folder', parameters=[path, name])
         if data:
             dict___data['list'] = utils___hpc.___html___template___(
                 request=request,
@@ -226,19 +252,45 @@ def ___view___modal___(request):
         else:
             return utils___hpc.___jsonresponse___error___(request)
     else:
-        option = request.GET.get('option', None)
-        if option:
-            dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'form': forms.GenericForm(option='folder')
+            },
+            template_name='application/hpc/___includes___/modal/hpc/folder.html'
+        )
+        return http.JsonResponse(dict___data)
+
+
+@decorators___application___security.___required___request_is_ajax___()
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+def ___view___create_file___(request):
+    dict___data = dict()
+    dict___data['___BOOLEAN___ERROR___'] = False
+    if request.method == 'POST':
+        path = request.POST.get('path', None)
+        name = request.POST.get('generic', None)
+        data = linux.generate_data_dict(request, option='file', parameters=[path, name])
+        if data:
+            dict___data['list'] = utils___hpc.___html___template___(
                 request=request,
                 context={
-                    'form': forms.GenericForm(option=option)
+                    'data': data
                 },
-                template_name='application/hpc/___includes___/modal/hpc/' + option + '.html'
+                template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
             )
-            dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
             return http.JsonResponse(dict___data)
         else:
             return utils___hpc.___jsonresponse___error___(request)
+    else:
+        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
+            request=request,
+            context={
+                'form': forms.GenericForm(option='file')
+            },
+            template_name='application/hpc/___includes___/modal/hpc/file.html'
+        )
+        return http.JsonResponse(dict___data)
 
 
 @decorators___application___security.___required___request_is_ajax___()
@@ -253,7 +305,12 @@ def ___view___upload___(request):
         instance = request.___APPLICATION___SECURITY___USER___
         if form.is_valid():
             for file in files:
-                ssh.ssh_sftp_putfo(instance.group_identifier(), instance.private_key.path, file, path + '/' + file.name)
+                result = ssh.ssh_sftp_putfo(instance.group_identifier(), instance.private_key.path, file, path + '/' + file.name)
+                if isinstance(result, tuple):
+                    messages.add_message(request, messages.ERROR, result[1])
+                    dict___data['___BOOLEAN___ERROR___'] = True
+                    dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
+                    dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
             data = linux.generate_data_dict(request, option='list', parameters=[path])
             if data:
                 dict___data['list'] = utils___hpc.___html___template___(
@@ -276,37 +333,10 @@ def ___view___upload___(request):
         dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
         return http.JsonResponse(dict___data)
 
-'''
+
 @decorators___application___security.___required___request_is_ajax___()
 @decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
-def ___view___create_folder___(request):
-    dict___data = dict()
-    dict___data['___BOOLEAN___ERROR___'] = False
-    if request.method == 'POST':
-        parameters = list()
-        parameters.append(request.POST.get('path', None))
-        parameters.append(request.POST.get('generic', None))
-        data = linux.generate_data_dict(request, option='folder', parameters=parameters)
-        dict___data['___BOOLEAN___ERROR___'] = True
-        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)
-        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
-        dict___data['list'] = utils___hpc.___html___template___(
-            request=request,
-            context={
-                'data': data
-            },
-            template_name='application/hpc/___includes___/content/center/hpc_explorer/___includes___/list.html'
-        )
-        return http.JsonResponse(dict___data)
-    else:
-        dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template___(
-            request=request,
-            context={
-                'form': forms.GenericForm(option='folder')
-            },
-            template_name='application/hpc/___includes___/modal/hpc/folder.html'
-        )
-        dict___data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___'] = utils___hpc.___html___template_message___(request=request)
-        return http.JsonResponse(dict___data)
-
-'''
+def ___view___error___(request):
+    message = request.GET.get('message')
+    messages.add_message(request, messages.ERROR, message)
+    return utils___hpc.___httpresponse___error___(request)

@@ -8,14 +8,26 @@ msgstr ""
 
 
 # *****************************************************************************
-# APPLICATION HPC SSH MESSAGES
+# HPC SSH MESSAGES
 # *****************************************************************************
 
-msgid "APPLICATION___HPC___SSH___MESSAGES_AuthenticationException"
-msgstr "Incorrects username and/or password"
-msgid "APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable"
-msgstr "HPC server not available at this time"
-msgid "APPLICATION___HPC___SSH___MESSAGES_UploadFilesException"
-msgstr "It was not possible to upload the files to the server"
-msgid "APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException"
-msgstr "It has not been possible to download the files from the server"
+msgid "HPC___SSH___MESSAGES_AuthenticationException"
+msgstr "Authentication failed, please verify your credentials."
+msgid "HPC___SSH___MESSAGES_BadHostKeyException"
+msgstr "Unable to verify server's host key."
+msgid "HPC___SSH___MESSAGES_SSHException"
+msgstr "Unable to establish SSH connection with the cluster."
+msgid "HPC___SSH___MESSAGES_Exception"
+msgstr "Could not open a connection to %s."
+msgid "HPC___SSH___MESSAGES_CommandError"
+msgstr "Command error: %s"
+msgid "HPC___SSH___MESSAGES_OperationException"
+msgstr "Operation error."
+msgid "HPC___SSH___MESSAGES_UploadFilesException"
+msgstr "It was not possible to upload the file \"%s\" to the server."
+msgid "HPC___SSH___MESSAGES_DownloadFilesException"
+msgstr "It has not been possible to download the file \"%s\" from the server."
+msgid "HPC___SSH___MESSAGES_WriteIsNotPossible"
+msgstr "An error occurred while trying to modify the file."
+msgid "HPC___SSH___MESSAGES_OpenIsNotPossible"
+msgstr "An error occurred while trying to open the file."

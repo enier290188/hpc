@@ -7,7 +7,7 @@ function getCookie(c_name) {
             c_start = c_start + c_name.length + 1;
             var c_end = document.cookie.indexOf(";", c_start);
             if (c_end === -1) c_end = document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
+            return decodeURI(document.cookie.substring(c_start,c_end));
         }
     }
     return "";
@@ -23,11 +23,12 @@ var hpc_explorer_init = function(){
         $hpc__buttons = $hpc__content__center.find('#explorer___content').find('#actionsFileSystem'),
         $hpc__buttons__header = $hpc__content__center.find('#center___header').find('#actionsInHeader'),
         url_list =  $hpc__content__center.find('#explorer___content').find('#tableFileSystem').attr('data-url-list'),
+        url_error =  $hpc__content__center.find('#explorer___content').find('#tableFileSystem').attr('data-url-error'),
         home =  $hpc__content__center.find('#explorer___content').find('#tableFileSystem').attr('data-home');
     var filesToCopy = [];
 
 
-    var hpc__module__explorer__button__disabled__all = function(){
+    var hpc__explorer__disabled_all_actions= function(){
         $hpc__buttons.find('a').each(function(){
             $(this).attr('disabled', 'disabled');
         });
@@ -35,7 +36,7 @@ var hpc_explorer_init = function(){
             $(this).attr('disabled', 'disabled');
         });
     };
-    var hpc__module__explorer__button__disabled = function(){
+    var hpc__explorer__disabled_actions = function(){
         $hpc__buttons__header.find('a').each(function (){
             $(this).removeAttr('disabled');
         });
@@ -78,8 +79,8 @@ var hpc_explorer_init = function(){
         else
             $actions.eq(7).attr('data-option', 'select-all').removeAttr('disabled').find('span').eq(1).text(' Select All');
     };
-    var hpc__module__explorer__list = function(){
-        hpc__module__explorer__button__disabled__all();
+    var hpc__explorer__list = function(){
+        hpc__explorer__disabled_all_actions();
         $.getJSON(url_list, {'path': path}, function(data) {
             if(data['___BOOLEAN___ERROR___']){
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
@@ -89,266 +90,11 @@ var hpc_explorer_init = function(){
             else {
                 $hpc__tbody.html(data.list);
                 $hpc__pwd.find('strong').text(path);
-                hpc__module__explorer__button__disabled();
+                hpc__explorer__disabled_actions();
             }
         }).always(function() {});
     };
-    hpc__module__explorer__list();
-
-
-
-    var hpc__module__explorer__modal__upload__validation = function() {
-        var $hpc__modal__body = $hpc__modal.find('.modal-body'),
-            $hpc__modal__footer = $hpc__modal.find('.modal-footer');
-        var files = $hpc__modal__body.find('#files').get(0).files,
-            $input = $hpc__modal__body.find('#files_selected');
-        if (files.length > 1) $input.val(files.length + ' archivos seleccionados');
-        if (files.length === 1) $input.val('Un archivo seleccionado: '+files[0].name);
-        if (files.length === 0) $input.val('');
-        var i = 0,
-            error = false;
-        if (files.length > 0 && files.length < 11){
-            for(i; i<files.length; i++) {
-                if (files[i].size > 1024 * 1024 * 40) {
-                    error = true;
-                    $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;Los archivos no deben exceder los 40mb.&CloseCurlyDoubleQuote;');
-                    break;
-                }
-                console.log(files[i]);
-                for (var j = 0; j < files[i].name.length; j++) {
-                    if (files[i].name[j] === '\\'){
-                        error = true;
-                        $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;El caracter <b>\\</b> no puede estar contenido en el nombre de los archivos.&CloseCurlyDoubleQuote;');
-                        break;
-                    }
-                }
-                if (j !== files[i].name.length)
-                    break;
-            }
-            if(i === files.length){
-                error = false;
-                $hpc__modal__body.find('.help-block').html('');
-            }
-        }
-        else{
-            error = true;
-            $hpc__modal__footer.find('button.btn-primary').attr('disabled', 'disabled');
-            if(files.length === 0)
-                $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;Seleccione al menos un archivo.&CloseCurlyDoubleQuote;');
-            else
-                $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;No puede subir más de 10 archivos simultaneamente.&CloseCurlyDoubleQuote;');
-        }
-        var elem = $hpc__modal__body.find('.btn');
-        var formGroup = $hpc__modal__body.find('.form-group');
-        if (error) {
-            $hpc__modal__footer.find('button').eq(0).attr('disabled', 'disabled');
-            if (elem.hasClass('btn-default')) elem.removeClass('btn-default').addClass('btn-danger');
-            if (!formGroup.hasClass('has-error')) formGroup.addClass('has-error')
-        }
-        else {
-            $hpc__modal__footer.find('button').eq(0).removeAttr('disabled');
-            if (elem.hasClass('btn-danger')) elem.removeClass('btn-danger').addClass('btn-default');
-            if (formGroup.hasClass('has-error')) formGroup.removeClass('has-error')
-        }
-    };
-
-    var hpc__module__explorer__modal__submit__edit = function(evt){
-        evt.preventDefault();
-        var $form = $(this);
-        var $btn =$form.find('.modal-footer').find('button').eq(0);
-        if($btn.attr('disabled'))
-            return;
-        var formData = new FormData(this);
-        formData.append('path', path);
-        formData.append('file_name', $hpc__tbody.find('tr.primary').attr('data-name'));
-        $.ajax({
-            url: $form.attr('action') + '?save=',
-            data: formData,
-            type: $form.attr('method'),
-            dataType: 'json',
-            cache: false,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $form.find('.modal-header').append('' +
-                    '<div style="position: absolute; top: 16px; right: 60px">' +
-                    '   <span class="fa fa-spinner fa-pulse"></span> Guardando...' +
-                    '</div>'
-                );
-            },
-            success: function (data) {
-                var $div = $form.find('.modal-header').find('div');
-                if (data['___BOOLEAN___ERROR___']) {
-                    $div.html('<span class="fa fa-warning fa-fw"></span> Error en servidor');
-                }
-                else {
-                    $btn.attr('disabled', 'disabled');
-                    $div.html('<span class="fa fa-check-circle fa-fw"></span> Guardado');
-                }
-                setTimeout(function(){
-                    $div.remove();
-                }, 4000);
-            }
-        });
-    };
-
-    var hpc__module__explorer__modal__submit__upload = function(evt){
-        evt.preventDefault();
-        var $form = $(this);
-        var $btn =$form.find('.modal-footer').find('button').eq(0);
-        if($btn.attr('disabled'))
-            return;
-        var formData = new FormData(this);
-        formData.append('path', path);
-        $.ajax({
-            url: $form.attr('action') + '?upload=',
-            data: formData,
-            type: $form.attr('method'),
-            dataType: 'json',
-            cache: false,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $hpc__tbody.html('' +
-                    '<tr>' +
-                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
-                    '</tr>'
-                );
-                hpc__module__explorer__button__disabled__all();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
-            },
-            success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
-                    $hpc__tbody.html(data.list);
-                    $hpc__pwd.find('strong').text(path);
-                    hpc__module__explorer__button__disabled();
-                }
-            }
-        });
-    };
-
-    var hpc__module__explorer__modal__submit__generic = function(evt){
-        evt.preventDefault();
-        var $form = $(this);
-        var $btn =$form.find('.modal-footer').find('button').eq(0);
-        if($btn.attr('disabled'))
-            return;
-        var formData = new FormData(this);
-        formData.append('path', path);
-        formData.append('option', $form.attr('data-option'));
-        if ($(this).attr('data-option')==='rename')
-            formData.append('name', $hpc__tbody.find('tr.primary').attr('data-name'));
-        $.ajax({
-            url: $form.attr('action') + '?' + $form.attr('data-option') + '=',
-            data: formData,
-            type: $form.attr('method'),
-            dataType: 'json',
-            cache: false,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $hpc__tbody.html('' +
-                    '<tr>' +
-                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
-                    '</tr>'
-                );
-                hpc__module__explorer__button__disabled__all();
-            },
-            success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_LOAD___();
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
-                    $hpc__tbody.html(data.list);
-                    $hpc__pwd.find('strong').text(path);
-                    hpc__module__explorer__button__disabled();
-                }
-            }
-        });
-    };
-
-    var hpc__module__explorer__modal__click__goto = function(){
-        var dir = $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
-        path = '/' + path.split('/')[1] + '/' + path.split('/')[2] + '/' + path.split('/')[3];
-        if (dir)
-            path += '/' + $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
-        hpc__module__explorer__list();
-        hpc__module__explorer__button__disabled();
-    };
-
-    var hpc__module__explorer__modal__click__delete = function() {
-        var $btn = $('#modal-delete').find('.modal-footer').find('button').eq(0);
-        var values = [path];
-        $.each($hpc__tbody.find('tr.primary'), function(index, elem){
-            values.push($(elem).attr('data-name'));
-        });
-        $.ajaxSetup({
-            headers: { "X-CSRFToken": getCookie("csrftoken") }
-        });
-        $.ajax({
-            url: $btn.attr('data-url'),
-            data: {
-                'values': values
-            },
-            type: 'post',
-            dataType: 'json',
-            cache: false,
-            beforeSend: function () {
-                $hpc__tbody.html('' +
-                    '<tr>' +
-                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
-                    '</tr>'
-                );
-                hpc__module__explorer__button__disabled__all();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
-            },
-            success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
-                    $hpc__tbody.html(data.list);
-                    $hpc__pwd.find('strong').text(path);
-                    hpc__module__explorer__button__disabled();
-                }
-            }
-        });
-    };
-
-    var hpc__module__explorer__modal__click__execute = function () {
-        var url = $('#modal-execute').find('.modal-footer').find('button').eq(0).attr('data-url');
-        var values = [path, $hpc__tbody.find('tr.primary').attr('data-name')];
-        $.ajax({
-            url: url,
-            data: {
-                'values': values
-            },
-            type: 'post',
-            dataType: 'json',
-            cache: false,
-            beforeSend: function () {
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
-            },
-            success: function (data) {
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                }
-                else {
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
-                }
-            }
-        });
-    };
+    hpc__explorer__list();
 
 
     /*<<<<<<<<*/
@@ -365,13 +111,13 @@ var hpc_explorer_init = function(){
             });
             $(this).addClass('primary');
         }
-        hpc__module__explorer__button__disabled();
+        hpc__explorer__disabled_actions();
     };
     var hpc__explorer__action__dblClick = function() {
         if ($(this).hasClass('directory')) {
             path = path + '/' + $(this).attr('data-name');
             $hpc__tbody.html('<tr><td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td></tr>');
-            hpc__module__explorer__list();
+            hpc__explorer__list();
         }
     };
     $hpc__tbody
@@ -380,7 +126,7 @@ var hpc_explorer_init = function(){
     /*>>>>>>>>*/
 
 
-    //*<<<<<<<<*/
+    /*<<<<<<<<*/
     var hpc__explorer__action__back = function(){
         if($(this).attr('disabled')!=='disabled') {
             $(this).attr('disabled', 'disabled');
@@ -389,7 +135,7 @@ var hpc_explorer_init = function(){
                 tmp.pop();
             path = tmp.join('/');
             $hpc__tbody.html('<tr><td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td></tr>');
-            hpc__module__explorer__list();
+            hpc__explorer__list();
         }
     };
     var hpc__explorer__action__view = function(){
@@ -397,7 +143,7 @@ var hpc_explorer_init = function(){
             $(this).attr('disabled', 'disabled');
             path += '/' + $hpc__tbody.find('tr.primary').attr('data-name');
             $hpc__tbody.html('<tr><td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td></tr>');
-            hpc__module__explorer__list();
+            hpc__explorer__list();
         }
     };
     var hpc__explorer__action__edit = function(){
@@ -424,6 +170,7 @@ var hpc_explorer_init = function(){
                         $hpc__modal.find('.modal___message').html(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']);
                         ___HTML___application___hpc___modal___EVENTS_ON___();
                     }
+                    hpc__explorer__disabled_actions();
                 }
             });
         }
@@ -465,12 +212,30 @@ var hpc_explorer_init = function(){
                     responseType: 'blob'
                 },
                 success: function (data) {
-                    var a = document.createElement('a');
-                    var url = window.URL.createObjectURL(data);
-                    a.href = url;
-                    a.download = name;
-                    a.click();
-                    window.URL.revokeObjectURL(url);
+                    try {
+                        var a = document.createElement('a');
+                        var url = window.URL.createObjectURL(data);
+                        a.href = url;
+                        a.download = name;
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    }
+                    catch (err) {
+                        $.ajax({
+                            url: url_error,
+                            type: 'GET',
+                            data: {
+                                'message': interpolate(gettext('HPC___SSH___MESSAGES_DownloadFilesException'), [name])
+                            },
+                            dataType: 'json',
+                            beforeSend: function () {
+                                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                            },
+                            success: function (data) {
+                                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                            }
+                        });
+                    }
                 }
             });
             /*
@@ -514,7 +279,7 @@ var hpc_explorer_init = function(){
                         '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
                         '</tr>'
                     );
-                    hpc__module__explorer__button__disabled__all();
+                    hpc__explorer__disabled_all_actions();
                 },
                 success: function (data) {
                     filesToCopy = [];
@@ -526,7 +291,7 @@ var hpc_explorer_init = function(){
                     else {
                         $hpc__tbody.html(data.list);
                         $hpc__pwd.find('strong').text(path);
-                        hpc__module__explorer__button__disabled();
+                        hpc__explorer__disabled_actions();
                     }
                 }
             });
@@ -538,7 +303,7 @@ var hpc_explorer_init = function(){
         tr.each(function(){
             $(this).addClass('primary');
         });
-        hpc__module__explorer__button__disabled();
+        hpc__explorer__disabled_actions();
     };
     var hpc__explorer__action__unSelectAll = function(){
         $(this).attr('data-option', 'select-all');
@@ -546,7 +311,7 @@ var hpc_explorer_init = function(){
         tr.each(function(){
             $(this).removeClass('primary');
         });
-        hpc__module__explorer__button__disabled();
+        hpc__explorer__disabled_actions();
     };
     var hpc__explorer__action__execute = function(){
         if($(this).attr('disabled')!=='disabled') {
@@ -608,19 +373,13 @@ var hpc_explorer_init = function(){
 
 
     /*<<<<<<<<*/
-    var hpc__explorer__action__generic = function(btn){
-        var $btn =$(this);
-        if($btn.attr('disabled'))
+    var hpc__explorer__action__generic = function(){
+        if($(this).attr('disabled'))
             return;
-        var option = $btn.attr('data-option');
-        var data = {
-            option: option,
-            path: path
-        };
+        var option = $(this).attr('data-option');
         $.ajax({
-            url: $btn.attr('data-url'),
+            url: $(this).attr('data-url'),
             type: 'GET',
-            data: data,
             dataType: 'json',
             beforeSend: function () {
                 ___HTML___application___hpc___modal___SHOW_LOAD___();
@@ -640,31 +399,355 @@ var hpc_explorer_init = function(){
         });
     };
     $hpc__buttons__header
-        .on('click',
-            'a[data-option="goto"] a[data-option="folder"] a[data-option="file"] a[data-option="upload',
-            hpc__explorer__action__generic
-        );
+        .on('click', 'a[data-option="goto"]', hpc__explorer__action__generic)
+        .on('click', 'a[data-option="folder"]', hpc__explorer__action__generic)
+        .on('click', 'a[data-option="file"]', hpc__explorer__action__generic)
+        .on('click', 'a[data-option="upload"]', hpc__explorer__action__generic);
     /*>>>>>>>>*/
 
-    $hpc__modal
-        .on('change', '#files', hpc__module__explorer__modal__upload__validation)
-        .on('submit', '.hpc___modal___submit___edit', hpc__module__explorer__modal__submit__edit)
-        .on('click', '.hpc___modal___click___goto', hpc__module__explorer__modal__click__goto)
-        .on('click', '.hpc___modal___click___delete', hpc__module__explorer__modal__click__delete)
-        .on('click', '.hpc___modal___click___execute', hpc__module__explorer__modal__click__execute)
-        .on('submit', '.hpc___modal___submit___upload', hpc__module__explorer__modal__submit__upload)
-        .on('submit', '.hpc___modal___submit___generic', hpc__module__explorer__modal__submit__generic);
 
+    /*<<<<<<<<*/
+    var hpc__explorer__modal__click__go_to = function(){
+        var dir = $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
+        path = '/' + path.split('/')[1] + '/' + path.split('/')[2] + '/' + path.split('/')[3];
+        if (dir)
+            path += '/' + $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
+        hpc__explorer__list();
+        hpc__explorer__disabled_actions();
+    };
+    var hpc__explorer__modal__submit__create_folder = function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var $btn =$form.find('.modal-footer').find('button').eq(0);
+        if($btn.attr('disabled'))
+            return;
+        var formData = new FormData(this);
+        formData.append('path', path);
+        $.ajax({
+            url: $form.attr('action'),
+            data: formData,
+            type: $form.attr('method'),
+            dataType: 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___']){
+                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                }
+                else {
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
+    };
+    var hpc__explorer__modal__submit__create_file = function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var $btn =$form.find('.modal-footer').find('button').eq(0);
+        if($btn.attr('disabled'))
+            return;
+        var formData = new FormData(this);
+        formData.append('path', path);
+        $.ajax({
+            url: $form.attr('action'),
+            data: formData,
+            type: $form.attr('method'),
+            dataType: 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___']){
+                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                }
+                else {
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
+    };
+    var hpc__explorer__modal__submit__upload = function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var $btn =$form.find('.modal-footer').find('button').eq(0);
+        if($btn.attr('disabled'))
+            return;
+        var formData = new FormData(this);
+        formData.append('path', path);
+        $.ajax({
+            url: $form.attr('action') + '?upload=',
+            data: formData,
+            type: $form.attr('method'),
+            dataType: 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___']){
+                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                }
+                if (data.list){
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
+    };
+    var hpc__explorer__modal__submit__edit = function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var $btn =$form.find('.modal-footer').find('button').eq(0);
+        if($btn.attr('disabled'))
+            return;
+        var formData = new FormData(this);
+        formData.append('path', path);
+        formData.append('file_name', $hpc__tbody.find('tr.primary').attr('data-name'));
+        $.ajax({
+            url: $form.attr('action') + '?save=',
+            data: formData,
+            type: $form.attr('method'),
+            dataType: 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $form.find('.modal-header').append('' +
+                    '<div style="position: absolute; top: 16px; right: 60px">' +
+                    '   <span class="fa fa-spinner fa-pulse"></span> Guardando...' +
+                    '</div>'
+                );
+            },
+            success: function (data) {
+                var $div = $form.find('.modal-header').find('div');
+                if (data['___BOOLEAN___ERROR___']) {
+                    $div.html('<span class="fa fa-warning fa-fw"></span> Error en el servidor');
+                }
+                else {
+                    $btn.attr('disabled', 'disabled');
+                    $div.html('<span class="fa fa-check-circle fa-fw"></span> Guardado');
+                }
+                setTimeout(function(){
+                    $div.remove();
+                }, 4000);
+            }
+        });
+    };
+    var hpc__explorer__modal__submit__rename = function(evt){
+        evt.preventDefault();
+        var $form = $(this);
+        var $btn =$form.find('.modal-footer').find('button').eq(0);
+        if($btn.attr('disabled'))
+            return;
+        var formData = new FormData(this);
+        formData.append('path', path);
+        formData.append('name', $hpc__tbody.find('tr.primary').attr('data-name'));
+        $.ajax({
+            url: $form.attr('action') + '?' + $form.attr('data-option') + '=',
+            data: formData,
+            type: $form.attr('method'),
+            dataType: 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___']){
+                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                }
+                else {
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
+    };
+    var hpc__explorer__modal__click__execute = function () {
+        var url = $('#modal-execute').find('.modal-footer').find('button').eq(0).attr('data-url');
+        var values = [path, $hpc__tbody.find('tr.primary').attr('data-name')];
+        $.ajax({
+            url: url,
+            data: {
+                'values': values
+            },
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            beforeSend: function () {
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                if(data['___BOOLEAN___ERROR___']){
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                }
+                else {
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
+                }
+            }
+        });
+    };
+    var hpc__explorer__modal__click__delete = function() {
+        var $btn = $('#modal-delete').find('.modal-footer').find('button').eq(0);
+        var values = [path];
+        $.each($hpc__tbody.find('tr.primary'), function(index, elem){
+            values.push($(elem).attr('data-name'));
+        });
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": getCookie("csrftoken") }
+        });
+        $.ajax({
+            url: $btn.attr('data-url'),
+            data: {
+                'values': values
+            },
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___']){
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
+                }
+                else {
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
+    };
+    $hpc__modal
+        .on('click', '.hpc___modal___click___go_to', hpc__explorer__modal__click__go_to)
+        .on('submit', '.hpc___modal___submit___create_folder', hpc__explorer__modal__submit__create_folder)
+        .on('submit', '.hpc___modal___submit___create_file', hpc__explorer__modal__submit__create_file)
+        .on('submit', '.hpc___modal___submit___upload', hpc__explorer__modal__submit__upload)
+        .on('submit', '.hpc___modal___submit___edit', hpc__explorer__modal__submit__edit)
+        .on('submit', '.hpc___modal___submit___rename', hpc__explorer__modal__submit__rename)
+        .on('click', '.hpc___modal___click___execute', hpc__explorer__modal__click__execute)
+        .on('click', '.hpc___modal___click___delete', hpc__explorer__modal__click__delete);
+    /*>>>>>>>>*/
+
+
+    /*<<<<<<<<*/
+    var hpc__explorer__modal__upload__validation = function() {
+        var $hpc__modal__body = $hpc__modal.find('.modal-body'),
+            $hpc__modal__footer = $hpc__modal.find('.modal-footer');
+        var files = $hpc__modal__body.find('#files').get(0).files,
+            $input = $hpc__modal__body.find('#files_selected');
+        if (files.length > 1) $input.val(files.length + ' archivos seleccionados');
+        if (files.length === 1) $input.val('Un archivo seleccionado: '+files[0].name);
+        if (files.length === 0) $input.val('');
+        var i = 0,
+            error = false;
+        if (files.length > 0 && files.length < 11){
+            for(i; i<files.length; i++) {
+                if (files[i].size > 1024 * 1024 * 40) {
+                    error = true;
+                    $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;Los archivos no deben exceder los 40mb.&CloseCurlyDoubleQuote;');
+                    break;
+                }
+                for (var j = 0; j < files[i].name.length; j++) {
+                    if (files[i].name[j] === '\\'){
+                        error = true;
+                        $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;El caracter <b>\\</b> no puede estar contenido en el nombre de los archivos.&CloseCurlyDoubleQuote;');
+                        break;
+                    }
+                }
+                if (j !== files[i].name.length)
+                    break;
+            }
+            if(i === files.length){
+                error = false;
+                $hpc__modal__body.find('.help-block').html('');
+            }
+        }
+        else{
+            error = true;
+            $hpc__modal__footer.find('button.btn-primary').attr('disabled', 'disabled');
+            if(files.length === 0)
+                $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;Seleccione al menos un archivo.&CloseCurlyDoubleQuote;');
+            else
+                $hpc__modal__body.find('.help-block').html('<span class="fa fa-exclamation-circle fa-fw"></span> &OpenCurlyDoubleQuote;No puede subir más de 10 archivos simultaneamente.&CloseCurlyDoubleQuote;');
+        }
+        var elem = $hpc__modal__body.find('.btn');
+        var formGroup = $hpc__modal__body.find('.form-group');
+        if (error) {
+            $hpc__modal__footer.find('button').eq(0).attr('disabled', 'disabled');
+            if (elem.hasClass('btn-default')) elem.removeClass('btn-default').addClass('btn-danger');
+            if (!formGroup.hasClass('has-error')) formGroup.addClass('has-error')
+        }
+        else {
+            $hpc__modal__footer.find('button').eq(0).removeAttr('disabled');
+            if (elem.hasClass('btn-danger')) elem.removeClass('btn-danger').addClass('btn-default');
+            if (formGroup.hasClass('has-error')) formGroup.removeClass('has-error')
+        }
+    };
     var eblur = function(){
         $(this).siblings().eq(0).removeClass('border-shadow');
     };
     var efocus = function(){
         $(this).siblings().eq(0).addClass('border-shadow');
     };
-    $hpc__modal
-        .on('blur', '#modal-goto input[name=goto]', eblur)
-        .on('focus', '#modal-goto input[name=goto]', efocus);
-
     var ekeyup = function(){
         var $btn = $hpc__modal.find('.modal-footer').find('button').eq(0);
         // var expreg = new RegExp('.*(/|\\\\).*');
@@ -679,7 +762,11 @@ var hpc_explorer_init = function(){
                 $btn.attr('disabled', 'disabled');
     };
     $hpc__modal
+        .on('blur', '#modal-goto input[name=goto]', eblur)
+        .on('focus', '#modal-goto input[name=goto]', efocus)
+        .on('change', '#files', hpc__explorer__modal__upload__validation)
         .on('keyup', '#modal-file #id_generic', ekeyup)
         .on('keyup', '#modal-folder #id_generic', ekeyup)
-        .on('keyup', '#modal-rename #id_generic', ekeyup)
+        .on('keyup', '#modal-rename #id_generic', ekeyup);
+    /*>>>>>>>>*/
 };

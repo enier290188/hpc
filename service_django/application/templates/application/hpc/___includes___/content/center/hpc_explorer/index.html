@@ -4,13 +4,13 @@
     <span class="fa fa-folder-open fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER' %}
     <div class="pull-right">
         <div id="actionsInHeader" class="visible-md visible-lg">
-            <a class="btn btn-sm btn-default" data-option='goto' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+            <a class="btn btn-sm btn-default" data-option='goto' data-url="{% url "application___hpc:modules:hpc_explorer:go-to" %}">
                 <span class="fa fa-folder-open fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___Goto' %}
             </a>
-            <a class="btn btn-sm btn-default" data-option='folder' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+            <a class="btn btn-sm btn-default" data-option='folder' data-url="{% url "application___hpc:modules:hpc_explorer:create-folder" %}">
                 <span class="fa fa-folder fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___Folder' %}
             </a>
-            <a class="btn btn-sm btn-default" data-option='file' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+            <a class="btn btn-sm btn-default" data-option='file' data-url="{% url "application___hpc:modules:hpc_explorer:create-file" %}">
                  <span class="fa fa-file fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___File' %}
             </a>
             <a class="btn btn-sm btn-default" data-option='upload' data-url="{% url "application___hpc:modules:hpc_explorer:upload" %}">
@@ -23,17 +23,17 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right dropdown_menu___user" aria-labelledby="dropdownActions">
                 <li>
-                    <a data-option='goto' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+                    <a data-option='goto' data-url="{% url "application___hpc:modules:hpc_explorer:go-to" %}">
                         <span class="fa fa-folder-open fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___Goto' %}
                     </a>
                 </li>
                 <li>
-                    <a data-option='folder' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+                    <a data-option='folder' data-url="{% url "application___hpc:modules:hpc_explorer:create-folder" %}">
                         <span class="fa fa-folder fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___Folder' %}
                     </a>
                 </li>
                 <li>
-                    <a data-option='file' data-url="{% url "application___hpc:modules:hpc_explorer:modal" %}">
+                    <a data-option='file' data-url="{% url "application___hpc:modules:hpc_explorer:create-file" %}">
                         <span class="fa fa-file fa-fw"></span> {% trans 'HPC___CONTENT___EXPLORER___HEADER___BUTTONS___File' %}
                     </a>
                 </li>
@@ -76,13 +76,13 @@
                 <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <span class="hidden-xs">{% trans 'HPC___CONTENT___EXPLORER___BUTTONS___SelectAll' %}</span>
             </a>
             <a disabled class="btn btn-sm btn-default" title="Execute" data-option="execute" data-url="{% url "application___hpc:modules:hpc_explorer:execute" %}">
-                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span class="hidden-xs">Run</span>
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span class="hidden-xs">{% trans 'HPC___CONTENT___EXPLORER___BUTTONS___Execute' %}</span>
             </a>
             <a disabled class="btn btn-sm btn-danger pull-right" title="Delete" data-option='delete' data-url="{% url "application___hpc:modules:hpc_explorer:delete" %}">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {% trans 'HPC___CONTENT___EXPLORER___BUTTONS___Delete' %}
             </a>
         </div>
-        <div id="tableFileSystem" data-url-list="{% url "application___hpc:modules:hpc_explorer:list" %}" data-home="{{ home }}">
+        <div id="tableFileSystem" data-url-list="{% url "application___hpc:modules:hpc_explorer:list" %}" data-url-error="{% url "application___hpc:modules:hpc_explorer:error" %}" data-home="{{ home }}">
             <table class="table">
                 <thead class="fixedHeader" id="fixedHeader">
                     <tr>

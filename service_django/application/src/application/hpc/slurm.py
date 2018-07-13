@@ -173,8 +173,8 @@ def run_command(request, option, parameters=None):
     if option == 'partitions-detail':
         command = 'sinfo --format="%R %a %D %N"'
 
-    result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
-    if result['HAS_ERROR']:
-        messages.add_message(request, messages.ERROR, result['MESSAGE'])
+    err, out = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
+    if err:
+        messages.add_message(request, messages.ERROR, out)
     else:
-        return result['OUTPUT']
+        return out

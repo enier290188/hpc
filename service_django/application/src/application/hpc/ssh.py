@@ -13,14 +13,14 @@
 # ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # Establecer una conexión
-# ssh_client.connect(hostname, port, username, key_filename)
+# ssh_client.connect(hostname, port, username, pkey)
 
 # Ejecutar un comando en el servidor
-# h_input, h_output, h_error = ssh_client.exec_command(command)
+# stdin, stdout, stderr = ssh_client.exec_command(command)
 
 # Leer los resultados de la ejecución del comando del buffer de salida estandar y error standar
-# error = h_error.read()
-# output = h_output.read()
+# err = stderr.read()
+# out = stdout.read()
 
 # Abrir una conexión sftp
 # sftp = ssh_client.open_sftp()
@@ -44,209 +44,225 @@ import paramiko
 import logging
 
 
-def ssh_exec(username, private_key_path, command):
+def config_logger():
     logger = paramiko.util.logging.getLogger()
-    hdlr = logging.FileHandler('/app.log')
+    hdlr = logging.FileHandler('/service_django/error.log')
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     hdlr.setFormatter(formatter)
     logger.addHandler(hdlr)
     logger.setLevel(logging.INFO)
 
-    result = dict()
+
+def ssh_exec(username, private_key_path, command):
+    config_logger()
+
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    boolean = True
-    while boolean:
+
+    try:
+        k = paramiko.RSAKey.from_private_key_file(private_key_path)
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            pkey=k
+        )
+    except paramiko.AuthenticationException as authenticationException:
+        message = _('HPC___SSH___MESSAGES_AuthenticationException')
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    except paramiko.BadHostKeyException as badHostKeyException:
+        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+        logging.info(_('HPC___SSH___MESSAGES_BadHostKeyException'), badHostKeyException)
+    except paramiko.SSHException as sshException:
+        message = _('HPC___SSH___MESSAGES_SSHException')
+        logging.info(_('HPC___SSH___MESSAGES_SSHException'), sshException)
+    except Exception as e:
+        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        logging.info(_('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST, e)
+    else:
         try:
-            k = paramiko.RSAKey.from_private_key_file(private_key_path)
-            ssh_client.connect(
-                hostname=settings.CLUSTER_SERVER_HOST,
-                port=int(settings.CLUSTER_SERVER_PORT),
-                username=username,
-                # key_filename=private_key_path,
-                pkey=k
-            )
-            h_input, h_output, h_error = ssh_client.exec_command(command)
-        except Exception as e:
-            logging.debug(e)
-            logging.info('Error connecting to Server')
-            logging.exception('Error connecting to Server', e)
-            result.update({
-                'HAS_ERROR': True,
-                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
-            })
-        else:
-            error = h_error.read().decode('utf-8')
-            output = h_output.read()
-            if error == '':
-                result.update({
-                    'HAS_ERROR': False,
-                    'OUTPUT': output
-                })
+            stdin, stdout, stderr = ssh_client.exec_command(command)
+            err = stderr.read()
+            if len(err) > 0:
+                message = _('HPC___SSH___MESSAGES_CommandError') % err.decode('utf')
             else:
-                result.update({
-                    'HAS_ERROR': True,
-                    'MESSAGE': error
-                })
-            boolean = False
-        finally:
-            ssh_client.close()
-    return result
+                out = stdout.read()
+                return False, out
+        except Exception as e:
+            message = _('HPC___SSH___MESSAGES_OperationException')
+            logging.info(_('HPC___SSH___MESSAGES_OperationException'), e)
+    finally:
+        ssh_client.close()
+    return True, message
 
 
 def ssh_sftp_putfo(username, private_key_path, file, remotopath):
+    config_logger()
+
     ssh_client = paramiko.SSHClient()
+    ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(
-        hostname=settings.CLUSTER_SERVER_HOST,
-        port=settings.CLUSTER_SERVER_PORT,
-        username=username,
-        key_filename=private_key_path
-    )
-    sftp = ssh_client.open_sftp()
-    sftp.putfo(file, remotopath)
-    sftp.close()
-    ssh_client.close()
 
-
-def ssh_sftp_getfo(username, private_key_path, remotopath, file):
-    ssh_client = paramiko.SSHClient()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(
-        hostname=settings.CLUSTER_SERVER_HOST,
-        port=settings.CLUSTER_SERVER_PORT,
-        username=username,
-        key_filename=private_key_path
-    )
-    sftp = ssh_client.open_sftp()
-    sftp.getfo(remotopath, file)
-    sftp.close()
-    ssh_client.close()
-
-
-def ssh_sftp_put(username, private_key_path, local, remoto):
-    result = dict()
-    ssh_client = paramiko.SSHClient()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    boolean = True
-    while boolean:
-        try:
-            ssh_client.connect(
-                hostname=settings.CLUSTER_SERVER_HOST,
-                port=settings.CLUSTER_SERVER_PORT,
-                username=username,
-                key_filename=private_key_path
-            )
-        except Exception as e:
-            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
-            result.update({
-                'HAS_ERROR': True,
-                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
-            })
-        else:
-            sftp = ssh_client.open_sftp()
-            try:
-                output = sftp.put(local, remoto)
-                result.update({
-                    'HAS_ERROR': False
-                })
-            except Exception as e:
-                logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException'), e)
-                result.update({
-                    'HAS_ERROR': True,
-                    'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_UploadFilesException')
-                })
-            sftp.close()
-            boolean = False
-        finally:
-            ssh_client.close()
-    return result
-
-
-def ssh_sftp_get(username, private_key_path, remoto, local):
-    result = dict()
-    ssh_client = paramiko.SSHClient()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
+        k = paramiko.RSAKey.from_private_key_file(private_key_path)
         ssh_client.connect(
             hostname=settings.CLUSTER_SERVER_HOST,
-            port=settings.CLUSTER_SERVER_PORT,
+            port=int(settings.CLUSTER_SERVER_PORT),
             username=username,
-            key_filename=private_key_path
+            pkey=k
         )
+    except paramiko.AuthenticationException as authenticationException:
+        message = _('HPC___SSH___MESSAGES_AuthenticationException')
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    except paramiko.BadHostKeyException as badHostKeyException:
+        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+        logging.info(_('HPC___SSH___MESSAGES_BadHostKeyException'), badHostKeyException)
+    except paramiko.SSHException as sshException:
+        message = _('HPC___SSH___MESSAGES_SSHException')
+        logging.info(_('HPC___SSH___MESSAGES_SSHException'), sshException)
     except Exception as e:
-        logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'), e)
-        result.update({
-            'HAS_ERROR': True,
-            'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable')
-        })
+        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        logging.info(_('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST, e)
     else:
         sftp = ssh_client.open_sftp()
         try:
-            output = sftp.get(remoto, local)
-            result.update({
-                'HAS_ERROR': False
-            })
+            sftp.putfo(file, remotopath)
+            return False
         except Exception as e:
-            logging.exception(_('APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException'), e)
-            result.update({
-                'HAS_ERROR': True,
-                'MESSAGE': _('APPLICATION___HPC___SSH___MESSAGES_DownloadFilesException'),
-            })
-        sftp.close()
+            message = _('HPC___SSH___MESSAGES_UploadFilesException') % file.name
+            logging.info(_('HPC___SSH___MESSAGES_UploadFilesException'), e)
+        finally:
+            sftp.close()
     finally:
         ssh_client.close()
-    return result
+    return True, message
+
+
+def ssh_sftp_getfo(username, private_key_path, remotopath, file):
+    config_logger()
+
+    ssh_client = paramiko.SSHClient()
+    ssh_client.load_system_host_keys()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        k = paramiko.RSAKey.from_private_key_file(private_key_path)
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            pkey=k
+        )
+    except paramiko.AuthenticationException as authenticationException:
+        message = _('HPC___SSH___MESSAGES_AuthenticationException')
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    except paramiko.BadHostKeyException as badHostKeyException:
+        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+        logging.info(_('HPC___SSH___MESSAGES_BadHostKeyException'), badHostKeyException)
+    except paramiko.SSHException as sshException:
+        message = _('HPC___SSH___MESSAGES_SSHException')
+        logging.info(_('HPC___SSH___MESSAGES_SSHException'), sshException)
+    except Exception as e:
+        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        logging.info(_('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST, e)
+    else:
+        sftp = ssh_client.open_sftp()
+        try:
+            sftp.getfo(remotopath, file)
+            return False
+        except Exception as e:
+            message = _('HPC___SSH___MESSAGES_DownloadFilesException') % remotopath.split('/')[-1]
+            logging.info(_('HPC___SSH___MESSAGES_DownloadFilesException'), e)
+        finally:
+            sftp.close()
+    finally:
+        ssh_client.close()
+    return True, message
 
 
 def ssh_sftp_edit_file(username, private_key_path, remoto, content):
+    config_logger()
+
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    boolean = True
-    while boolean:
-        try:
-            ssh_client.connect(
-                hostname=settings.CLUSTER_SERVER_HOST,
-                port=int(settings.CLUSTER_SERVER_PORT),
-                username=username,
-                key_filename=private_key_path
-            )
 
-            sftp = ssh_client.open_sftp()
+    try:
+        k = paramiko.RSAKey.from_private_key_file(private_key_path)
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            pkey=k
+        )
+    except paramiko.AuthenticationException as authenticationException:
+        message = _('HPC___SSH___MESSAGES_AuthenticationException')
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    except paramiko.BadHostKeyException as badHostKeyException:
+        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+        logging.info(_('HPC___SSH___MESSAGES_BadHostKeyException'), badHostKeyException)
+    except paramiko.SSHException as sshException:
+        message = _('HPC___SSH___MESSAGES_SSHException')
+        logging.info(_('HPC___SSH___MESSAGES_SSHException'), sshException)
+    except Exception as e:
+        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        logging.info(_('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST, e)
+    else:
+        sftp = ssh_client.open_sftp()
+        try:
             file = sftp.file(remoto, "w", -1)
             file.write(content)
             file.flush()
-            sftp.close()
-        except Exception as e:
-            logging.exception('Write file is not posible.', e)
-        else:
             return False
+        except Exception as e:
+            message = _('HPC___SSH___MESSAGES_WriteIsNotPossible')
+            logging.info(_('HPC___SSH___MESSAGES_WriteIsNotPossible'), e)
         finally:
-            ssh_client.close()
+            sftp.close()
+    finally:
+        ssh_client.close()
+    return True, message
 
 
 def ssh_sftp_open_file(username, private_key_path, remoto):
+    config_logger()
+
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    boolean = True
-    while boolean:
+
+    try:
+        k = paramiko.RSAKey.from_private_key_file(private_key_path)
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=username,
+            pkey=k
+        )
+    except paramiko.AuthenticationException as authenticationException:
+        message = _('HPC___SSH___MESSAGES_AuthenticationException')
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    except paramiko.BadHostKeyException as badHostKeyException:
+        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+        logging.info(_('HPC___SSH___MESSAGES_BadHostKeyException'), badHostKeyException)
+    except paramiko.SSHException as sshException:
+        message = _('HPC___SSH___MESSAGES_SSHException')
+        logging.info(_('HPC___SSH___MESSAGES_SSHException'), sshException)
+    except Exception as e:
+        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        logging.info(_('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST, e)
+    else:
+        sftp = ssh_client.open_sftp()
         try:
-            ssh_client.connect(
-                hostname=settings.CLUSTER_SERVER_HOST,
-                port=int(settings.CLUSTER_SERVER_PORT),
-                username=username,
-                key_filename=private_key_path
-            )
-            sftp = ssh_client.open_sftp()
             file = sftp.file(remoto, "r", -1)
             file_content = file.read()
-            sftp.close()
+            return False, file_content
         except Exception as e:
-            logging.exception('Open file is not posible.', e)
-        else:
-            return file_content
+            message = _('HPC___SSH___MESSAGES_OpenIsNotPossible')
+            logging.info(_('HPC___SSH___MESSAGES_OpenIsNotPossible'), e)
         finally:
-            ssh_client.close()
+            sftp.close()
+    finally:
+        ssh_client.close()
+    return True, message

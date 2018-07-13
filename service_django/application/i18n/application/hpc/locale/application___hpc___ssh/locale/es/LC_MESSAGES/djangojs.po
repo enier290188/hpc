@@ -1,0 +1,15 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+# *****************************************************************************
+# HPC SSH MESSAGES
+# *****************************************************************************
+
+msgid "HPC___SSH___MESSAGES_DownloadFilesException"
+msgstr "No ha sido posible descargar el archivo \"%s\" del servidor."

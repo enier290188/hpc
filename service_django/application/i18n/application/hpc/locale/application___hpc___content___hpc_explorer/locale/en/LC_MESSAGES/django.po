@@ -41,6 +41,8 @@ msgid "HPC___CONTENT___EXPLORER___BUTTONS___Paste"
 msgstr "Paste"
 msgid "HPC___CONTENT___EXPLORER___BUTTONS___SelectAll"
 msgstr "Select all"
+msgid "HPC___CONTENT___EXPLORER___BUTTONS___Execute"
+msgstr "Execute"
 msgid "HPC___CONTENT___EXPLORER___BUTTONS___Delete"
 msgstr "Delete"
 

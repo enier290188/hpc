@@ -88,11 +88,11 @@ def run_command(request, option, parameters=None):
                 for p in parameters[1:]:
                     string += ' "' + parameters[0] + '/' + p + '"'
                 command = 'rm -r' + string
-    result = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
-    if result['HAS_ERROR']:
-        messages.add_message(request, messages.ERROR, result['MESSAGE'])
+    err, out = ssh.ssh_exec(username=instance.group_identifier(), private_key_path=instance.private_key.path, command=command)
+    if err:
+        messages.add_message(request, messages.ERROR, out)
     else:
-        return result['OUTPUT']
+        return out
 
 
 def list_escape(array):

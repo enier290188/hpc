@@ -118,27 +118,27 @@ var hpc_jobs_datatable_init = function(){
         responsive: true,
         lengthMenu: [[10, 50, -1], [10, 50, "All"]],
         language:{
-            "sProcessing":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Processing'),
-            "sLengthMenu":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Length_Menu'),
-            "sZeroRecords":    gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Zero_Records'),
-            "sEmptyTable":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Empty_Table'),
-            "sInfo":           gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info'),
-            "sInfoEmpty":      gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info_Empty'),
-            "sInfoFiltered":   gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Info_Filtered'),
+            "sProcessing":     gettext('HPC___CONTENT___JOBS_DATATABLE_Processing'),
+            "sLengthMenu":     gettext('HPC___CONTENT___JOBS_DATATABLE_Length_Menu'),
+            "sZeroRecords":    gettext('HPC___CONTENT___JOBS_DATATABLE_Zero_Records'),
+            "sEmptyTable":     gettext('HPC___CONTENT___JOBS_DATATABLE_Empty_Table'),
+            "sInfo":           gettext('HPC___CONTENT___JOBS_DATATABLE_Info'),
+            "sInfoEmpty":      gettext('HPC___CONTENT___JOBS_DATATABLE_Info_Empty'),
+            "sInfoFiltered":   gettext('HPC___CONTENT___JOBS_DATATABLE_Info_Filtered'),
             "sInfoPostFix":    "",
-            "sSearch":         gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Search'),
+            "sSearch":         gettext('HPC___CONTENT___JOBS_DATATABLE_Search'),
             "sUrl":            "",
             "sInfoThousands":  ",",
-            "sLoadingRecords": gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Loading_Records'),
+            "sLoadingRecords": gettext('HPC___CONTENT___JOBS_DATATABLE_Loading_Records'),
             "oPaginate": {
-                "sFirst":    gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_First'),
-                "sLast":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Last'),
-                "sNext":     gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Next'),
-                "sPrevious": gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Previous')
+                "sFirst":    gettext('HPC___CONTENT___JOBS_DATATABLE_First'),
+                "sLast":     gettext('HPC___CONTENT___JOBS_DATATABLE_Last'),
+                "sNext":     gettext('HPC___CONTENT___JOBS_DATATABLE_Next'),
+                "sPrevious": gettext('HPC___CONTENT___JOBS_DATATABLE_Previous')
             },
             "oAria": {
-                "sSortAscending":  gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Ascending'),
-                "sSortDescending": gettext('APPLICATION___HPC___CONTENT___HPC_JOBS_DATATABLE_Sort_Descending')
+                "sSortAscending":  gettext('HPC___CONTENT___JOBS_DATATABLE_Sort_Ascending'),
+                "sSortDescending": gettext('HPC___CONTENT___JOBS_DATATABLE_Sort_Descending')
             }
         },
         sPaginationType: 'numbers'
