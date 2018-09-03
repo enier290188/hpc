@@ -1,7 +1,45 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
+
 import paramiko
 import os
+
+
+def test__private__and__public__key(instance):
+    """The function verifies the private key in the server where your application runs and a public key in the server
+    with which you want to establish a connection.
+
+    :param LDAPUser or LDAPUserImported instance:
+    :return returns true if the keys match and false otherwise:
+    """
+    hostname = settings.CLUSTER_SERVER_HOST
+    port = int(settings.CLUSTER_SERVER_PORT)
+    if isinstance(hostname, str) and \
+            isinstance(port, int) and \
+            isinstance(instance.identifier, str):
+        pass
+    else:
+        raise Exception('Incorrect parameters format')
+
+    ssh_client = paramiko.SSHClient()
+    ssh_client.load_system_host_keys()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        k = paramiko.RSAKey.from_private_key_file(instance.private_key)
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=int(settings.CLUSTER_SERVER_PORT),
+            username=instance.group_identifier(),
+            pkey=k
+        )
+    except Exception:
+        return False
+    else:
+        return True
+    finally:
+        ssh_client.close()
 
 
 def generate__private__and__public__key(instance, password):
@@ -35,8 +73,14 @@ def generate__private__and__public__key(instance, password):
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(hostname=hostname, port=port, username=instance.group_identifier(), password=password)
+
     try:
+        ssh_client.connect(
+            hostname=hostname,
+            port=port,
+            username=instance.group_identifier(),
+            password=password
+        )
         h_input, h_output, h_error = ssh_client.exec_command('mkdir -p ~/.ssh/')
         error__private__and__public__key(h_error)
         h_input, h_output, h_error = ssh_client.exec_command('echo "%s" > ~/.ssh/authorized_keys' % pubkey)
@@ -45,14 +89,16 @@ def generate__private__and__public__key(instance, password):
         error__private__and__public__key(h_error)
         h_input, h_output, h_error = ssh_client.exec_command('chmod 700 ~/.ssh/')
         error__private__and__public__key(h_error)
-    except Exception as e:
-        raise Exception(e.__str__())
+    except Exception:
+        message = _('HPC___SSH___MESSAGES_BadConnection')
+        return message
     finally:
         ssh_client.close()
 
     instance.private_key = instance.___string___folder_path___() + '/.ssh/id_rsa'
     instance.public_key = instance.___string___folder_path___() + '/.ssh/id_rsa.pub'
     instance.save()
+    return True
 
 
 def error__private__and__public__key(h_error):

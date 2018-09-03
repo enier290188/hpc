@@ -234,15 +234,27 @@ def ___jsonresponse___login___(request, ___application___security___from___modul
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___
                     instance = model.objects.___instance___by_identifier___(identifier=identifier)
                     if instance:
-                        if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
-                            ssh.generate__private__and__public__key(instance, password)
+                        # if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
+                        #     ssh.generate__private__and__public__key(instance, password)
+                        ssh_test_keys = ssh.test__private__and__public__key(instance)
+                        if ssh_test_keys is False:
+                            ssh_create_keys = ssh.generate__private__and__public__key(instance, password)
+                            if ssh_create_keys is not True:
+                                messages.add_message(request, messages.ERROR, ssh_create_keys)
+                                return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)
                 else:
                     model = models.LDAPUserImported
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSERIMPORTED___
                     instance = model.objects.___instance___by_ldap_group_and_identifier___(ldap_group=ldap_group, identifier=identifier)
                     if instance:
-                        if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
-                            ssh.generate__private__and__public__key(instance, password)
+                        # if instance.public_key is None or instance.public_key == '' or instance.private_key is None or instance.private_key == '':
+                        #     ssh.generate__private__and__public__key(instance, password)
+                        ssh_test_keys = ssh.test__private__and__public__key(instance)
+                        if ssh_test_keys is False:
+                            ssh_create_keys = ssh.generate__private__and__public__key(instance, password)
+                            if ssh_create_keys is not True:
+                                messages.add_message(request, messages.ERROR, ssh_create_keys)
+                                return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)
             else:
                 messages.add_message(request, messages.ERROR, _('APPLICATION___SECURITY___MESSAGE ERROR.'))
                 return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)
