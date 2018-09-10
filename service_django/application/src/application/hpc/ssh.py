@@ -46,10 +46,10 @@ import logging
 
 def config_logger():
     logger = paramiko.util.logging.getLogger()
-    # hdlr = logging.FileHandler('/service_django/error.log')
-    # formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    # hdlr.setFormatter(formatter)
-    # logger.addHandler(hdlr)
+    hdlr = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr)
     logger.setLevel(logging.INFO)
 
 
