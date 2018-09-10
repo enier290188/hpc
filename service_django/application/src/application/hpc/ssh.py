@@ -41,20 +41,20 @@
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 import paramiko
-import logging
-
-
-def config_logger():
-    logger = logging.getLogger()
-    hdlr = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    hdlr.setFormatter(formatter)
-    logger.addHandler(hdlr)
-    logger.setLevel(logging.INFO)
+# import logging
+#
+#
+# def config_logger():
+#     logger = logging.getLogger()
+#     hdlr = logging.StreamHandler()
+#     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+#     hdlr.setFormatter(formatter)
+#     logger.addHandler(hdlr)
+#     logger.setLevel(logging.INFO)
 
 
 def ssh_exec(username, private_key_path, command):
-    config_logger()
+    # config_logger()
 
     ssh_client = paramiko.SSHClient()
     ssh_client.load_system_host_keys()
@@ -70,7 +70,7 @@ def ssh_exec(username, private_key_path, command):
         )
     except paramiko.AuthenticationException as authenticationException:
         message = _('HPC___SSH___MESSAGES_AuthenticationException')
-        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+        # logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
     except paramiko.BadHostKeyException as badHostKeyException:
         message = _('HPC___SSH___MESSAGES_BadHostKeyException')
     except paramiko.SSHException as sshException:
