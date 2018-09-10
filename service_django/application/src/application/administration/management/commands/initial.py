@@ -130,8 +130,8 @@ class Command(management.base.BaseCommand):
         #     period=models___django_celery_beat.IntervalSchedule.SECONDS,
         # )
         crontabschedule, boolean___created = models___django_celery_beat.CrontabSchedule.objects.get_or_create(
-            minute='*/1',  # */1
-            hour='*',#'0,8,9,10,11,12,13,14,15,16,17,18',  # 0,12 # midnight and noon
+            minute='*',  # */1
+            hour='midnight and noon',  # '0,8,9,10,11,12,13,14,15,16,17,18',  # 0,12 # midnight and noon
             day_of_week='*',
             day_of_month='*',
             month_of_year='*',

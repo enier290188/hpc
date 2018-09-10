@@ -1,4 +1,4 @@
-FROM dpage/pgadmin4:2.0
+FROM dpage/pgadmin4:3.3
 
 ARG APPLICATION_ENVIRONMENT
 

@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM postgres:10
 
 ARG APPLICATION_ENVIRONMENT
 
