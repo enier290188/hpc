@@ -62,10 +62,6 @@ def ssh_exec(username, private_key_path, command):
 
     try:
         k = paramiko.RSAKey.from_private_key_file(private_key_path)
-        print(settings.CLUSTER_SERVER_HOST, str(settings.CLUSTER_SERVER_PORT), username, private_key_path)
-        print('################################')
-        print('################################')
-        print('################################')
         ssh_client.connect(
             hostname=settings.CLUSTER_SERVER_HOST,
             port=int(settings.CLUSTER_SERVER_PORT),
@@ -74,7 +70,7 @@ def ssh_exec(username, private_key_path, command):
         )
     except paramiko.AuthenticationException as authenticationException:
         message = _('HPC___SSH___MESSAGES_AuthenticationException')
-        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException') + settings.CLUSTER_SERVER_HOST + str(settings.CLUSTER_SERVER_PORT) + username + private_key_path, authenticationException)
     except paramiko.BadHostKeyException as badHostKeyException:
         message = _('HPC___SSH___MESSAGES_BadHostKeyException')
     except paramiko.SSHException as sshException:
