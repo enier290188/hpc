@@ -45,7 +45,7 @@ import logging
 
 
 def config_logger():
-    logger = paramiko.util.logging.getLogger()
+    logger = logging.getLogger()
     hdlr = logging.StreamHandler()
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     hdlr.setFormatter(formatter)
@@ -70,7 +70,7 @@ def ssh_exec(username, private_key_path, command):
         )
     except paramiko.AuthenticationException as authenticationException:
         message = _('HPC___SSH___MESSAGES_AuthenticationException')
-        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException') + settings.CLUSTER_SERVER_HOST + str(settings.CLUSTER_SERVER_PORT) + username + private_key_path, authenticationException)
+        logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
     except paramiko.BadHostKeyException as badHostKeyException:
         message = _('HPC___SSH___MESSAGES_BadHostKeyException')
     except paramiko.SSHException as sshException:
