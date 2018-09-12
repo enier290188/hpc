@@ -76,7 +76,7 @@ def ssh_exec(username, private_key_path, command):
     except paramiko.SSHException as sshException:
         message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        message = _('HPC___SSH___MESSAGES_Exception')
     else:
         try:
             stdin, stdout, stderr = ssh_client.exec_command(command)
@@ -113,7 +113,7 @@ def ssh_sftp_putfo(username, private_key_path, file, remotopath):
     except paramiko.SSHException as sshException:
         message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        message = _('HPC___SSH___MESSAGES_Exception')
     else:
         sftp = ssh_client.open_sftp()
         try:
@@ -148,7 +148,7 @@ def ssh_sftp_getfo(username, private_key_path, remotopath, file):
     except paramiko.SSHException as sshException:
         message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        message = _('HPC___SSH___MESSAGES_Exception')
     else:
         sftp = ssh_client.open_sftp()
         try:
@@ -183,7 +183,7 @@ def ssh_sftp_edit_file(username, private_key_path, remoto, content):
     except paramiko.SSHException as sshException:
         message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        message = _('HPC___SSH___MESSAGES_Exception')
     else:
         sftp = ssh_client.open_sftp()
         try:
@@ -220,7 +220,7 @@ def ssh_sftp_open_file(username, private_key_path, remoto):
     except paramiko.SSHException as sshException:
         message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception') % settings.CLUSTER_SERVER_HOST
+        message = _('HPC___SSH___MESSAGES_Exception')
     else:
         sftp = ssh_client.open_sftp()
         try:

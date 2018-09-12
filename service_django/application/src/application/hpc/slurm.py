@@ -128,8 +128,8 @@ def run_command(request, option, parameters=None):
     if option == 'keys':
         command = 'squeue -all'
     if option == 'jobs all':
-        # command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
-        command = 'squeue -o "%i %T %j %u %P %M %l %D %R"'
+        command = 'squeue -all --states=all -o "%i %T %j %u %P %M %l %D %R"'
+        # command = 'squeue -o "%i %T %j %u %P %M %l %D %R"'
     if option == 'detail job':  # job id in parameters
         command = 'scontrol show job -o ' + parameters[0]
     if option == 'job kill':
