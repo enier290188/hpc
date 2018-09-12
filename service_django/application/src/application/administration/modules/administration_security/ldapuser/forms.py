@@ -230,8 +230,10 @@ class LDAPUserCreate(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['email'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___EMAIL')
         # password
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD')
+        self.fields['password'].required = True
         # password_confirmation
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password_confirmation'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___PASSWORD_CONFIRMATION')
+        self.fields['password_confirmation'].required = True
         # detail
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL___HELP_TEXT')
@@ -265,8 +267,8 @@ class LDAPUserCreate(forms.ModelForm):
     def clean(self):
         ___clean___ = super(LDAPUserCreate, self).clean()
         # password and password_confirmation
-        password = self.cleaned_data.get('password')
-        password_confirmation = self.cleaned_data.get('password_confirmation')
+        password = str(self.cleaned_data.get('password')).strip()
+        password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
             self.add_error('password', _('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match.'))
             self.add_error('password_confirmation', _('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match.'))
@@ -277,7 +279,7 @@ class LDAPUserCreate(forms.ModelForm):
         #
         if commit:
             # password
-            password = self.cleaned_data.get('password')
+            password = str(self.cleaned_data.get('password')).strip()
             instance.___void___encrypt_password___(password=password)
             # save to data base
             instance.save()
@@ -360,6 +362,7 @@ class LDAPUserUpdate(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['last_name'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___LAST_NAME')
         # identifier
         ___field___attribute___placeholder___locale___reload__(field=self.fields['identifier'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___IDENTIFIER')
+        self.fields['identifier'].widget.attrs['readonly'] = 'readonly'
         # email
         ___field___attribute___placeholder___locale___reload__(field=self.fields['email'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___EMAIL')
         # password
@@ -382,17 +385,19 @@ class LDAPUserUpdate(forms.ModelForm):
         return avatar
 
     def clean_identifier(self):
-        identifier = self.cleaned_data.get('identifier')
-        try:
-            instance = models.LDAPUser.objects.get(identifier=identifier)
-        except models.LDAPUser.DoesNotExist:
-            try:
-                instance = models.LDAPUserRequest.objects.get(identifier=identifier)
-            except models.LDAPUserRequest.DoesNotExist:
-                return identifier
-        if instance.identifier == self.instance_current.identifier:
-            return identifier
-        raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This identifier has already been chosen.'))
+        # identifier = self.cleaned_data.get('identifier')
+        # try:
+        #     instance = models.LDAPUser.objects.get(identifier=identifier)
+        # except models.LDAPUser.DoesNotExist:
+        #     try:
+        #         instance = models.LDAPUserRequest.objects.get(identifier=identifier)
+        #     except models.LDAPUserRequest.DoesNotExist:
+        #         return identifier
+        # if instance.identifier == self.instance_current.identifier:
+        #     return identifier
+        # raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This identifier has already been chosen.'))
+        identifier = self.instance_current.identifier
+        return identifier
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -410,8 +415,8 @@ class LDAPUserUpdate(forms.ModelForm):
     def clean(self):
         ___clean___ = super(LDAPUserUpdate, self).clean()
         # password and password_confirmation
-        password = self.cleaned_data.get('password')
-        password_confirmation = self.cleaned_data.get('password_confirmation')
+        password = str(self.cleaned_data.get('password')).strip()
+        password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
             self.add_error('password', _('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match.'))
             self.add_error('password_confirmation', _('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match.'))
@@ -436,7 +441,7 @@ class LDAPUserUpdate(forms.ModelForm):
                             os.rename(self.instance_current.avatar.path, '%s/%s.jpg' % (self.instance_current.___string___folder_path___(), instance.identifier,))
                             os.rename(self.instance_current.___string___folder_path___(), self.instance.___string___folder_path___())
             # password
-            password = self.cleaned_data.get('password')
+            password = str(self.cleaned_data.get('password')).strip()
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
             else:
@@ -494,9 +499,8 @@ class LDAPUserDelete(forms.ModelForm):
 
     def ___delete___(self):
         # avatar
-        if self.instance.avatar is not None and self.instance.avatar != '':
-            if os.path.exists(self.instance.___string___folder_path___()):
-                shutil.rmtree(self.instance.___string___folder_path___())
+        if os.path.exists(self.instance.___string___folder_path___()):
+            shutil.rmtree(self.instance.___string___folder_path___())
         # instance delete
         self.instance.delete()
         #

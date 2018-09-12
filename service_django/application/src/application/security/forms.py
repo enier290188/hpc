@@ -773,14 +773,16 @@ class LDAPUserLoginForgotCredentials3(forms.ModelForm):
         #
         # password
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password'], locale='APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___PASSWORD')
+        self.fields['password'].required = True
         # password_confirmation
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password_confirmation'], locale='APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___PASSWORD_CONFIRMATION')
+        self.fields['password_confirmation'].required = True
 
     def clean(self):
         ___clean___ = super(LDAPUserLoginForgotCredentials3, self).clean()
         # password and password_confirmation
-        password = self.cleaned_data.get('password')
-        password_confirmation = self.cleaned_data.get('password_confirmation')
+        password = str(self.cleaned_data.get('password')).strip()
+        password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
             self.add_error('password', _('APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION The password and your confirmation do not match.'))
             self.add_error('password_confirmation', _('APPLICATION___SECURITY___LOGIN___FORGOT_CREDENTIALS___VALIDATION The password and your confirmation do not match.'))
@@ -791,7 +793,7 @@ class LDAPUserLoginForgotCredentials3(forms.ModelForm):
         #
         if commit:
             # password
-            password = self.cleaned_data.get('password')
+            password = str(self.cleaned_data.get('password')).strip()
             instance.___void___encrypt_password___(password=password)
             self.instance_mirror.___void___encrypt_password___(password=password)
             # save to data base
@@ -831,8 +833,10 @@ class LDAPUserLoginRequest(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['email'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___EMAIL')
         # password
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___PASSWORD')
+        self.fields['password'].required = True
         # password_confirmation
         ___field___attribute___placeholder___locale___reload__(field=self.fields['password_confirmation'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___PASSWORD_CONFIRMATION')
+        self.fields['password_confirmation'].required = True
         # detail
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL___HELP_TEXT')
@@ -862,8 +866,8 @@ class LDAPUserLoginRequest(forms.ModelForm):
     def clean(self):
         ___clean___ = super(LDAPUserLoginRequest, self).clean()
         # password and password_confirmation
-        password = self.cleaned_data.get('password')
-        password_confirmation = self.cleaned_data.get('password_confirmation')
+        password = str(self.cleaned_data.get('password')).strip()
+        password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
             self.add_error('password', _('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION The password and your confirmation do not match.'))
             self.add_error('password_confirmation', _('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION The password and your confirmation do not match.'))
@@ -874,7 +878,7 @@ class LDAPUserLoginRequest(forms.ModelForm):
         #
         if commit:
             # password
-            password = self.cleaned_data.get('password')
+            password = str(self.cleaned_data.get('password')).strip()
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
             # save to data base
@@ -907,6 +911,7 @@ class LDAPUserProfile(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['last_name'], locale='APPLICATION___SECURITY___PROFILE___LAST_NAME')
         # identifier
         ___field___attribute___placeholder___locale___reload__(field=self.fields['identifier'], locale='APPLICATION___SECURITY___PROFILE___IDENTIFIER')
+        self.fields['identifier'].widget.attrs['readonly'] = 'readonly'
         # email
         ___field___attribute___placeholder___locale___reload__(field=self.fields['email'], locale='APPLICATION___SECURITY___PROFILE___EMAIL')
         # password
@@ -922,14 +927,16 @@ class LDAPUserProfile(forms.ModelForm):
         return avatar
 
     def clean_identifier(self):
-        identifier = self.cleaned_data.get('identifier')
-        try:
-            instance = models.LDAPUser.objects.get(identifier=identifier)
-        except models.LDAPUser.DoesNotExist:
-            return identifier
-        if instance.identifier == self.instance_current.identifier:
-            return identifier
-        raise forms.ValidationError(_('APPLICATION___SECURITY___PROFILE___VALIDATION This identifier has already been chosen.'))
+        # identifier = self.cleaned_data.get('identifier')
+        # try:
+        #     instance = models.LDAPUser.objects.get(identifier=identifier)
+        # except models.LDAPUser.DoesNotExist:
+        #     return identifier
+        # if instance.identifier == self.instance_current.identifier:
+        #     return identifier
+        # raise forms.ValidationError(_('APPLICATION___SECURITY___PROFILE___VALIDATION This identifier has already been chosen.'))
+        identifier = self.instance_current.identifier
+        return identifier
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -944,8 +951,8 @@ class LDAPUserProfile(forms.ModelForm):
     def clean(self):
         ___clean___ = super(LDAPUserProfile, self).clean()
         # password and password_confirmation
-        password = self.cleaned_data.get('password')
-        password_confirmation = self.cleaned_data.get('password_confirmation')
+        password = str(self.cleaned_data.get('password')).strip()
+        password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
             self.add_error('password', _('APPLICATION___SECURITY___PROFILE___VALIDATION The password and your confirmation do not match.'))
             self.add_error('password_confirmation', _('APPLICATION___SECURITY___PROFILE___VALIDATION The password and your confirmation do not match.'))
@@ -970,7 +977,7 @@ class LDAPUserProfile(forms.ModelForm):
                             os.rename(self.instance_current.avatar.path, '%s/%s.jpg' % (self.instance_current.___string___folder_path___(), instance.identifier,))
                             os.rename(self.instance_current.___string___folder_path___(), self.instance.___string___folder_path___())
             # password
-            password = self.cleaned_data.get('password')
+            password = str(self.cleaned_data.get('password')).strip()
             if password is not '':
                 instance.___void___encrypt_password___(password=password)
             else:

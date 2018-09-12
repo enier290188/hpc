@@ -241,7 +241,6 @@ class LDAPUserImportedDelete(forms.ModelForm):
 
     def ___delete___(self):
         # avatar
-        if self.instance.avatar is not None and self.instance.avatar != '':
-            if os.path.exists(self.instance.___string___folder_path___()):
-                shutil.rmtree(self.instance.___string___folder_path___())
+        if os.path.exists(self.instance.___string___folder_path___()):
+            shutil.rmtree(self.instance.___string___folder_path___())
         self.instance.delete()
