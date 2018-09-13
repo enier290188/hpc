@@ -55,7 +55,6 @@ def ___view___index___(request):
                 request=request,
                 context={
                     'form': form,
-                    'method': 'GET',
                 },
                 template_name='application/hpc/___includes___/content/center/hpc_script/index.html'
             )
