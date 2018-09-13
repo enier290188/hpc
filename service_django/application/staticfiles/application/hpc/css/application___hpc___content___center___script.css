@@ -48,8 +48,10 @@
     color: #fff;
     background: linear-gradient(60deg, #2a3f54, #2a0f34);
 }
-#application___hpc___content #script___content form > .panel > .panel-heading:nth-child(5) select {
-    padding: 2px 8px
+#application___hpc___content #script___content form > .panel > .panel-heading select {
+    padding: 2px 8px;
+    display: inline !important;
+    width: auto !important;
 }
 #application___hpc___content #script___content form > .panel > .panel-body {
     padding: 15px 15px 0 15px;

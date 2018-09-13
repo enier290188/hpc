@@ -234,3 +234,59 @@ def ssh_sftp_open_file(username, private_key_path, remoto):
     finally:
         ssh_client.close()
     return True, message
+
+
+def ssh_sftp_put(username, private_key_path, local, remoto):
+    boolean_error = False
+
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=settings.CLUSTER_SERVER_PORT,
+            username=username,
+            key_filename=private_key_path
+        )
+    except Exception as e:
+        boolean_error = True
+    else:
+        sftp = ssh_client.open_sftp()
+        try:
+            sftp.put(local, remoto)
+        except Exception as e:
+            boolean_error = True
+        finally:
+            sftp.close()
+    finally:
+        ssh_client.close()
+    return boolean_error
+
+
+def ssh_sftp_get(username, private_key_path, remoto, local):
+    boolean_error = False
+
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        ssh_client.connect(
+            hostname=settings.CLUSTER_SERVER_HOST,
+            port=settings.CLUSTER_SERVER_PORT,
+            username=username,
+            key_filename=private_key_path
+        )
+    except Exception as e:
+        boolean_error = True
+    else:
+        sftp = ssh_client.open_sftp()
+        try:
+            output = sftp.get(remoto, local)
+        except Exception as e:
+            boolean_error = True
+        finally:
+            sftp.close()
+    finally:
+        ssh_client.close()
+    return boolean_error

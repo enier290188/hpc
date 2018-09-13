@@ -148,7 +148,10 @@ var hpc_nodes_chart = function(snapshot){
 
 
 $('#application___hpc___content___center').on('change', '#center___content', function(){
-    var snapshot = $('#nodes___content').attr('data-snapshot');
-    hpc_nodes_datatable();
-    hpc_nodes_chart(snapshot);
+    $nodes___content = $('#nodes___content');
+    if($nodes___content.length){
+        var snapshot = $nodes___content.attr('data-snapshot');
+        hpc_nodes_datatable();
+        hpc_nodes_chart(snapshot);
+    }
 });

@@ -237,6 +237,7 @@ class ScriptForm(forms.Form):
 
     # Script body
     script_body = forms.CharField(
+        required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'name': 'script_body',
