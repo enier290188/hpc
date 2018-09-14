@@ -14,7 +14,7 @@ from ....security import (
     utils as utils___application___security
 )
 from ... import utils as utils___hpc
-from ... import ssh, linux, slurm
+from ... import ssh, linux, slurm, crlf
 from . import forms
 
 
@@ -66,7 +66,7 @@ def ___view___edit___(request):
         file_name = request.POST.get('file_name')
         form = forms.FileEditForm(request.POST)
         if form.is_valid():
-            file_content = form.cleaned_data.get('file_content')
+            file_content = crlf.normalize_line_endings(form.cleaned_data.get('file_content'))
             if isinstance(linux.edit_file(request, path + '/' + file_name, file_content), tuple):
                 dict___data['___BOOLEAN___ERROR___'] = True
         return http.JsonResponse(dict___data)
