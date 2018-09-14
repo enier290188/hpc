@@ -1,14 +1,42 @@
-var hpc_nodes_datatable = function(){
+var hpc_nodes_datatable_init = function(){
     var optionsDataTable = {
-        dom: "frti",
-        responsive: true
+        dom: "lfrtip",
+        responsive: true,
+        lengthMenu: [[10, 50, -1], [10, 50, "All"]],
+        language:{
+            "sProcessing":     gettext('HPC___CONTENT___JOBS_DATATABLE_Processing'),
+            "sLengthMenu":     gettext('HPC___CONTENT___JOBS_DATATABLE_Length_Menu'),
+            "sZeroRecords":    gettext('HPC___CONTENT___JOBS_DATATABLE_Zero_Records'),
+            "sEmptyTable":     gettext('HPC___CONTENT___JOBS_DATATABLE_Empty_Table'),
+            "sInfo":           gettext('HPC___CONTENT___JOBS_DATATABLE_Info'),
+            "sInfoEmpty":      gettext('HPC___CONTENT___JOBS_DATATABLE_Info_Empty'),
+            "sInfoFiltered":   gettext('HPC___CONTENT___JOBS_DATATABLE_Info_Filtered'),
+            "sInfoPostFix":    "",
+            "sSearch":         gettext('HPC___CONTENT___JOBS_DATATABLE_Search'),
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": gettext('HPC___CONTENT___JOBS_DATATABLE_Loading_Records'),
+            "oPaginate": {
+                "sFirst":    gettext('HPC___CONTENT___JOBS_DATATABLE_First'),
+                "sLast":     gettext('HPC___CONTENT___JOBS_DATATABLE_Last'),
+                "sNext":     gettext('HPC___CONTENT___JOBS_DATATABLE_Next'),
+                "sPrevious": gettext('HPC___CONTENT___JOBS_DATATABLE_Previous')
+            },
+            "oAria": {
+                "sSortAscending":  gettext('HPC___CONTENT___JOBS_DATATABLE_Sort_Ascending'),
+                "sSortDescending": gettext('HPC___CONTENT___JOBS_DATATABLE_Sort_Descending')
+            }
+        },
+        sPaginationType: 'numbers'
     };
     $("#datatable-nodes").DataTable(optionsDataTable);
+    $('#datatable-nodes_length').addClass('col-sm-6').css('padding', '0');
+    $('#datatable-nodes_filter').addClass('col-sm-6').css('padding', '0');
 };
 
-var hpc_nodes_chart = function(snapshot){
+var hpc_nodes_chart_reload = function(snapshot){
     var ctx = document.getElementById("myLineChart").getContext("2d");
-    var myLineChart, data = [,,,,,,,,,,,,parseInt(cpuload)];
+    var myLineChart, data = [, , , , , , , , , , , , parseInt(cpuload)];
 
     var ctxDoughnut = document.getElementById("myDoughnutChart").getContext("2d");
     var myDoughnutChart, percent;
@@ -20,7 +48,7 @@ var hpc_nodes_chart = function(snapshot){
     myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["60",'',"50",'',"40",'',"30",'',"20",'',"10",'',"0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
+            labels: ["60", '', "50", '', "40", '', "30", '', "20", '', "10", '', "0"], //labels: ["60", ,"50", ,"40", ,"30", ,"20", ,"10", ,"0"],
             datasets: [{
                 label: gettext('HPC___CONTENT___NODES___CHART_LINE'),
                 fill: true,
@@ -39,20 +67,20 @@ var hpc_nodes_chart = function(snapshot){
             scales: {
                 yAxes: [{
                     ticks: {
-                        suggestedMax:100, suggestedMin:0
+                        suggestedMax: 100, suggestedMin: 0
                     }
                 }]
             }
         }
     });
 
-    percent = Math.round(100*parseInt(allocmem)/parseInt(freemem));
+    percent = Math.round(100 * parseInt(allocmem) / parseInt(freemem));
     myDoughnutChart = new Chart(ctxDoughnut, {
         type: 'doughnut',
         data: {
             labels: [
-               gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Assigned_mem') + percent + '%',
-               gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Free_mem') +(100 - percent) + '%'
+                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Assigned_mem') + percent + '%',
+                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_1_Free_mem') + (100 - percent) + '%'
             ],
             datasets: [
                 {
@@ -71,13 +99,13 @@ var hpc_nodes_chart = function(snapshot){
         }
     });
 
-    percent2 = Math.round(100*parseInt(cpualloc)/parseInt(cputot));
+    percent2 = Math.round(100 * parseInt(cpualloc) / parseInt(cputot));
     myDoughnutChart2 = new Chart(ctxDoughnut2, {
         type: 'doughnut',
         data: {
             labels: [
                 gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Assigned_CPUs') + percent2 + '%',
-                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Free_CPUs') +(100 - percent2) + '%'
+                gettext('HPC___CONTENT___NODES___CHART_DOUGHNUT_2_Free_CPUs') + (100 - percent2) + '%'
             ],
             datasets: [
                 {
@@ -95,7 +123,6 @@ var hpc_nodes_chart = function(snapshot){
             responsive: true
         }
     });
-
     var myTimer = setInterval(function () {
         var $nodes___content = $('#nodes___content');
         var data_snapshot = $nodes___content.attr('data-snapshot');
@@ -145,13 +172,3 @@ var hpc_nodes_chart = function(snapshot){
         }
     }, 5000);
 };
-
-
-$('#application___hpc___content___center').on('change', '#center___content', function(){
-    $nodes___content = $('#nodes___content');
-    if($nodes___content.length){
-        var snapshot = $nodes___content.attr('data-snapshot');
-        hpc_nodes_datatable();
-        hpc_nodes_chart(snapshot);
-    }
-});

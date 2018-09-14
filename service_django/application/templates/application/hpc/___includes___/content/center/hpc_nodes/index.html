@@ -4,89 +4,92 @@
 <h3 id="center___header">
     <span class="fa fa-linode fa-fw" aria-hidden="true"></span> {% trans 'HPC___CONTENT___NODES' %}
 </h3>
-<div id="center___content">
-    <div id="nodes___content" class="container-fluid" data-url="{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}" data-snapshot="{{ ctx___now }}">
-        <div class="row">
-            <div class="col-md-6 col-lg-4">
-                <div class="wrapper">
-                    <canvas id="myLineChart" height="1" width="1"></canvas>
+{% with ctx___graph=ctx___now %}
+    <div id="center___content">
+        <div id="nodes___content" class="container-fluid" data-url="{% url 'application___hpc:modules:hpc_nodes:chartnodes' %}" data-snapshot="{{ ctx___graph }}">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="wrapper">
+                        <canvas id="myLineChart" height="1" width="1"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="wrapper">
+                        <canvas id="myDoughnutChart2" height="150%"></canvas>
+                    </div>
+                    <div class="wrapper">
+                        <canvas id="myDoughnutChart" height="150%"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <p style="padding-top: 8px; font-size: 12px">{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions' %} <span class="badge">{{ partitions.data | length }}</span></p>
+                    <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition' %}</th>
+                                <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available' %}</th>
+                                <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes' %}</th>
+                                <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in partitions.data %}
+                            <tr>
+                                {% for field in data %}
+                                    <td>{{ field }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="wrapper">
-                    <canvas id="myDoughnutChart2" height="150%"></canvas>
-                </div>
-                <div class="wrapper">
-                    <canvas id="myDoughnutChart" height="150%"></canvas>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-4">
-                <p style="padding-top: 8px; font-size: 12px">{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___TITLE_Partitions' %} <span class="badge">{{ partitions.data | length }}</span></p>
-                <table id="table-cluster" class="table nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Partition' %}</th>
-                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Available' %}</th>
-                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodes' %}</th>
-                            <th>{% trans 'HPC___CONTENT___NODES___TABLE_PARTITION___COLUMN_Nodelist' %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for data in partitions.data %}
-                        <tr>
-                            {% for field in data %}
-                                <td>{{ field }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            <hr>
+            <table id="datatable-nodes" class="table nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Name' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Partition' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_IP_address' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_State' %}</th>
+                        <th>CPUs</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_CPUs' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_CPU_load' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Resources' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Memory' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Free_memory' %}</th>
+                        <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_memory' %}</th>
+                        <th>S:C:T</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for node in nodes %}
+                    <tr>
+                        <td>{{ node.NodeName }}</td>
+                        <td>{{ node.Partitions }}</td>
+                        <td>{{ node.NodeAddr }}</td>
+                        <td>{{ node.State | title }}</td>
+                        <td>{{ node.CPUTot }}</td>
+                        <td>{{ node.CPUAlloc }}</td>
+                        <td>{{ node.CPULoad }}</td>
+                        <td>{% ifequal node.Gres '(null)' %}cpu{% else %}{{ node.Gres }}{% endifequal %}</td>
+                        <td>{{ node.RealMemory }}mb</td>
+                        <td>{{ node.FreeMem }}mb</td>
+                        <td>{{ node.AllocMem }}mb</td>
+                        <td>{{ node.Sockets }}:{{ node.CoresPerSocket }}:{{ node.ThreadsPerCore }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <hr>
-        <table id="datatable-nodes" class="table dt-responsive nowrap" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Name' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Partition' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_IP_address' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_State' %}</th>
-                    <th>CPUs</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_CPUs' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_CPU_load' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Resources' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Memory' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Free_memory' %}</th>
-                    <th>{% trans 'HPC___CONTENT___NODES___TABLE_NODES___COLUMN_Assigned_memory' %}</th>
-                    <th>S:C:T</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for node in nodes %}
-                <tr>
-                    <td>{{ node.NodeName }}</td>
-                    <td>{{ node.Partitions }}</td>
-                    <td>{{ node.NodeAddr }}</td>
-                    <td>{{ node.State | title }}</td>
-                    <td>{{ node.CPUTot }}</td>
-                    <td>{{ node.CPUAlloc }}</td>
-                    <td>{{ node.CPULoad }}</td>
-                    <td>{% ifequal node.Gres '(null)' %}cpu{% else %}{{ node.Gres }}{% endifequal %}</td>
-                    <td>{{ node.RealMemory }}mb</td>
-                    <td>{{ node.FreeMem }}mb</td>
-                    <td>{{ node.AllocMem }}mb</td>
-                    <td>{{ node.Sockets }}:{{ node.CoresPerSocket }}:{{ node.ThreadsPerCore }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
     </div>
-</div>
-<script>
-    var cpuload = '{{ statistics.cpuload }}';
-    var cputot = '{{ statistics.cputot }}';
-    var cpualloc = '{{ statistics.cpualloc }}';
-    var freemem = '{{ statistics.freemem }}';
-    var allocmem = '{{ statistics.allocmem }}';
-    $('#center___content').trigger('change')
-</script>
+    <script>
+        var cpuload = '{{ statistics.cpuload }}';
+        var cputot = '{{ statistics.cputot }}';
+        var cpualloc = '{{ statistics.cpualloc }}';
+        var freemem = '{{ statistics.freemem }}';
+        var allocmem = '{{ statistics.allocmem }}';
+        hpc_nodes_datatable_init();
+        hpc_nodes_chart_reload('{{ ctx___graph }}');
+    </script>
+{% endwith %}
