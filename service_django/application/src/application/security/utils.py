@@ -233,22 +233,10 @@ def ___jsonresponse___login___(request, ___application___security___from___modul
                     model = models.LDAPUser
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSER___
                     instance = model.objects.___instance___by_identifier___(identifier=identifier)
-                    if instance:
-                        ssh_test_keys = ssh.test__private__and__public__key(instance)
-                        if ssh_test_keys is False:
-                            ssh_create_keys = ssh.generate__private__and__public__key(instance, password)
-                            if ssh_create_keys is not True:
-                                messages.add_message(request, messages.WARNING, _('HPC___SSH___MESSAGES_Exception'))
                 else:
                     model = models.LDAPUserImported
                     ___application___security___user___model___ = ___APPLICATION___SECURITY___USER___MODEL___LDAPUSERIMPORTED___
                     instance = model.objects.___instance___by_ldap_group_and_identifier___(ldap_group=ldap_group, identifier=identifier)
-                    if instance:
-                        ssh_test_keys = ssh.test__private__and__public__key(instance)
-                        if ssh_test_keys is False:
-                            ssh_create_keys = ssh.generate__private__and__public__key(instance, password)
-                            if ssh_create_keys is not True:
-                                messages.add_message(request, messages.WARNING, _('HPC___SSH___MESSAGES_Exception'))
             else:
                 messages.add_message(request, messages.ERROR, _('APPLICATION___SECURITY___MESSAGE ERROR.'))
                 return ___jsonresponse___error___(request=request, ___application___security___from___module___=___application___security___from___module___)
@@ -283,6 +271,12 @@ def ___jsonresponse___login___(request, ___application___security___from___modul
     if dict___data['___BOOLEAN___IS_METHOD_POST___']:
         if dict___data['___INT___IS_VALID_FORM___'] == 1:
             messages.add_message(request, messages.SUCCESS, _('APPLICATION___SECURITY___LOGIN___MESSAGE Welcome %(instance)s.') % {'instance': instance, })
+            if tab___ldapuserlogin is True:
+                ssh_test_keys = ssh.test__private__and__public__key(instance)
+                if ssh_test_keys is False:
+                    ssh_create_keys = ssh.generate__private__and__public__key(instance, password)
+                    if ssh_create_keys is not True:
+                        messages.add_message(request, messages.WARNING, _('HPC___SSH___MESSAGES_Exception'))
             dict___data[string___modal] = ___html___template_modal___message___(request=request, ___application___security___from___module___=___application___security___from___module___)
             dict___data[string___modal___message] = ___html___template_message___(request=request, ___application___security___from___module___=___application___security___from___module___)
             return http.JsonResponse(dict___data)

@@ -111,3 +111,11 @@ msgid "HPC___EXPLORER___MODAL___GOTO___FORM___SUBMIT"
 msgstr "Ir"
 msgid "HPC___EXPLORER___MODAL___GOTO___FORM___LABEL___Nombre"
 msgstr "Ruta"
+
+
+# *****************************************************************************
+# HPC EXPLORER MODALS
+# *****************************************************************************
+
+msgid "HPC___EXPLORER___MESSAGES___ExecuteOk"
+msgstr "El script se envió a la cola de ejecución."

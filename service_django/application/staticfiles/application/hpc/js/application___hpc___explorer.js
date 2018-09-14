@@ -392,7 +392,7 @@ var hpc_explorer_init = function(){
                     $hpc__modal.html(data['___HTML___APPLICATION___HPC___MODAL___']);
                     $hpc__modal.find('.modal___message').html(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']);
                     if(option === 'goto')
-                        $hpc__modal.find('.modal___form').find('span').text(home);
+                        $hpc__modal.find('.modal___form').find('span').text(home + '/');
                     ___HTML___application___hpc___modal___EVENTS_ON___();
                 }
             }
@@ -614,6 +614,9 @@ var hpc_explorer_init = function(){
     var hpc__explorer__modal__click__execute = function () {
         var url = $('#modal-execute').find('.modal-footer').find('button').eq(0).attr('data-url');
         var values = [path, $hpc__tbody.find('tr.primary').attr('data-name')];
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": getCookie("csrftoken") }
+        });
         $.ajax({
             url: url,
             data: {

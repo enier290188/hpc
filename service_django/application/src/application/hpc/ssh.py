@@ -68,15 +68,15 @@ def ssh_exec(username, private_key_path, command):
             username=username,
             pkey=k
         )
-    except paramiko.AuthenticationException as authenticationException:
-        message = _('HPC___SSH___MESSAGES_AuthenticationException')
-        # logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
-    except paramiko.BadHostKeyException as badHostKeyException:
-        message = _('HPC___SSH___MESSAGES_BadHostKeyException')
-    except paramiko.SSHException as sshException:
-        message = _('HPC___SSH___MESSAGES_SSHException')
+    # except paramiko.AuthenticationException as authenticationException:
+    #   message = _('HPC___SSH___MESSAGES_AuthenticationException')
+    #   # logging.info(_('HPC___SSH___MESSAGES_AuthenticationException'), authenticationException)
+    # except paramiko.BadHostKeyException as badHostKeyException:
+    #    message = _('HPC___SSH___MESSAGES_BadHostKeyException')
+    # except paramiko.SSHException as sshException:
+    #     message = _('HPC___SSH___MESSAGES_SSHException')
     except Exception as e:
-        message = _('HPC___SSH___MESSAGES_Exception')
+        message = _('HPC___SSH___MESSAGES_ClusterNotAvailable')
     else:
         try:
             stdin, stdout, stderr = ssh_client.exec_command(command)

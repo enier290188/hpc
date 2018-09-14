@@ -11,6 +11,8 @@ msgstr ""
 # HPC SSH MESSAGES
 # *****************************************************************************
 
+msgid "HPC___SSH___MESSAGES_ClusterNotAvailable"
+msgstr "Impossible to establish a connection with the cluster at this time."
 msgid "HPC___SSH___MESSAGES_AuthenticationException"
 msgstr "Authentication failed, please verify your credentials."
 msgid "HPC___SSH___MESSAGES_BadHostKeyException"

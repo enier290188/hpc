@@ -3,6 +3,7 @@
 from django import http
 from django.contrib import messages
 from django.http import HttpResponse
+from django.utils.translation import ugettext_lazy as _
 
 # python libraries import
 from tempfile import TemporaryFile
@@ -177,7 +178,7 @@ def ___view___execute___(request):
         values = request.POST.getlist('values[]')
         slurm.generate_data_dict(request, 'execute', values)
         if len(messages.get_messages(request=request)) <= 0:
-            messages.add_message(request, request.SUCCESS, 'Todo ok')
+            messages.add_message(request, messages.SUCCESS, _('HPC___EXPLORER___MESSAGES___ExecuteOk'))
         else:
             dict___data['___BOOLEAN___ERROR___'] = True
         dict___data['___HTML___APPLICATION___HPC___MODAL___'] = utils___hpc.___html___template_modal___message___(request=request)

@@ -111,3 +111,11 @@ msgid "HPC___EXPLORER___MODAL___GOTO___FORM___SUBMIT"
 msgstr "Go"
 msgid "HPC___EXPLORER___MODAL___GOTO___FORM___LABEL___Nombre"
 msgstr "Path"
+
+
+# *****************************************************************************
+# HPC EXPLORER MODALS
+# *****************************************************************************
+
+msgid "HPC___EXPLORER___MESSAGES___ExecuteOk"
+msgstr "The script has been sent to the execution queue."
