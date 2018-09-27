@@ -18,6 +18,7 @@ services:
             - ./service_postgres/volumes/postgres/${APPLICATION_ENVIRONMENT}:/var/lib/postgresql/data:rw
         networks:
             - network_${APPLICATION}
+        restart: always
     ${PGADMIN_HOST}:
         build:
             context: ./service_pgadmin
@@ -35,6 +36,7 @@ services:
             - ./service_pgadmin/volumes/pgadmin/${APPLICATION_ENVIRONMENT}:/var/lib/pgadmin:rw
         networks:
             - network_${APPLICATION}
+        restart: always
     ${RABBITMQ_HOST}:
         build:
             context: ./service_rabbitmq
@@ -52,6 +54,7 @@ services:
             - ./service_rabbitmq/volumes/rabbitmq/${APPLICATION_ENVIRONMENT}:/var/lib/rabbitmq:rw
         networks:
             - network_${APPLICATION}
+        restart: always
     ${DJANGO_HOST}:
         build:
             context: ./service_django
@@ -76,6 +79,7 @@ services:
             - ./service_django/volumes/mediafiles/${APPLICATION_ENVIRONMENT}:/service_django/volumes/mediafiles:rw
         networks:
             - network_${APPLICATION}
+        restart: always
     ${NGINX_HOST}:
         build:
             context: ./service_nginx
@@ -100,6 +104,7 @@ services:
             - ./service_nginx/nginx/nginx.conf:/etc/nginx/nginx.conf
         networks:
             - network_${APPLICATION}
+        restart: always
 
 networks:
     network_${APPLICATION}:
