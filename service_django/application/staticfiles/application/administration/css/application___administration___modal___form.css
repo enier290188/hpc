@@ -64,6 +64,21 @@
     opacity: 0.5;
 }
 
+#application___administration___modal .modal___form .form-group .input-group #id_captcha_1,
+#application___administration___modal___modal .modal___form .form-group .input-group #id_captcha_1 {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 0;
+    border: 1px solid #d9dee4;
+    color: #73879c;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
 #application___administration___modal .modal___form .form-group .modal___form___field_avatar,
 #application___administration___modal___modal .modal___form .form-group .modal___form___field_avatar {
     overflow: hidden;
@@ -142,6 +157,7 @@
 #application___administration___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal .modal___form .form-group.has-error .input-group .input-group-addon .input-group-btn .btn,
 #application___administration___modal .modal___form .form-group.has-error .input-group .form-control,
+#application___administration___modal .modal___form .form-group.has-error .input-group #id_captcha_1,
 #application___administration___modal .modal___form .form-group.has-error .help-block,
 #application___administration___modal___modal .modal___form .form-group.has-error,
 #application___administration___modal___modal .modal___form .form-group.has-error label,
@@ -149,6 +165,7 @@
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon .input-group-btn .btn,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control,
+#application___administration___modal___modal .modal___form .form-group.has-error .input-group #id_captcha_1,
 #application___administration___modal___modal .modal___form .form-group.has-error .help-block {
     color: #ce5454;
 }
@@ -156,10 +173,12 @@
 #application___administration___modal .modal___form .form-group.has-error button,
 #application___administration___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal .modal___form .form-group.has-error .input-group .form-control,
+#application___administration___modal .modal___form .form-group.has-error .input-group #id_captcha_1,
 #application___administration___modal .modal___form .form-group.has-error .modal___form___field_avatar .modal___form___field_avatar___img,
 #application___administration___modal___modal .modal___form .form-group.has-error button,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .input-group-addon,
 #application___administration___modal___modal .modal___form .form-group.has-error .input-group .form-control,
+#application___administration___modal___modal .modal___form .form-group.has-error .input-group #id_captcha_1,
 #application___administration___modal___modal .modal___form .form-group.has-error .modal___form___field_avatar .modal___form___field_avatar___img {
     border-color: #ce5454;
 }

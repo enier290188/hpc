@@ -12,6 +12,7 @@ js_info_dict = {
 urlpatterns = [
     url(regex=r'^$', view=views.___view___index___, name='application'),
     url(r'^jsi18n/(?P<packages>\S+?)/$', javascript_catalog, js_info_dict, name='javascript-catalog'),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^website/', include('src.application.website.urls', namespace='application___website')),
     url(r'^hpc/', include('src.application.hpc.urls', namespace='application___hpc')),
     url(r'^bigdata/', include('src.application.bigdata.urls', namespace='application___bigdata')),

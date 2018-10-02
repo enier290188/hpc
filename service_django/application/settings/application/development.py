@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django.contrib.auth',
     'django.contrib.admin',
+    'captcha',
     'src.application.security',
     'src.application.help',
     'src.application.website',

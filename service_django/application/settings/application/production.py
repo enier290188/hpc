@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'django_celery_beat',
+    'captcha',
     'src.application.security',
     'src.application.help',
     'src.application.website',

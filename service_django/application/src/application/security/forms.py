@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import ldap, models
+from captcha.fields import CaptchaField
 from django import forms
 from django.conf import settings
 from django.core import validators
@@ -813,6 +814,7 @@ class LDAPUserLoginRequest(forms.ModelForm):
     password = ___FIELD___LOGIN___REQUEST___PASSWORD___
     password_confirmation = ___FIELD___LOGIN___REQUEST___PASSWORD_CONFIRMATION___
     detail = ___FIELD___LOGIN___REQUEST___DETAIL___
+    captcha = CaptchaField(label='CAPTCHA')
 
     class Meta:
         model = models.LDAPUserRequest

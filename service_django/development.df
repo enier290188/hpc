@@ -5,6 +5,7 @@ RUN apt-get update \
 apt-utils \
 gettext \
 postgresql-client \
+libz-dev libjpeg-dev libfreetype6-dev python-dev \
 && rm -rf /var/lib/apt/lists/*
 
 ARG APPLICATION_ENVIRONMENT

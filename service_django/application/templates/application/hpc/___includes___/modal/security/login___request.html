@@ -47,6 +47,11 @@
                     {% with ctx___field=ctx___form.detail %}
                         {% include "application/hpc/___includes___/modal/___includes___/form/textarea/textarea.html" %}
                     {% endwith %}
+
+                    <div class="divider___transparent"></div>
+                    {% with ctx___field=ctx___form.captcha %}
+                        {% include "application/hpc/___includes___/modal/___includes___/form/captcha/captcha.html" %}
+                    {% endwith %}
                 </div>
             </div>
             <div class="modal-footer">
