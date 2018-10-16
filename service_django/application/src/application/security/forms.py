@@ -202,6 +202,77 @@ ___FIELD___LOGIN___REQUEST___DETAIL___ = forms.CharField(
         },
     ),
 )
+___FIELD___LOGIN___REQUEST___INSTITUTE___ = forms.CharField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___INSTITUTE'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    validators=[
+        validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
+    ],
+    widget=forms.TextInput(
+        attrs={
+            'id': 'institute',
+            'class': 'form-control',
+            'aria-describedby': 'institute_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___LOGIN___REQUEST___RESEARCH_FIELD___ = forms.CharField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_FIELD'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    validators=[
+        validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
+    ],
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchField',
+            'class': 'form-control',
+            'aria-describedby': 'researchField_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___ = forms.CharField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    validators=[
+        validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
+    ],
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchGroup',
+            'class': 'form-control',
+            'aria-describedby': 'researchGroup_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+# ___FIELD___LOGIN___REQUEST___USER_PROFILE___ = forms.CharField(
+#     label=_('APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE'),
+#     required=True,
+#     choices=[
+#         ('Profesor', 'Profesor'),
+#         ('Investigador', 'Investigador'),
+#         ('Estudiante pregrado', 'Estudiante pregrado'),
+#         ('Estudiante maestria', 'Estudiante maestria'),
+#         ('Estudiante doctorado', 'Estudiante doctorado'),
+#         ('Otro', 'Otro'),
+#     ],
+#     initial='Profesor',
+#     widget=forms.Select(
+#         attrs={
+#             'id': 'userProfile_register',
+#             'class': 'form-control',
+#             'aria-describedby': 'userProfile_icon',
+#         },
+#     ),
+# )
 ___FIELD___PROFILE___AVATAR___ = forms.ImageField(
     label=_('APPLICATION___SECURITY___PROFILE___AVATAR'),
     required=False,
@@ -814,11 +885,15 @@ class LDAPUserLoginRequest(forms.ModelForm):
     password = ___FIELD___LOGIN___REQUEST___PASSWORD___
     password_confirmation = ___FIELD___LOGIN___REQUEST___PASSWORD_CONFIRMATION___
     detail = ___FIELD___LOGIN___REQUEST___DETAIL___
+    institute = ___FIELD___LOGIN___REQUEST___INSTITUTE___
+    researchField = ___FIELD___LOGIN___REQUEST___RESEARCH_FIELD___
+    researchGroup = ___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___
+    # userProfile = ___FIELD___LOGIN___REQUEST___USER_PROFILE___
     captcha = CaptchaField(label='CAPTCHA')
 
     class Meta:
         model = models.LDAPUserRequest
-        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', ]
+        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -842,6 +917,14 @@ class LDAPUserLoginRequest(forms.ModelForm):
         # detail
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL___HELP_TEXT')
+        # institute
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['institute'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___INSTITUTE')
+        # researchField
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchField'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_FIELD')
+        # researchGroup
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP')
+        #  userProfile
+        # ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE')
 
     def clean_identifier(self):
         identifier = self.cleaned_data.get('identifier')

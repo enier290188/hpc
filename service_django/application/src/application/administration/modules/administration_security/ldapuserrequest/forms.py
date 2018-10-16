@@ -97,6 +97,68 @@ ___FIELD___DETAIL___ = forms.CharField(
         },
     ),
 )
+___FIELD___INSTITUTE___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___INSTITUTE'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'institute',
+            'class': 'form-control',
+            'aria-describedby': 'institute_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_FIELD___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___RESEARCH_FIELD'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchField',
+            'class': 'form-control',
+            'aria-describedby': 'researchField_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_GROUP___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___RESEARCH_GROUP'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchGroup',
+            'class': 'form-control',
+            'aria-describedby': 'researchGroup_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+# ___FIELD___USER_PROFILE___ = forms.CharField(
+#     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE'),
+#     required=True,
+#     choices=[
+#         ('Profesor', 'Profesor'),
+#         ('Investigador', 'Investigador'),
+#         ('Estudiante pregrado', 'Estudiante pregrado'),
+#         ('Estudiante maestria', 'Estudiante maestria'),
+#         ('Estudiante doctorado', 'Estudiante doctorado'),
+#         ('Otro', 'Otro'),
+#     ],
+#     initial='Profesor',
+#     widget=forms.Select(
+#         attrs={
+#             'id': 'userProfile_register',
+#             'class': 'form-control',
+#             'aria-describedby': 'userProfile_icon',
+#         },
+#     ),
+# )
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -115,6 +177,10 @@ class LDAPUserRequestDetail(forms.ModelForm):
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    # userProfile = ___FIELD___USER_PROFILE___
 
     class Meta:
         model = models.LDAPUserRequest
@@ -141,7 +207,10 @@ class LDAPUserRequestApprove(forms.ModelForm):
             identifier=self.instance.identifier,
             email=self.instance.email,
             password=self.instance.password,
-            detail=self.instance.detail
+            detail=self.instance.detail,
+            institute=self.instance.institute,
+            researchField=self.instance.researchField,
+            researchGroup=self.instance.researchGroup
         )
         # Send email
         tasks.___task___application___security___login___request___approve___send_mail___.apply_async(
@@ -153,6 +222,9 @@ class LDAPUserRequestApprove(forms.ModelForm):
                 'string___identifier': '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), instance_mirror.identifier,),
                 'string___email': instance_mirror.email,
                 'string___detail': instance_mirror.detail,
+                'string___institute': instance_mirror.institute,
+                'string___research_field': instance_mirror.researchField,
+                'string___research_group': instance_mirror.researchGroup,
             },
             serializer='json'
         )
@@ -180,6 +252,9 @@ class LDAPUserRequestDisapprove(forms.ModelForm):
                 'string___identifier': '%s_%s' % (settings.LDAP_SERVER_GROUPS_GROUP_CN.lower(), self.instance.identifier,),
                 'string___email': self.instance.email,
                 'string___detail': self.instance.detail,
+                'string___institute': self.instance.institute,
+                'string___research_field': self.instance.researchField,
+                'string___research_group': self.instance.researchGroup,
             },
             serializer='json'
         )

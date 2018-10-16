@@ -61,7 +61,7 @@ def ___boolean___ldap___ldapuser_instances_search___(connection, string___gidnum
             search_base='ou=%s,%s' % (str(connection.entries[0].cn), settings.LDAP_SERVER_USERS_SEARCH_BASE,),
             search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(gidNumber=%s))' % (string___gidnumber,),
             search_scope=ldap3.SUBTREE,
-            attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', ]
+            attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', ]
         )
     return boolean___is_find
 
@@ -95,11 +95,11 @@ def ___boolean___ldap___ldapuser_instance_create___(connection, instance):
             'homeDirectory': '%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,),
             'loginShell': '/bin/bash',
             #
-            'institute': 'institute',
-            'researchField': 'researchField',
-            'researchGroup': 'researchGroup',
+            'institute': instance.institute,
+            'researchField': instance.researchField,
+            'researchGroup': instance.researchGroup,
             'serviceType': 'serviceType',
-            'userProfile': 'userProfile',
+            # 'userProfile': instance.userProfile,
         }
     )
     # HPC
@@ -143,9 +143,9 @@ def ___boolean___ldap___ldapuser_instance_update___(connection, instance):
                     'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)])],
                     'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
                     #
-                    'institute': [(ldap3.MODIFY_REPLACE, ['institute'])],
-                    'researchField': [(ldap3.MODIFY_REPLACE, ['researchField'])],
-                    'researchGroup': [(ldap3.MODIFY_REPLACE, ['researchGroup'])],
+                    'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
+                    'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
+                    'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
                     'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
                     'userProfile': [(ldap3.MODIFY_REPLACE, ['userProfile'])],
                 }
@@ -194,7 +194,7 @@ def ___boolean___ldap___ldapuserhpc_instances_search___(connection):
         search_base='%s' % (settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
         search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser))',
         search_scope=ldap3.SUBTREE,
-        attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', ]
+        attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', ]
     )
     return boolean___is_find
 
@@ -228,11 +228,11 @@ def ___boolean___ldap___ldapuserhpc_instance_create___(connection, string___grou
             'homeDirectory': '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,),
             'loginShell': '/bin/bash',
             #
-            'institute': 'institute',
-            'researchField': 'researchField',
-            'researchGroup': 'researchGroup',
+            'institute': instance.institute,
+            'researchField': instance.researchField,
+            'researchGroup': instance.researchGroup,
             'serviceType': 'serviceType',
-            'userProfile': 'userProfile',
+            # 'userProfile': instance.userProfile,
         }
     )
     return boolean___is_add
@@ -270,9 +270,9 @@ def ___boolean___ldap___ldapuserhpc_instance_update___(connection, string___grou
                     'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,)])],
                     'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
                     #
-                    'institute': [(ldap3.MODIFY_REPLACE, ['institute'])],
-                    'researchField': [(ldap3.MODIFY_REPLACE, ['researchField'])],
-                    'researchGroup': [(ldap3.MODIFY_REPLACE, ['researchGroup'])],
+                    'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
+                    'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
+                    'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
                     'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
                     'userProfile': [(ldap3.MODIFY_REPLACE, ['userProfile'])],
                 }
@@ -399,6 +399,9 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                     string___mail = str(entry.mail)
                     string___userpassword = str(entry.userPassword)[2:-1]
                     string___description = str(entry.description)
+                    string___institute = str(entry.institute)
+                    string___researchField = str(entry.researchField)
+                    string___researchGroup = str(entry.researchGroup)
                     instance = models.LDAPUserImported.objects.___instance___by_ldap_group_and_identifier___(ldap_group=entry___group['cn'], identifier=string___uid)
                     if instance is not None:
                         instance.first_name = string___givenname
@@ -406,6 +409,9 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                         instance.email = string___mail
                         instance.password = string___userpassword
                         instance.detail = string___description
+                        instance.institute = string___institute
+                        instance.researchField = string___researchField
+                        instance.researchGroup = string___researchGroup
                         instance.save()
                     else:
                         instance = models.LDAPUserImported(
@@ -416,7 +422,10 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                             first_name=string___givenname,
                             last_name=string___sn,
                             password=string___userpassword,
-                            detail=string___description
+                            detail=string___description,
+                            institute=string___institute,
+                            researchField=string___researchField,
+                            researchGroup=string___researchGroup
                         )
                         instance.save()
 

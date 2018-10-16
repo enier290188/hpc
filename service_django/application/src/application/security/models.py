@@ -548,6 +548,30 @@ class LDAPUser(models.Model):
         null=True,
         blank=True,
     )
+    institute = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchField = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchGroup = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    # userProfile = models.CharField(
+    #     default='',
+    #     max_length=300,
+    #     null=False,
+    #     blank=False,
+    # )
     groups = models.ManyToManyField(
         'Group',
         related_name='ldapuser_groups_set',
@@ -740,6 +764,30 @@ class LDAPUserImported(models.Model):
         null=True,
         blank=True,
     )
+    institute = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchField = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchGroup = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    # userProfile = models.CharField(
+    #     default='',
+    #     max_length=300,
+    #     null=False,
+    #     blank=False,
+    # )
     locale = models.CharField(
         default='',
         max_length=10,
@@ -928,6 +976,30 @@ class LDAPUserRequest(models.Model):
         null=True,
         blank=True,
     )
+    institute = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchField = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    researchGroup = models.CharField(
+        default='',
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    # userProfile = models.CharField(
+    #     default='',
+    #     max_length=300,
+    #     null=False,
+    #     blank=False,
+    # )
     objects = LDAPUserRequestManager()
 
     class Meta:

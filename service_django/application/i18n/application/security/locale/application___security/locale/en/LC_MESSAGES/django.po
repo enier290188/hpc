@@ -159,6 +159,19 @@ msgstr "Brief summary"
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___DETAIL___HELP_TEXT"
 msgstr "Write a brief summary explaining your request."
 
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___INSTITUTE"
+msgstr "Institute"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_FIELD"
+msgstr "Research field"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP"
+msgstr "Research group"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE"
+msgstr "User profile"
+
+
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and the special character dot."
 msgstr "Only letters, numbers and the special character dot."
 

@@ -112,6 +112,66 @@ ___FIELD___DETAIL___ = forms.CharField(
         },
     ),
 )
+___FIELD___INSTITUTE___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___INSTITUTE'),
+    required=True,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'institute',
+            'class': 'form-control',
+            'aria-describedby': 'institute_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_FIELD___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_FIELD'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchField',
+            'class': 'form-control',
+            'aria-describedby': 'researchField_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_GROUP___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_GROUP'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchGroup',
+            'class': 'form-control',
+            'aria-describedby': 'researchGroup_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+# ___FIELD___USER_PROFILE___ = forms.CharField(
+#     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE'),
+#     required=True,
+#     choices=[
+#         ('Profesor', 'Profesor'),
+#         ('Investigador', 'Investigador'),
+#         ('Estudiante pregrado', 'Estudiante pregrado'),
+#         ('Estudiante maestria', 'Estudiante maestria'),
+#         ('Estudiante doctorado', 'Estudiante doctorado'),
+#         ('Otro', 'Otro'),
+#     ],
+#     initial='Profesor',
+#     widget=forms.Select(
+#         attrs={
+#             'id': 'userProfile_register',
+#             'class': 'form-control',
+#             'aria-describedby': 'userProfile_icon',
+#         },
+#     ),
+# )
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -179,6 +239,15 @@ class LDAPUserImportedUpdate(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___DETAIL___HELP_TEXT')
         self.fields['detail'].widget.attrs['readonly'] = 'readonly'
+        # institute
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['institute'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___INSTITUTE')
+        self.fields['institute'].widget.attrs['readonly'] = 'readonly'
+        # detail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchField'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_FIELD')
+        self.fields['researchField'].widget.attrs['readonly'] = 'readonly'
+        # detail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_GROUP')
+        self.fields['researchGroup'].widget.attrs['readonly'] = 'readonly'
 
     def clean_avatar(self):
         avatar = self.cleaned_data.get('avatar')

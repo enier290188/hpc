@@ -63,6 +63,26 @@
                             <td>{{ ctx___form.instance.detail }}</td>
                         </tr>
                         <tr>
+                            <th><span class="{{ ctx___form.institute.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.institute.field.label }}</td>
+                            <td>{{ ctx___form.instance.institute }}</td>
+                        </tr>
+                        <tr>
+                            <th><span class="{{ ctx___form.researchField.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.researchField.field.label }}</td>
+                            <td>{{ ctx___form.instance.researchField }}</td>
+                        </tr>
+                        <tr>
+                            <th><span class="{{ ctx___form.researchGroup.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.researchGroup.field.label }}</td>
+                            <td>{{ ctx___form.instance.researchGroup }}</td>
+                        </tr>
+                        {% comment %}<tr>
+                            <th><span class="{{ ctx___form.userProfile.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.userProfile.field.label }}</td>
+                            <td>{{ ctx___form.instance.userProfile }}</td>
+                        </tr>{% endcomment %}
+                        <tr>
                             <th><span class="{{ ctx___form.groups.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
                             <td>{{ ctx___form.groups.field.label }}</td>
                             <td>

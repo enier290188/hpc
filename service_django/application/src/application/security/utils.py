@@ -534,6 +534,9 @@ def ___jsonresponse___login___request___(request, ___application___security___fr
                     'string___identifier': '%s%s' % (string___identifier, instance.identifier,),
                     'string___email': instance.email,
                     'string___detail': instance.detail,
+                    'string___institute': instance.institute,
+                    'string___research_field': instance.researchField,
+                    'string___research_group': instance.researchGroup,
                 },
                 serializer='json'
             )

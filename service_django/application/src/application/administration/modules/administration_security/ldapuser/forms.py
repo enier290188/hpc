@@ -160,6 +160,68 @@ ___FIELD___DETAIL___ = forms.CharField(
         },
     ),
 )
+___FIELD___INSTITUTE___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___INSTITUTE'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'institute',
+            'class': 'form-control',
+            'aria-describedby': 'institute_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_FIELD___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_FIELD'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchField',
+            'class': 'form-control',
+            'aria-describedby': 'researchField_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___RESEARCH_GROUP___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP'),
+    required=True,
+    min_length=1,
+    max_length=300,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'researchGroup',
+            'class': 'form-control',
+            'aria-describedby': 'researchGroup_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+# ___FIELD___USER_PROFILE___ = forms.CharField(
+#     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___USER_PROFILE'),
+#     required=True,
+#     choices=[
+#         ('Profesor', 'Profesor'),
+#         ('Investigador', 'Investigador'),
+#         ('Estudiante pregrado', 'Estudiante pregrado'),
+#         ('Estudiante maestria', 'Estudiante maestria'),
+#         ('Estudiante doctorado', 'Estudiante doctorado'),
+#         ('Otro', 'Otro'),
+#     ],
+#     initial='Profesor',
+#     widget=forms.Select(
+#         attrs={
+#             'id': 'userProfile_register',
+#             'class': 'form-control',
+#             'aria-describedby': 'userProfile_icon',
+#         },
+#     ),
+# )
 ___FIELD___GROUPS___ = forms.ModelMultipleChoiceField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___GROUPS'),
     required=False,
@@ -205,12 +267,17 @@ class LDAPUserCreate(forms.ModelForm):
     password = ___FIELD___PASSWORD___
     password_confirmation = ___FIELD___PASSWORD_CONFIRMATION___
     detail = ___FIELD___DETAIL___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    # userProfile = ___FIELD___USER_PROFILE___
+
     groups = ___FIELD___GROUPS___
     permissions = ___FIELD___PERMISSIONS___
 
     class Meta:
         model = models.LDAPUser
-        fields = ['is_active', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'groups', 'permissions', ]
+        fields = ['is_active', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'groups', 'permissions', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -237,6 +304,12 @@ class LDAPUserCreate(forms.ModelForm):
         # detail
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL___HELP_TEXT')
+        # institute
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['institute'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___INSTITUTE')
+        # researchField
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchField'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_FIELD')
+        # researchGroup
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP')
         # groups
         self.groups_choices = models.Group.objects.all()
         # permissions
@@ -314,6 +387,10 @@ class LDAPUserDetail(forms.ModelForm):
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    # userProfile = ___FIELD___USER_PROFILE___
     groups = ___FIELD___GROUPS___
     permissions = ___FIELD___PERMISSIONS___
 
@@ -343,10 +420,14 @@ class LDAPUserUpdate(forms.ModelForm):
     detail = ___FIELD___DETAIL___
     groups = ___FIELD___GROUPS___
     permissions = ___FIELD___PERMISSIONS___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    # userProfile = ___FIELD___USER_PROFILE___
 
     class Meta:
         model = models.LDAPUser
-        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'groups', 'permissions', ]
+        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'groups', 'permissions', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -372,6 +453,13 @@ class LDAPUserUpdate(forms.ModelForm):
         # detail
         ___field___attribute___placeholder___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL')
         ___field___attribute___help_text___locale___reload__(field=self.fields['detail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___DETAIL___HELP_TEXT')
+        # institute
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['institute'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___INSTITUTE')
+        # researchField
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchField'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_FIELD')
+        # researchGroup
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP')
+
         # groups
         self.groups_choices = models.Group.objects.all()
         # permissions
