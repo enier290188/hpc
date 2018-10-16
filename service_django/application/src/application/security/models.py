@@ -501,16 +501,19 @@ class LDAPUser(models.Model):
     avatar = models.ImageField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___AVATAR_UPLOAD_TO___,
     )
     public_key = models.FileField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___PUBLIC_KEY_UPLOAD_TO___,
     )
     private_key = models.FileField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___PRVATE_KEY_UPLOAD_TO___,
     )
     first_name = models.CharField(
@@ -714,16 +717,19 @@ class LDAPUserImported(models.Model):
     avatar = models.ImageField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___AVATAR_UPLOAD_TO___,
     )
     public_key = models.FileField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___PUBLIC_KEY_UPLOAD_TO___,
     )
     private_key = models.FileField(
         null=True,
         blank=True,
+        max_length=256,
         upload_to=___PRVATE_KEY_UPLOAD_TO___,
     )
     first_name = models.CharField(
