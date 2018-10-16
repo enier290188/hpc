@@ -22,7 +22,7 @@ from . import script
 
 
 @decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___index___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
@@ -85,7 +85,7 @@ def ___view___index___(request):
 
 
 @decorators___application___security.___required___request_is_ajax___()
-@decorators___application___security.___required___application___security___user___is_ldapuser___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
+@decorators___application___security.___required___application___security___user___is_ldapuser_or_ldapuserimported___(___application___security___from___module___=utils___application___security.___APPLICATION___SECURITY___FROM___MODULE___HPC___)
 def ___view___vars___(request):
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = False
