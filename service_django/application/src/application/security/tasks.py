@@ -47,7 +47,7 @@ def ___task___application___security___login___forgot_credentials_1___send_mail_
 
 
 @shared_task()
-def ___task___application___security___login___request___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, ):
+def ___task___application___security___login___request___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile, ):
     # Send mail to users who approve the request.
     # Send mail to the user who made the request.
     try:
@@ -60,8 +60,9 @@ def ___task___application___security___login___request___send_mail___(string___u
                                                   'Email: %s \n' \
                                                   'Detail: %s \n' \
                                                   'Institute: %s \n' \
-                                                  'ResearchField: %s \n' \
-                                                  'ResearchGroup: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                  'Research Field: %s \n' \
+                                                  'Research Group: %s \n' \
+                                                  'User Profile: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile)
         string___msg_html_1 = string___subject + '<br/><br/>' \
                                                  'User model: %s <br/>' \
                                                  'First name: %s <br/>' \
@@ -70,8 +71,9 @@ def ___task___application___security___login___request___send_mail___(string___u
                                                  'Email: %s <br/>' \
                                                  'Detail: %s <br/>' \
                                                  'Institute: %s <br/>' \
-                                                 'ResearchField: %s <br/>' \
-                                                 'ResearchGroup: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                 'Research Field: %s <br/>' \
+                                                 'Research Group: %s <br/>' \
+                                                 'User Profile: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile)
         string___msg_plain_2 = string___subject + '\n\n' \
                                                   'The application administrators have received your request, you will receive an email informing you if it was accepted or canceled. ' \
                                                   '\n\n' \
@@ -82,8 +84,9 @@ def ___task___application___security___login___request___send_mail___(string___u
                                                   'Email: %s \n' \
                                                   'Detail: %s \n' \
                                                   'Institute: %s \n' \
-                                                  'ResearchField: %s \n' \
-                                                  'ResearchGroup: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                  'Research Field: %s \n' \
+                                                  'Research Group: %s \n' \
+                                                  'User Profile: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile )
         string___msg_html_2 = string___subject + '<br/><br/>' \
                                                  'The application administrators have received your request, you will receive an email informing you if it was accepted or canceled. <br/>' \
                                                  '<br/><br/>' \
@@ -94,8 +97,9 @@ def ___task___application___security___login___request___send_mail___(string___u
                                                  'Email: %s <br/>' \
                                                  'Detail: %s <br/>' \
                                                  'Institute: %s <br/>' \
-                                                 'ResearchField: %s <br/>' \
-                                                 'ResearchGroup: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                 'Research Field: %s <br/>' \
+                                                 'Research Group: %s <br/>' \
+                                                 'User Profile: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile)
         string___email_from = settings.EMAIL_USER_NOREPLY
         list_string___email_to_1 = list()
         instances___localuser = models.LOCALUser.objects.all()
@@ -129,7 +133,7 @@ def ___task___application___security___login___request___send_mail___(string___u
 
 
 @shared_task()
-def ___task___application___security___login___request___approve___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, ):
+def ___task___application___security___login___request___approve___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile ):
     try:
         string___subject = '::: HPC-%s ::: REQUEST USER ::: APPROVE :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
         string___msg_plain = string___subject + '\n\n' \
@@ -141,8 +145,9 @@ def ___task___application___security___login___request___approve___send_mail___(
                                                 'Email: %s \n' \
                                                 'Detail: %s \n' \
                                                 'Institute: %s \n' \
-                                                'ResearchField: %s \n' \
-                                                'ResearchGroup: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                'Research Field: %s \n' \
+                                                'Research Group: %s \n' \
+                                                'User Profile: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile)
         string___msg_html = string___subject + '<br/><br/>' \
                                                'Your request was approved. <br/><br/>' \
                                                'User model: %s <br/>' \
@@ -152,8 +157,9 @@ def ___task___application___security___login___request___approve___send_mail___(
                                                'Email: %s <br/>' \
                                                'Detail: %s <br/>' \
                                                'Institute: %s <br/>' \
-                                               'ResearchField: %s <br/>' \
-                                               'ResearchGroup: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                               'Research Field: %s <br/>' \
+                                               'Research Group: %s <br/>' \
+                                               'User Profile: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile)
         string___email_from = settings.EMAIL_USER_NOREPLY
         list_string___email_to = [string___email, ]
         # Send mail.
@@ -170,7 +176,7 @@ def ___task___application___security___login___request___approve___send_mail___(
 
 
 @shared_task()
-def ___task___application___security___login___request___disapprove___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, ):
+def ___task___application___security___login___request___disapprove___send_mail___(string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile, ):
     try:
         string___subject = '::: HPC-%s ::: REQUEST USER ::: DISAPPROVE :::' % (settings.LDAP_SERVER_GROUPS_GROUP_CN,)
         string___msg_plain = string___subject + '\n\n' \
@@ -182,8 +188,9 @@ def ___task___application___security___login___request___disapprove___send_mail_
                                                 'Email: %s \n' \
                                                 'Detail: %s \n' \
                                                 'Institute: %s \n' \
-                                                'ResearchField: %s \n' \
-                                                'ResearchGroup: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                                'Research Field: %s \n' \
+                                                'Research Group: %s \n' \
+                                                'User Profile: %s \n' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile, )
         string___msg_html = string___subject + '<br/><br/>' \
                                                'Your request was disapproved. <br/><br/>' \
                                                'User model: %s <br/>' \
@@ -193,8 +200,9 @@ def ___task___application___security___login___request___disapprove___send_mail_
                                                'Email: %s <br/>' \
                                                'Detail: %s <br/>' \
                                                'Institute: %s <br/>' \
-                                               'ResearchField: %s <br/>' \
-                                               'ResearchGroup: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, )
+                                               'Research Field: %s <br/>' \
+                                               'Research Group: %s <br/>' \
+                                               'User Profile: %s <br/>' % (string___user_model, string___first_name, string___last_name, string___identifier, string___email, string___detail, string___institute, string___research_field, string___research_group, string___user_profile, )
         string___email_from = settings.EMAIL_USER_NOREPLY
         list_string___email_to = [string___email, ]
         # Send mail.

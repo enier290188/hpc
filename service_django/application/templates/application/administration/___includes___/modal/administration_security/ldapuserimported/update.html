@@ -39,6 +39,19 @@
                     {% with ctx___field=ctx___form.detail %}
                         {% include "application/administration/___includes___/modal/___includes___/form/textarea/textarea.html" %}
                     {% endwith %}
+                    {% with ctx___field=ctx___form.institute %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.researchField %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.researchGroup %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.userProfile %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/select/select.html" %}
+                    {% endwith %}
+
 
                     <div class="divider___transparent"></div>
                     {% with ctx___field=ctx___form.is_active %}

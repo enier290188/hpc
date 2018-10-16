@@ -253,26 +253,27 @@ ___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___ = forms.CharField(
         },
     ),
 )
-# ___FIELD___LOGIN___REQUEST___USER_PROFILE___ = forms.CharField(
-#     label=_('APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE'),
-#     required=True,
-#     choices=[
-#         ('Profesor', 'Profesor'),
-#         ('Investigador', 'Investigador'),
-#         ('Estudiante pregrado', 'Estudiante pregrado'),
-#         ('Estudiante maestria', 'Estudiante maestria'),
-#         ('Estudiante doctorado', 'Estudiante doctorado'),
-#         ('Otro', 'Otro'),
-#     ],
-#     initial='Profesor',
-#     widget=forms.Select(
-#         attrs={
-#             'id': 'userProfile_register',
-#             'class': 'form-control',
-#             'aria-describedby': 'userProfile_icon',
-#         },
-#     ),
-# )
+___FIELD___LOGIN___REQUEST___USER_PROFILE___ = forms.ChoiceField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE'),
+    required=True,
+    choices=[
+        ('Teacher', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___TEACHER")),
+        ('Investigator', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___INVESTIGATOR")),
+        ('Undergraduate student', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___UNDERGRADUATE_STUDENT")),
+        ('Master\'s student', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION____MASTER'S_STUDENT")),
+        ('PhD student', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___PHD_STUDENT")),
+        ('Other', _("APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___OTHER")),
+    ],
+    initial='Teacher',
+    widget=forms.Select(
+        attrs={
+            'id': 'userProfile_register',
+            'class': 'form-control',
+            'aria-describedby': 'userProfile_icon',
+            'icon': 'glyphicon glyphicon-list',
+        },
+    ),
+)
 ___FIELD___PROFILE___AVATAR___ = forms.ImageField(
     label=_('APPLICATION___SECURITY___PROFILE___AVATAR'),
     required=False,
@@ -888,12 +889,12 @@ class LDAPUserLoginRequest(forms.ModelForm):
     institute = ___FIELD___LOGIN___REQUEST___INSTITUTE___
     researchField = ___FIELD___LOGIN___REQUEST___RESEARCH_FIELD___
     researchGroup = ___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___
-    # userProfile = ___FIELD___LOGIN___REQUEST___USER_PROFILE___
+    userProfile = ___FIELD___LOGIN___REQUEST___USER_PROFILE___
     captcha = CaptchaField(label='CAPTCHA')
 
     class Meta:
         model = models.LDAPUserRequest
-        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', ]
+        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -924,7 +925,7 @@ class LDAPUserLoginRequest(forms.ModelForm):
         # researchGroup
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP')
         #  userProfile
-        # ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE')
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE')
 
     def clean_identifier(self):
         identifier = self.cleaned_data.get('identifier')

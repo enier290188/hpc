@@ -152,26 +152,27 @@ ___FIELD___RESEARCH_GROUP___ = forms.CharField(
         },
     ),
 )
-# ___FIELD___USER_PROFILE___ = forms.CharField(
-#     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE'),
-#     required=True,
-#     choices=[
-#         ('Profesor', 'Profesor'),
-#         ('Investigador', 'Investigador'),
-#         ('Estudiante pregrado', 'Estudiante pregrado'),
-#         ('Estudiante maestria', 'Estudiante maestria'),
-#         ('Estudiante doctorado', 'Estudiante doctorado'),
-#         ('Otro', 'Otro'),
-#     ],
-#     initial='Profesor',
-#     widget=forms.Select(
-#         attrs={
-#             'id': 'userProfile_register',
-#             'class': 'form-control',
-#             'aria-describedby': 'userProfile_icon',
-#         },
-#     ),
-# )
+___FIELD___USER_PROFILE___ = forms.ChoiceField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE'),
+    required=True,
+    choices=[
+        ('Teacher', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION___TEACHER")),
+        ('Investigator', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION___INVESTIGATOR")),
+        ('Undergraduate student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION___UNDERGRADUATE_STUDENT")),
+        ('Master\'s student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION____MASTER'S_STUDENT")),
+        ('PhD student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION___PHD_STUDENT")),
+        ('Other', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE___OPTION___OTHER")),
+    ],
+    initial='Teacher',
+    widget=forms.Select(
+        attrs={
+            'id': 'userProfile_register',
+            'class': 'form-control',
+            'aria-describedby': 'userProfile_icon',
+            'icon': 'glyphicon glyphicon-list',
+        },
+    ),
+)
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -192,6 +193,10 @@ class LDAPUserImportedDetail(forms.ModelForm):
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    userProfile = ___FIELD___USER_PROFILE___
 
     class Meta:
         model = models.LDAPUserImported
@@ -210,10 +215,14 @@ class LDAPUserImportedUpdate(forms.ModelForm):
     identifier = ___FIELD___IDENTIFIER___
     email = ___FIELD___EMAIL___
     detail = ___FIELD___DETAIL___
+    institute = ___FIELD___INSTITUTE___
+    researchField = ___FIELD___RESEARCH_FIELD___
+    researchGroup = ___FIELD___RESEARCH_GROUP___
+    userProfile = ___FIELD___USER_PROFILE___
 
     class Meta:
         model = models.LDAPUserImported
-        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'detail', ]
+        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -242,12 +251,15 @@ class LDAPUserImportedUpdate(forms.ModelForm):
         # institute
         ___field___attribute___placeholder___locale___reload__(field=self.fields['institute'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___INSTITUTE')
         self.fields['institute'].widget.attrs['readonly'] = 'readonly'
-        # detail
+        # researchField
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchField'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_FIELD')
         self.fields['researchField'].widget.attrs['readonly'] = 'readonly'
-        # detail
+        # researchGroup
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_GROUP')
         self.fields['researchGroup'].widget.attrs['readonly'] = 'readonly'
+        # userProfile
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE')
+        self.fields['userProfile'].widget.attrs['readonly'] = 'readonly'
 
     def clean_avatar(self):
         avatar = self.cleaned_data.get('avatar')
@@ -275,6 +287,22 @@ class LDAPUserImportedUpdate(forms.ModelForm):
     def clean_detail(self):
         detail = self.instance_current.detail
         return detail
+
+    def clean_institute(self):
+        institute = self.instance_current.institute
+        return institute
+
+    def clean_researchField(self):
+        researchField = self.instance_current.researchField
+        return researchField
+
+    def clean_researchGroup(self):
+        researchGroup = self.instance_current.researchGroup
+        return researchGroup
+
+    def clean_userProfile(self):
+        userProfile = self.instance_current.userProfile
+        return userProfile
 
     def save(self, commit=True):
         instance = super(LDAPUserImportedUpdate, self).save(commit=False)

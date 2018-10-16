@@ -139,26 +139,27 @@ ___FIELD___RESEARCH_GROUP___ = forms.CharField(
         },
     ),
 )
-# ___FIELD___USER_PROFILE___ = forms.CharField(
-#     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE'),
-#     required=True,
-#     choices=[
-#         ('Profesor', 'Profesor'),
-#         ('Investigador', 'Investigador'),
-#         ('Estudiante pregrado', 'Estudiante pregrado'),
-#         ('Estudiante maestria', 'Estudiante maestria'),
-#         ('Estudiante doctorado', 'Estudiante doctorado'),
-#         ('Otro', 'Otro'),
-#     ],
-#     initial='Profesor',
-#     widget=forms.Select(
-#         attrs={
-#             'id': 'userProfile_register',
-#             'class': 'form-control',
-#             'aria-describedby': 'userProfile_icon',
-#         },
-#     ),
-# )
+___FIELD___USER_PROFILE___ = forms.ChoiceField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE'),
+    required=True,
+    choices=[
+        ('Teacher', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION___TEACHER")),
+        ('Investigator', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION___INVESTIGATOR")),
+        ('Undergraduate student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION___UNDERGRADUATE_STUDENT")),
+        ('Master\'s student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION____MASTER'S_STUDENT")),
+        ('PhD student', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION___PHD_STUDENT")),
+        ('Other', _("APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___USER_PROFILE___OPTION___OTHER")),
+    ],
+    initial='Teacher',
+    widget=forms.Select(
+        attrs={
+            'id': 'userProfile_register',
+            'class': 'form-control',
+            'aria-describedby': 'userProfile_icon',
+            'icon': 'glyphicon glyphicon-list',
+        },
+    ),
+)
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -180,7 +181,7 @@ class LDAPUserRequestDetail(forms.ModelForm):
     institute = ___FIELD___INSTITUTE___
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
-    # userProfile = ___FIELD___USER_PROFILE___
+    userProfile = ___FIELD___USER_PROFILE___
 
     class Meta:
         model = models.LDAPUserRequest
@@ -210,7 +211,8 @@ class LDAPUserRequestApprove(forms.ModelForm):
             detail=self.instance.detail,
             institute=self.instance.institute,
             researchField=self.instance.researchField,
-            researchGroup=self.instance.researchGroup
+            researchGroup=self.instance.researchGroup,
+            userProfile=self.instance.userProfile
         )
         # Send email
         tasks.___task___application___security___login___request___approve___send_mail___.apply_async(
@@ -225,6 +227,7 @@ class LDAPUserRequestApprove(forms.ModelForm):
                 'string___institute': instance_mirror.institute,
                 'string___research_field': instance_mirror.researchField,
                 'string___research_group': instance_mirror.researchGroup,
+                'string___user_profile': instance_mirror.userProfile,
             },
             serializer='json'
         )
@@ -255,6 +258,7 @@ class LDAPUserRequestDisapprove(forms.ModelForm):
                 'string___institute': self.instance.institute,
                 'string___research_field': self.instance.researchField,
                 'string___research_group': self.instance.researchGroup,
+                'string___user_profile': self.instance.userProfile,
             },
             serializer='json'
         )
