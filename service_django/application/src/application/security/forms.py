@@ -952,6 +952,7 @@ class LDAPUserLoginRequest(forms.ModelForm):
     def clean(self):
         ___clean___ = super(LDAPUserLoginRequest, self).clean()
         # password and password_confirmation
+        identifier = str(self.cleaned_data.get('identifier')).lower()
         password = str(self.cleaned_data.get('password')).strip()
         password_confirmation = str(self.cleaned_data.get('password_confirmation')).strip()
         if password != password_confirmation:
