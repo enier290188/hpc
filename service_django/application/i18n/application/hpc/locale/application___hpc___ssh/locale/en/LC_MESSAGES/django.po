@@ -46,3 +46,6 @@ msgid "HPC___SSH___MESSAGES_ScriptReleasedOk"
 msgstr "Script saved and released. (%s)"
 msgid "HPC___SSH___MESSAGES_ScriptReleasedErr"
 msgstr "Saved script. Execution error. (%s)"
+
+msgid "HPC___SSH___MESSAGES_OpenFileNotEncodingText"
+msgstr "Only files in text format can be edited. (%s)"

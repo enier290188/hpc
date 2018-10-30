@@ -46,3 +46,6 @@ msgid "HPC___SSH___MESSAGES_ScriptReleasedOk"
 msgstr "Secuencia de comandos guardada y lanzada. (%s)"
 msgid "HPC___SSH___MESSAGES_ScriptReleasedErr"
 msgstr "Secuencia de comandos guardada. Error en la ejecución. (%s)"
+
+msgid "HPC___SSH___MESSAGES_OpenFileNotEncodingText"
+msgstr "Solo se pueden editar archivos en formato texto. (%s)"

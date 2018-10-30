@@ -39,7 +39,7 @@ def ___html___template_modal___message___(request):
 
 def ___httpresponse___error___(request):
     if len(messages.get_messages(request=request)) <= 0:
-        messages.add_message(request, messages.ERROR, _('APPLICATION___HPC___SSH___MESSAGES_ServerNotAvailable'))
+        messages.add_message(request, messages.ERROR, _('HPC___SSH___MESSAGES_ServerNotAvailable'))
     dict___data = dict()
     dict___data['___BOOLEAN___ERROR___'] = True
     dict___data['___HTML___APPLICATION___HPC___MODAL___'] = ___html___template_modal___message___(request=request)

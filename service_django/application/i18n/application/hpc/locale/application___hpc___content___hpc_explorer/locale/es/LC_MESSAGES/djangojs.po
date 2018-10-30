@@ -1,0 +1,19 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+
+
+
+# *****************************************************************************
+# HPC EXPLORER CONTENT
+# *****************************************************************************
+
+msgid "HPC___SSH___FILE_EDITOR___Saving"
+msgstr "Guardando..."
+msgid "HPC___SSH___FILE_EDITOR___Saved"
+msgstr "Guardado"
+msgid "HPC___SSH___FILE_EDITOR___SaveError"
+msgstr "Error en el servidor"

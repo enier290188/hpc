@@ -44,9 +44,9 @@ var hpc_explorer_init = function(){
         $hpc__tbody.find('tr').each(function(){
             if($(this).hasClass('primary')) {
                 i++;
-                if ($(this).hasClass('directory'))
+                if ($(this).attr('data-type') === 'directory')
                     d = true;
-                if ($(this).hasClass('file'))
+                if ($(this).attr('data-type') === 'file')
                     f = true;
             }
             count++;
@@ -59,7 +59,6 @@ var hpc_explorer_init = function(){
             $actions.eq(0).removeAttr('disabled');
         if(i === 1) {
             $actions.eq(3).removeAttr('disabled');
-            $actions.eq(4).removeAttr('disabled');
             if (d)
                 $actions.eq(1).removeAttr('disabled');
             if (f) {
@@ -69,6 +68,7 @@ var hpc_explorer_init = function(){
             }
         }
         if(i > 0){
+            $actions.eq(4).removeAttr('disabled');
             $actions.eq(5).removeAttr('disabled');
             $actions.eq(9).removeAttr('disabled');
         }
@@ -114,7 +114,7 @@ var hpc_explorer_init = function(){
         hpc__explorer__disabled_actions();
     };
     var hpc__explorer__action__dblClick = function() {
-        if ($(this).hasClass('directory')) {
+        if ($(this).attr('data-type') === 'directory') {
             path = path + '/' + $(this).attr('data-name');
             $hpc__tbody.html('<tr><td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td></tr>');
             hpc__explorer__list();
@@ -163,7 +163,7 @@ var hpc_explorer_init = function(){
                 },
                 success: function (data) {
                     if (data['___BOOLEAN___ERROR___']) {
-                        ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                        ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
                     }
                     else {
                         $hpc__modal.html(data['___HTML___APPLICATION___HPC___MODAL___']);
@@ -199,53 +199,61 @@ var hpc_explorer_init = function(){
         }
     };
     var hpc__explorer__action__download = function(){
-        if($(this).attr('disabled')!=='disabled') {
-            var name = $hpc__tbody.find('tr.primary').attr('data-name');
-            $.ajax({
-                url: $(this).attr('data-url'),
-                method: 'GET',
-                data: {
-                    path: path,
-                    name: name
-                },
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function (data) {
-                    try {
-                        var a = document.createElement('a');
-                        var url = window.URL.createObjectURL(data);
-                        a.href = url;
-                        a.download = name;
-                        a.click();
-                        window.URL.revokeObjectURL(url);
+        var $button_download = $(this);
+        if($button_download.attr('disabled')==='disabled')
+            return;
+        $button_download.button('loading');
+        var events = [];
+        $hpc__tbody.find('tr.primary').each(function () {
+            events.push(
+                $.ajax({
+                    url: $button_download.attr('data-url'),
+                    method: 'GET',
+                    data: {
+                        path: path,
+                        name: $(this).attr('data-name'),
+                        type: $(this).attr('data-type')
+                    },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data, status, jqxhr) {
+                        if (status === 'success') {
+                            // Try to find out the filename from the content disposition `filename` value
+                            var disposition = jqxhr.getResponseHeader('Content-Disposition');
+                            var matches = /"([^"]*)"/.exec(disposition);
+                            var filename = (matches !== null && matches[1] ? matches[1] : "unnamed");
+                            // The actual download
+                            var blob = new Blob([data], {type: jqxhr.getResponseHeader('Content-Type')});
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = filename;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                        else
+                            $.ajax({
+                                url: url_error,
+                                type: 'GET',
+                                data: {
+                                    'message': interpolate(gettext('HPC___SSH___MESSAGES_DownloadFilesException'), [name])
+                                },
+                                dataType: 'json',
+                                beforeSend: function () {
+                                    ___HTML___application___hpc___modal___SHOW_LOAD___();
+                                },
+                                success: function (data) {
+                                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                                }
+                            });
                     }
-                    catch (err) {
-                        $.ajax({
-                            url: url_error,
-                            type: 'GET',
-                            data: {
-                                'message': interpolate(gettext('HPC___SSH___MESSAGES_DownloadFilesException'), [name])
-                            },
-                            dataType: 'json',
-                            beforeSend: function () {
-                                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                            },
-                            success: function (data) {
-                                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                            }
-                        });
-                    }
-                }
-            });
-            /*
-            var name = $hpc__tbody.find('tr.primary').attr('data-name');
-            var link = document.createElement('a');
-            link.download = name;
-            link.href = $(this).attr('data-url') + '?path=' + path + '&name=' + name;
-            document.body.appendChild(link);
-            link.click();*/
-        }
+                })
+            );
+        });
+        $.when.apply($, events).then(function() {
+           $button_download.button('reset');
+        });
     };
     var hpc__explorer__action__copy = function(){
         if($(this).attr('disabled')!=='disabled') {
@@ -285,7 +293,7 @@ var hpc_explorer_init = function(){
                     filesToCopy = [];
                     if (data['___BOOLEAN___ERROR___']) {
                         ___HTML___application___hpc___modal___SHOW_LOAD___();
-                        ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
+                        ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
                         $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
                     }
                     else {
@@ -412,8 +420,36 @@ var hpc_explorer_init = function(){
         path = '/' + path.split('/')[1] + '/' + path.split('/')[2] + '/' + path.split('/')[3];
         if (dir)
             path += '/' + $hpc__modal.find('#modal-goto').find('input[name=goto]').val();
-        hpc__explorer__list();
-        hpc__explorer__disabled_actions();
+        $.ajax({
+            url: url_list,
+            data: {
+                'path': path
+            },
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            beforeSend: function () {
+                $hpc__tbody.html('' +
+                    '<tr>' +
+                        '<td colspan="3"><span class="fa fa-spinner fa-pulse"></span> Cargando...</td>' +
+                    '</tr>'
+                );
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px');
+            },
+            success: function (data) {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if(data.list) {
+                    $hpc__tbody.html(data.list);
+                    $hpc__pwd.find('strong').text(path);
+                    hpc__explorer__disabled_actions();
+                }
+            }
+        });
     };
     var hpc__explorer__modal__submit__create_folder = function(evt){
         evt.preventDefault();
@@ -438,15 +474,15 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__explorer__disabled_all_actions();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px');
             },
             success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_LOAD___();
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if (data.list) {
                     $hpc__tbody.html(data.list);
                     $hpc__pwd.find('strong').text(path);
                     hpc__explorer__disabled_actions();
@@ -477,15 +513,15 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__explorer__disabled_all_actions();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px');
             },
             success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_LOAD___();
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if (data.list) {
                     $hpc__tbody.html(data.list);
                     $hpc__pwd.find('strong').text(path);
                     hpc__explorer__disabled_actions();
@@ -516,15 +552,15 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__explorer__disabled_all_actions();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px');
             },
             success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_LOAD___();
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                if (data.list){
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if (data.list) {
                     $hpc__tbody.html(data.list);
                     $hpc__pwd.find('strong').text(path);
                     hpc__explorer__disabled_actions();
@@ -552,18 +588,18 @@ var hpc_explorer_init = function(){
             beforeSend: function () {
                 $form.find('.modal-header').append('' +
                     '<div style="position: absolute; top: 16px; right: 60px">' +
-                    '   <span class="fa fa-spinner fa-pulse"></span> Guardando...' +
+                    '   <span class="fa fa-spinner fa-pulse"></span> ' + gettext('HPC___SSH___FILE_EDITOR___Saving') +
                     '</div>'
                 );
             },
             success: function (data) {
                 var $div = $form.find('.modal-header').find('div');
                 if (data['___BOOLEAN___ERROR___']) {
-                    $div.html('<span class="fa fa-warning fa-fw"></span> Error en el servidor');
+                    $div.html('<span class="fa fa-warning fa-fw"></span> ' + gettext('HPC___SSH___FILE_EDITOR___SaveError'));
                 }
                 else {
                     $btn.attr('disabled', 'disabled');
-                    $div.html('<span class="fa fa-check-circle fa-fw"></span> Guardado');
+                    $div.html('<span class="fa fa-check-circle fa-fw"></span> ' + gettext('HPC___SSH___FILE_EDITOR___Saved'));
                 }
                 setTimeout(function(){
                     $div.remove();
@@ -595,15 +631,15 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__explorer__disabled_all_actions();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px');
             },
             success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_LOAD___();
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if (data.list) {
                     $hpc__tbody.html(data.list);
                     $hpc__pwd.find('strong').text(path);
                     hpc__explorer__disabled_actions();
@@ -626,16 +662,16 @@ var hpc_explorer_init = function(){
             dataType: 'json',
             cache: false,
             beforeSend: function () {
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                hpc__explorer__disabled_all_actions();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px')
             },
             success: function (data) {
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                if(data['___BOOLEAN___ERROR___']){
-                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                }
-                else {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
                     ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___(data);
-                }
+                hpc__explorer__disabled_actions();
             }
         });
     };
@@ -663,15 +699,15 @@ var hpc_explorer_init = function(){
                     '</tr>'
                 );
                 hpc__explorer__disabled_all_actions();
-                ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                ___HTML___application___hpc___modal___SHOW_LOAD___();
+                $('.application___hpc___load').css('height', '20px')
             },
             success: function (data) {
-                if(data['___BOOLEAN___ERROR___']){
-                ___HTML___application___hpc___modal___SHOW_LOAD___();
-                ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data);
-                    $(data['___HTML___APPLICATION___HPC___MODAL___MESSAGE___']).find('.alert___message___text').text();
-                }
-                else {
+                if(data['___BOOLEAN___ERROR___'])
+                    ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___(data, 10000);
+                else
+                    ___HTML___application___hpc___modal___ACTION_CLOSE___();
+                if (data.list) {
                     $hpc__tbody.html(data.list);
                     $hpc__pwd.find('strong').text(path);
                     hpc__explorer__disabled_actions();

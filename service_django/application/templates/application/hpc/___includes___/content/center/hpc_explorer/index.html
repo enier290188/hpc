@@ -63,7 +63,7 @@
             <a disabled class="btn btn-sm btn-default" title="Rename" data-option="rename" data-url="{% url "application___hpc:modules:hpc_explorer:rename" %}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <span class="hidden-xs">{% trans 'HPC___CONTENT___EXPLORER___BUTTONS___Rename' %}</span>
             </a>
-            <a disabled class="btn btn-sm btn-primary" title="Download" data-option="download" data-url="{% url "application___hpc:download" %}">
+            <a disabled class="btn btn-sm btn-primary" title="Download" data-option="download" data-url="{% url "application___hpc:download" %}" data-loading-text="<span class='fa fa-spinner fa-pulse'></span> {% trans 'HPC___CONTENT___EXPLORER___BUTTONS___Download' %}">
                 <span class="glyphicon glyphicon-download" aria-hidden="true"></span> <span class="hidden-xs">{% trans 'HPC___CONTENT___EXPLORER___BUTTONS___Download' %}</span>
             </a>
             <a disabled class="btn btn-sm btn-default" title="Copy" data-option="copy">

@@ -571,7 +571,9 @@ var ___HTML___application___hpc___modal___EVENTS_ON___ = function () {
         .on("submit", ".LINK___application___hpc___modal___action_profile", ___HTML___application___hpc___modal___ACTION_PROFILE___)
         .on("click", ".LINK___application___hpc___modal___modal___reload", ___HTML___application___hpc___modal___modal___RELOAD___);
 };
-var ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___ = function (data) {
+var ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___ = function (data, timeOut) {
+    if(!timeOut)
+        var timeOut = 3000;
     var $application___hpc___modal = $("#application___hpc___modal");
     $application___hpc___modal.html(data.___HTML___APPLICATION___HPC___MODAL___);
     $application___hpc___modal.find(".modal___message").html(data.___HTML___APPLICATION___HPC___MODAL___MESSAGE___);
@@ -612,7 +614,7 @@ var ___HTML___application___hpc___modal___SHOW_MESSAGE_ERROR___ = function (data
         }
     }
 
-    setTimeout(___JS___modal___message___alert___close___, 3000);
+    setTimeout(___JS___modal___message___alert___close___, timeOut);
 };
 var ___HTML___application___hpc___modal___SHOW_MESSAGE_OK___ = function (data) {
     var $application___hpc___modal = $("#application___hpc___modal");
