@@ -97,6 +97,12 @@
     margin-bottom :-6px;
 }
 
+#application___website___header .header___links > li:nth-child(2) > a > img
+{
+    width         :40px;
+    border-radius: 5px;
+}
+
 #application___website___header .header___links > li > a > span.badge
 {
     margin-top       :-15px;
@@ -166,6 +172,12 @@
     width      :18px;
     height     :18px;
     margin-top :-4px;
+}
+
+#application___website___header .header___links > li.dropdown:nth-child(2) > ul.dropdown-menu > li > a > img
+{
+    width      :24px;
+    border-radius: 3px;
 }
 
 #application___website___header .header___links > li.dropdown > ul.dropdown-menu.dropdown_menu___alerts
