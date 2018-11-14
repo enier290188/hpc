@@ -183,6 +183,16 @@ msgstr "PhD student"
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE___OPTION___OTHER"
 msgstr "Other"
 
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_INSTITUTION"
+msgstr "Tutor's institution"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_MAIL"
+msgstr "Tutor's mail"
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_NAME"
+msgstr "Tutor's name"
+
+
 
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and the special character dot."
 msgstr "Only letters, numbers and the special character dot."
@@ -201,6 +211,15 @@ msgstr "This email has already been chosen."
 
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION The password and your confirmation do not match."
 msgstr "The password and your confirmation do not match."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor's institution."
+msgstr "Specify the tutor's institution."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor's mail."
+msgstr "Specify the tutor's mail."
+
+msgid "APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor's name."
+msgstr "Specify the tutor's name."
 
 msgid "APPLICATION___SECURITY___LOGIN___REQUEST___MESSAGE The application administrators have received your request, you will receive an email informing you if it was accepted or canceled."
 msgstr "The application administrators have received your request, you will receive an email informing you if it was accepted or canceled."

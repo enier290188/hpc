@@ -59,6 +59,15 @@
                     {% with ctx___field=ctx___form.userProfile %}
                         {% include "application/administration/___includes___/modal/___includes___/form/select/select.html" %}
                     {% endwith %}
+                    {% with ctx___field=ctx___form.tutorName %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.tutorMail %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.tutorInstitution %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
 
                     <div class="divider___transparent"></div>
                     {% with ctx___field=ctx___form.captcha %}

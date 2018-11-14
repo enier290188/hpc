@@ -61,7 +61,7 @@ def ___boolean___ldap___ldapuser_instances_search___(connection, string___gidnum
             search_base='ou=%s,%s' % (str(connection.entries[0].cn), settings.LDAP_SERVER_USERS_SEARCH_BASE,),
             search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser)(gidNumber=%s))' % (string___gidnumber,),
             search_scope=ldap3.SUBTREE,
-            attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
+            attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', ]
         )
     return boolean___is_find
 
@@ -79,28 +79,35 @@ def ___boolean___ldap___ldapuser_instance_search___(connection, instance):
 
 def ___boolean___ldap___ldapuser_instance_create___(connection, instance):
     # perform the operation create
+    attributes = {
+        'uid': instance.identifier,
+        'uidNumber': '%s' % (100000 + instance.pk),
+        'gidNumber': settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,
+        'cn': instance.__str__(),
+        'givenName': (instance.first_name if instance.first_name != '' else '-'),
+        'sn': (instance.last_name if instance.last_name != '' else '-'),
+        'mail': instance.email,
+        'userPassword': instance.password,
+        'description': instance.detail,
+        'homeDirectory': '%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,),
+        'loginShell': '/bin/bash',
+        #
+        'institute': instance.institute,
+        'researchField': instance.researchField,
+        'researchGroup': instance.researchGroup,
+        'serviceType': 'serviceType',
+        'userProfile': instance.userProfile,
+    }
+    if instance.tutorInstitution:
+        attributes.update({'tutorInstitution': instance.tutorInstitution})
+    if instance.tutorMail:
+        attributes.update({'tutorMail': instance.tutorMail})
+    if instance.tutorName:
+        attributes.update({'tutorName': instance.tutorName})
     boolean___is_add = connection.add(
         dn='uid=%s,ou=%s,%s' % (instance.identifier, settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,),
         object_class=['inetOrgPerson', 'posixAccount', 'top', 'hpcCubaUser'],
-        attributes={
-            'uid': instance.identifier,
-            'uidNumber': '%s' % (100000 + instance.pk),
-            'gidNumber': settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,
-            'cn': instance.__str__(),
-            'givenName': (instance.first_name if instance.first_name != '' else '-'),
-            'sn': (instance.last_name if instance.last_name != '' else '-'),
-            'mail': instance.email,
-            'userPassword': instance.password,
-            'description': instance.detail,
-            'homeDirectory': '%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,),
-            'loginShell': '/bin/bash',
-            #
-            'institute': instance.institute,
-            'researchField': instance.researchField,
-            'researchGroup': instance.researchGroup,
-            'serviceType': 'serviceType',
-            'userProfile': instance.userProfile,
-        }
+        attributes=attributes
     )
     # HPC
     if boolean___is_add:
@@ -129,26 +136,33 @@ def ___boolean___ldap___ldapuser_instance_update___(connection, instance):
             )
         if boolean___is_update:
             # perform the operation update
+            changes = {
+                'uidNumber': [(ldap3.MODIFY_REPLACE, [100000 + instance.pk])],
+                'gidNumber': [(ldap3.MODIFY_REPLACE, [settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER])],
+                'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
+                'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
+                'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
+                'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
+                'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
+                'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
+                'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)])],
+                'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
+                #
+                'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
+                'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
+                'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
+                'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
+                'userProfile': [(ldap3.MODIFY_REPLACE, [instance.userProfile])],
+            }
+            if instance.tutorInstitution:
+                changes.update({'tutorInstitution': [(ldap3.MODIFY_REPLACE, [instance.tutorInstitution])]})
+            if instance.tutorMail:
+                changes.update({'tutorMail': [(ldap3.MODIFY_REPLACE, [instance.tutorMail])]})
+            if instance.tutorName:
+                changes.update({'tutorName': [(ldap3.MODIFY_REPLACE, [instance.tutorName])]})
             boolean___is_update = connection.modify(
                 dn='uid=%s,ou=%s,%s' % (instance.identifier, settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,),
-                changes={
-                    'uidNumber': [(ldap3.MODIFY_REPLACE, [100000 + instance.pk])],
-                    'gidNumber': [(ldap3.MODIFY_REPLACE, [settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER])],
-                    'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
-                    'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
-                    'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
-                    'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
-                    'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
-                    'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
-                    'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,)])],
-                    'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
-                    #
-                    'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
-                    'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
-                    'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
-                    'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
-                    'userProfile': [(ldap3.MODIFY_REPLACE, [instance.userProfile])],
-                }
+                changes=changes
             )
             # HPC
             if boolean___is_update:
@@ -194,7 +208,7 @@ def ___boolean___ldap___ldapuserhpc_instances_search___(connection):
         search_base='%s' % (settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
         search_filter='(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(objectClass=top)(objectClass=hpcCubaUser))',
         search_scope=ldap3.SUBTREE,
-        attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
+        attributes=['uid', 'uidNumber', 'gidNumber', 'givenName', 'sn', 'mail', 'userPassword', 'description', 'homeDirectory', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', ]
     )
     return boolean___is_find
 
@@ -212,28 +226,35 @@ def ___boolean___ldap___ldapuserhpc_instance_search___(connection, string___grou
 
 def ___boolean___ldap___ldapuserhpc_instance_create___(connection, string___group_cn, int___group_gidnumber, instance):
     # perform the operation create
+    attributes = {
+        'uid': '%s_%s' % (string___group_cn, instance.identifier,),
+        'uidNumber': '%s' % ((int___group_gidnumber * 100000) + instance.pk),
+        'gidNumber': '%s' % (int___group_gidnumber,),
+        'cn': instance.__str__(),
+        'givenName': (instance.first_name if instance.first_name != '' else '-'),
+        'sn': (instance.last_name if instance.last_name != '' else '-'),
+        'mail': instance.email,
+        'userPassword': instance.password,
+        'description': instance.detail,
+        'homeDirectory': '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,),
+        'loginShell': '/bin/bash',
+        #
+        'institute': instance.institute,
+        'researchField': instance.researchField,
+        'researchGroup': instance.researchGroup,
+        'serviceType': 'serviceType',
+        'userProfile': instance.userProfile,
+    }
+    if instance.tutorInstitution:
+        attributes.update({'tutorInstitution': instance.tutorInstitution})
+    if instance.tutorMail:
+        attributes.update({'tutorMail': instance.tutorMail})
+    if instance.tutorName:
+        attributes.update({'tutorName': instance.tutorName})
     boolean___is_add = connection.add(
         dn='uid=%s,%s' % ('%s_%s' % (string___group_cn, instance.identifier,), settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
         object_class=['inetOrgPerson', 'posixAccount', 'top', 'hpcCubaUser'],
-        attributes={
-            'uid': '%s_%s' % (string___group_cn, instance.identifier,),
-            'uidNumber': '%s' % ((int___group_gidnumber * 100000) + instance.pk),
-            'gidNumber': '%s' % (int___group_gidnumber,),
-            'cn': instance.__str__(),
-            'givenName': (instance.first_name if instance.first_name != '' else '-'),
-            'sn': (instance.last_name if instance.last_name != '' else '-'),
-            'mail': instance.email,
-            'userPassword': instance.password,
-            'description': instance.detail,
-            'homeDirectory': '%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,),
-            'loginShell': '/bin/bash',
-            #
-            'institute': instance.institute,
-            'researchField': instance.researchField,
-            'researchGroup': instance.researchGroup,
-            'serviceType': 'serviceType',
-            'userProfile': instance.userProfile,
-        }
+        attributes=attributes
     )
     return boolean___is_add
 
@@ -256,26 +277,33 @@ def ___boolean___ldap___ldapuserhpc_instance_update___(connection, string___grou
             )
         if boolean___is_update:
             # perform the operation update
+            changes = {
+                'uidNumber': [(ldap3.MODIFY_REPLACE, [(int___group_gidnumber * 100000) + instance.pk])],
+                'gidNumber': [(ldap3.MODIFY_REPLACE, [int___group_gidnumber])],
+                'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
+                'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
+                'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
+                'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
+                'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
+                'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
+                'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,)])],
+                'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
+                #
+                'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
+                'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
+                'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
+                'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
+                'userProfile': [(ldap3.MODIFY_REPLACE, [instance.userProfile])],
+            }
+            if instance.tutorInstitution:
+                changes.update({'tutorInstitution': [(ldap3.MODIFY_REPLACE, [instance.tutorInstitution])]})
+            if instance.tutorMail:
+                changes.update({'tutorMail': [(ldap3.MODIFY_REPLACE, [instance.tutorMail])]})
+            if instance.tutorName:
+                changes.update({'tutorName': [(ldap3.MODIFY_REPLACE, [instance.tutorName])]})
             boolean___is_update = connection.modify(
                 dn='uid=%s,%s' % ('%s_%s' % (string___group_cn, instance.identifier,), settings.LDAP_SERVER_USERS_HPC_SEARCH_BASE,),
-                changes={
-                    'uidNumber': [(ldap3.MODIFY_REPLACE, [(int___group_gidnumber * 100000) + instance.pk])],
-                    'gidNumber': [(ldap3.MODIFY_REPLACE, [int___group_gidnumber])],
-                    'cn': [(ldap3.MODIFY_REPLACE, [instance.__str__()])],
-                    'givenName': [(ldap3.MODIFY_REPLACE, [(instance.first_name if instance.first_name != '' else '-')])],
-                    'sn': [(ldap3.MODIFY_REPLACE, [(instance.last_name if instance.last_name != '' else '-')])],
-                    'mail': [(ldap3.MODIFY_REPLACE, [instance.email])],
-                    'userPassword': [(ldap3.MODIFY_REPLACE, [instance.password])],
-                    'description': [(ldap3.MODIFY_REPLACE, [instance.detail])],
-                    'homeDirectory': [(ldap3.MODIFY_REPLACE, ['%s%s_%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, string___group_cn, instance.identifier,)])],
-                    'loginShell': [(ldap3.MODIFY_REPLACE, ['/bin/bash'])],
-                    #
-                    'institute': [(ldap3.MODIFY_REPLACE, [instance.institute])],
-                    'researchField': [(ldap3.MODIFY_REPLACE, [instance.researchField])],
-                    'researchGroup': [(ldap3.MODIFY_REPLACE, [instance.researchGroup])],
-                    'serviceType': [(ldap3.MODIFY_REPLACE, ['serviceType'])],
-                    'userProfile': [(ldap3.MODIFY_REPLACE, [instance.userProfile])],
-                }
+                changes=changes
             )
     return boolean___is_update
 
@@ -403,6 +431,9 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                     string___researchField = str(entry.researchField)
                     string___researchGroup = str(entry.researchGroup)
                     string___userProfile = str(entry.userProfile)
+                    string___tutorInstitution = str(entry.tutorInstitution)
+                    string___tutorMail = str(entry.tutorMail)
+                    string___tutorName = str(entry.tutorName)
                     instance = models.LDAPUserImported.objects.___instance___by_ldap_group_and_identifier___(ldap_group=entry___group['cn'], identifier=string___uid)
                     if instance is not None:
                         instance.first_name = string___givenname
@@ -414,6 +445,9 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                         instance.researchField = string___researchField
                         instance.researchGroup = string___researchGroup
                         instance.userProfile = string___userProfile
+                        instance.tutorInstitution = string___tutorInstitution
+                        instance.tutorMail = string___tutorMail
+                        instance.tutorName = string___tutorName
                         instance.save()
                     else:
                         instance = models.LDAPUserImported(
@@ -428,7 +462,10 @@ def ___void___ldap___ldapuserimported_instances_synchronize___(connection):
                             institute=string___institute,
                             researchField=string___researchField,
                             researchGroup=string___researchGroup,
-                            userProfile=string___userProfile
+                            userProfile=string___userProfile,
+                            tutorInstitution=string___tutorInstitution,
+                            tutorMail=string___tutorMail,
+                            tutorName = string___tutorName
                         )
                         instance.save()
 
@@ -639,3 +676,71 @@ def ___void___action___user_instances_synchronize___():
     finally:
         # close the connection
         connection.unbind()
+
+
+def synchronize():
+    from src.application.security.models import LDAPUser
+    import logging
+    logging.basicConfig(filename='/service_django/error.log', level=logging.DEBUG)
+    from ldap3.utils.log import set_library_log_detail_level, set_library_log_hide_sensitive_data, EXTENDED
+
+    set_library_log_detail_level(EXTENDED)
+    set_library_log_hide_sensitive_data(False)
+    server = ldap3.Server(
+        host=settings.LDAP_SERVER_HOST,
+        port=settings.LDAP_SERVER_PORT,
+        use_ssl=False,
+        get_info=ldap3.ALL
+    )
+    # define the connection
+    connection = ldap3.Connection(
+        server=server,
+        user=settings.LDAP_SERVER_USER,
+        password=settings.LDAP_SERVER_PASSWORD,
+        auto_bind='NONE',
+        version=3,
+        authentication='SIMPLE',
+        client_strategy='SYNC',
+        auto_referrals=True,
+        check_names=True,
+        read_only=False,
+        lazy=False,
+        raise_exceptions=False
+    )
+    instance = LDAPUser.objects.get(pk=11)
+    if connection.bind():
+        attributes = {
+            'uid': instance.identifier,
+            'uidNumber': '%s' % (100000 + instance.pk),
+            'gidNumber': settings.LDAP_SERVER_GROUPS_GROUP_GIDNUMBER,
+            'cn': instance.__str__(),
+            'givenName': (instance.first_name if instance.first_name != '' else '-'),
+            'sn': (instance.last_name if instance.last_name != '' else '-'),
+            'mail': instance.email,
+            'userPassword': instance.password,
+            'description': instance.detail,
+            'homeDirectory': '%s%s/%s' % (settings.LDAP_SERVER_USERS_HOMEDIRECTORY, settings.LDAP_SERVER_GROUPS_GROUP_CN, instance.identifier,),
+            'loginShell': '/bin/bash',
+            #
+            'institute': instance.institute,
+            'researchField': instance.researchField,
+            'researchGroup': instance.researchGroup,
+            'serviceType': 'serviceType',
+            'userProfile': instance.userProfile,
+        }
+        if instance.tutorInstitution:
+            attributes.update({'tutorInstitution': instance.tutorInstitution})
+        if instance.tutorMail:
+            attributes.update({'tutorMail': instance.tutorMail})
+        if instance.tutorName:
+            attributes.update({'tutorName': instance.tutorName})
+        boolean___is_add = connection.add(
+            dn='uid=%s,ou=%s,%s' % (instance.identifier, settings.LDAP_SERVER_GROUPS_GROUP_CN, settings.LDAP_SERVER_USERS_SEARCH_BASE,),
+            object_class=['inetOrgPerson', 'posixAccount', 'top', 'hpcCubaUser'],
+            attributes=attributes
+        )
+        print(attributes)
+        print(boolean___is_add)
+    else:
+        print("not bind")
+    connection.unbind()

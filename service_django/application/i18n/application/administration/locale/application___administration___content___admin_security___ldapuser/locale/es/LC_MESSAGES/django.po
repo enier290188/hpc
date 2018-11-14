@@ -94,6 +94,15 @@ msgstr "Estudiante de doctorado"
 msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___USER_PROFILE___OPTION___OTHER"
 msgstr "Otro"
 
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_INSTITUTION"
+msgstr "Institución del tutor"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_MAIL"
+msgstr "Correo del tutor"
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_NAME"
+msgstr "Nombre del tutor"
+
 
 
 msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Only letters, numbers and the special character dot."
@@ -116,3 +125,12 @@ msgstr "Este correo ya ha sido elegido."
 
 msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION The password and your confirmation do not match."
 msgstr "La contraseña y su confirmación no coinciden."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor's institution."
+msgstr "Especifique la institución del tutor."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor's mail."
+msgstr "Especifique el correo del tutor."
+
+msgid "APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor's name."
+msgstr "Especifique el nombre del tutor."

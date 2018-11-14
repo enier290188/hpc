@@ -164,7 +164,7 @@ ___FIELD___INSTITUTE___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___INSTITUTE'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'institute',
@@ -178,7 +178,7 @@ ___FIELD___RESEARCH_FIELD___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_FIELD'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchField',
@@ -192,7 +192,7 @@ ___FIELD___RESEARCH_GROUP___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchGroup',
@@ -216,10 +216,52 @@ ___FIELD___USER_PROFILE___ = forms.ChoiceField(
     initial='Teacher',
     widget=forms.Select(
         attrs={
-            'id': 'userProfile_register',
+            'id': 'userProfile',
             'class': 'form-control',
             'aria-describedby': 'userProfile_icon',
             'icon': 'glyphicon glyphicon-list',
+        },
+    ),
+)
+___FIELD___TUTOR_INSTITUTION___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_INSTITUTION'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorInstitution',
+            'class': 'form-control',
+            'aria-describedby': 'tutorInstitution_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___TUTOR_MAIL___ = forms.EmailField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_MAIL'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.EmailInput(
+        attrs={
+            'id': 'tutorMail',
+            'class': 'form-control',
+            'aria-describedby': 'tutorMail_icon',
+            'icon': 'glyphicon glyphicon-envelope',
+        },
+    ),
+)
+___FIELD___TUTOR_NAME___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_NAME'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorName',
+            'class': 'form-control',
+            'aria-describedby': 'tutorName_icon',
+            'icon': 'glyphicon glyphicon-globe',
         },
     ),
 )
@@ -272,13 +314,16 @@ class LDAPUserCreate(forms.ModelForm):
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
     userProfile = ___FIELD___USER_PROFILE___
+    tutorInstitution = ___FIELD___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___TUTOR_MAIL___
+    tutorName = ___FIELD___TUTOR_NAME___
 
     groups = ___FIELD___GROUPS___
     permissions = ___FIELD___PERMISSIONS___
 
     class Meta:
         model = models.LDAPUser
-        fields = ['is_active', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'groups', 'permissions', ]
+        fields = ['is_active', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', 'groups', 'permissions', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -313,6 +358,12 @@ class LDAPUserCreate(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP')
         # userProfile
         ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___USER_PROFILE')
+        # tutorInstitution
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorInstitution'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_INSTITUTION')
+        # tutorMail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorMail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_MAIL')
+        # tutorName
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorName'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_NAME')
         # groups
         self.groups_choices = models.Group.objects.all()
         # permissions
@@ -339,6 +390,30 @@ class LDAPUserCreate(forms.ModelForm):
             except models.LDAPUserRequest.DoesNotExist:
                 return email
         raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This email has already been chosen.'))
+
+    def clean_tutorInstitution(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorInstitution = self.cleaned_data.get('tutorInstitution')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorInstitution is None or tutorInstitution == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s institution.'))
+        return tutorInstitution
+
+    def clean_tutorMail(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorMail = self.cleaned_data.get('tutorMail')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorMail is None or tutorMail == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s mail.'))
+        return tutorMail
+
+    def clean_tutorName(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorName = self.cleaned_data.get('tutorName')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorName is None or tutorName == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s name.'))
+        return tutorName
 
     def clean(self):
         ___clean___ = super(LDAPUserCreate, self).clean()
@@ -394,6 +469,9 @@ class LDAPUserDetail(forms.ModelForm):
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
     userProfile = ___FIELD___USER_PROFILE___
+    tutorInstitution = ___FIELD___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___TUTOR_MAIL___
+    tutorName = ___FIELD___TUTOR_NAME___
     groups = ___FIELD___GROUPS___
     permissions = ___FIELD___PERMISSIONS___
 
@@ -427,10 +505,13 @@ class LDAPUserUpdate(forms.ModelForm):
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
     userProfile = ___FIELD___USER_PROFILE___
+    tutorInstitution = ___FIELD___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___TUTOR_MAIL___
+    tutorName = ___FIELD___TUTOR_NAME___
 
     class Meta:
         model = models.LDAPUser
-        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'groups', 'permissions', ]
+        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', 'groups', 'permissions', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -464,6 +545,13 @@ class LDAPUserUpdate(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___RESEARCH_GROUP')
         # researchGroup
         ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___USER_PROFILE')
+        # tutorInstitution
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorInstitution'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_INSTITUTION')
+        # tutorMail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorMail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_MAIL')
+        # tutorName
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorName'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___TUTOR_NAME')
+
         # groups
         self.groups_choices = models.Group.objects.all()
         # permissions
@@ -503,6 +591,30 @@ class LDAPUserUpdate(forms.ModelForm):
         if instance.email == self.instance_current.email:
             return email
         raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION This email has already been chosen.'))
+
+    def clean_tutorInstitution(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorInstitution = self.cleaned_data.get('tutorInstitution')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorInstitution is None or tutorInstitution == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s institution.'))
+        return tutorInstitution
+
+    def clean_tutorMail(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorMail = self.cleaned_data.get('tutorMail')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorMail is None or tutorMail == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s mail.'))
+        return tutorMail
+
+    def clean_tutorName(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorName = self.cleaned_data.get('tutorName')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorName is None or tutorName == '':
+                raise forms.ValidationError(_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSER___VALIDATION Specify the tutor\'s name.'))
+        return tutorName
 
     def clean(self):
         ___clean___ = super(LDAPUserUpdate, self).clean()

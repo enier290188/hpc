@@ -101,7 +101,7 @@ ___FIELD___INSTITUTE___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___INSTITUTE'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'institute',
@@ -115,7 +115,7 @@ ___FIELD___RESEARCH_FIELD___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___RESEARCH_FIELD'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchField',
@@ -129,7 +129,7 @@ ___FIELD___RESEARCH_GROUP___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___RESEARCH_GROUP'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchGroup',
@@ -160,6 +160,48 @@ ___FIELD___USER_PROFILE___ = forms.ChoiceField(
         },
     ),
 )
+___FIELD___TUTOR_INSTITUTION___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___TUTOR_INSTITUTION'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorInstitution',
+            'class': 'form-control',
+            'aria-describedby': 'tutorInstitution_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___TUTOR_MAIL___ = forms.EmailField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___TUTOR_MAIL'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.EmailInput(
+        attrs={
+            'id': 'tutorMail',
+            'class': 'form-control',
+            'aria-describedby': 'tutorMail_icon',
+            'icon': 'glyphicon glyphicon-envelope',
+        },
+    ),
+)
+___FIELD___TUTOR_NAME___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERREQUEST___TUTOR_NAME'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorName',
+            'class': 'form-control',
+            'aria-describedby': 'tutorName_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -182,6 +224,9 @@ class LDAPUserRequestDetail(forms.ModelForm):
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
     userProfile = ___FIELD___USER_PROFILE___
+    tutorInstitution = ___FIELD___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___TUTOR_MAIL___
+    tutorName = ___FIELD___TUTOR_NAME___
 
     class Meta:
         model = models.LDAPUserRequest
@@ -212,7 +257,10 @@ class LDAPUserRequestApprove(forms.ModelForm):
             institute=self.instance.institute,
             researchField=self.instance.researchField,
             researchGroup=self.instance.researchGroup,
-            userProfile=self.instance.userProfile
+            userProfile=self.instance.userProfile,
+            tutorInstitution=self.instance.tutorInstitution,
+            tutorMail=self.instance.tutorMail,
+            tutorName=self.instance.tutorName
         )
         # Send email
         tasks.___task___application___security___login___request___approve___send_mail___.apply_async(
@@ -228,6 +276,9 @@ class LDAPUserRequestApprove(forms.ModelForm):
                 'string___research_field': instance_mirror.researchField,
                 'string___research_group': instance_mirror.researchGroup,
                 'string___user_profile': instance_mirror.userProfile,
+                'string___tutor_institution': instance_mirror.tutorInstitution,
+                'string___tutor_mail': instance_mirror.tutorMail,
+                'string___tutor_name': instance_mirror.tutorName,
             },
             serializer='json'
         )
@@ -259,6 +310,9 @@ class LDAPUserRequestDisapprove(forms.ModelForm):
                 'string___research_field': self.instance.researchField,
                 'string___research_group': self.instance.researchGroup,
                 'string___user_profile': self.instance.userProfile,
+                'string___tutor_institution': self.instance.tutorInstitution,
+                'string___tutor_mail': self.instance.tutorMail,
+                'string___tutor_name': self.instance.tutorName,
             },
             serializer='json'
         )

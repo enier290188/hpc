@@ -99,7 +99,8 @@
 
 #application___administration___header .header___links > li:nth-child(2) > a > img
 {
-    width         :40px;
+    width        :30px;
+    height       :20px;
     border-radius: 5px;
 }
 

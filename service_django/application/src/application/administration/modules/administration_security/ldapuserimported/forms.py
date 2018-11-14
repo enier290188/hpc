@@ -115,6 +115,8 @@ ___FIELD___DETAIL___ = forms.CharField(
 ___FIELD___INSTITUTE___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___INSTITUTE'),
     required=True,
+    min_length=1,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'institute',
@@ -128,7 +130,7 @@ ___FIELD___RESEARCH_FIELD___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_FIELD'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchField',
@@ -142,7 +144,7 @@ ___FIELD___RESEARCH_GROUP___ = forms.CharField(
     label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___RESEARCH_GROUP'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     widget=forms.TextInput(
         attrs={
             'id': 'researchGroup',
@@ -173,6 +175,48 @@ ___FIELD___USER_PROFILE___ = forms.ChoiceField(
         },
     ),
 )
+___FIELD___TUTOR_INSTITUTION___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_INSTITUTION'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorInstitution',
+            'class': 'form-control',
+            'aria-describedby': 'tutorInstitution_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___TUTOR_MAIL___ = forms.EmailField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_MAIL'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.EmailInput(
+        attrs={
+            'id': 'tutorMail',
+            'class': 'form-control',
+            'aria-describedby': 'tutorMail_icon',
+            'icon': 'glyphicon glyphicon-envelope',
+        },
+    ),
+)
+___FIELD___TUTOR_NAME___ = forms.CharField(
+    label=_('APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_NAME'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorName',
+            'class': 'form-control',
+            'aria-describedby': 'tutorName_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
 
 
 def ___field___attribute___placeholder___locale___reload__(field, locale):
@@ -197,6 +241,9 @@ class LDAPUserImportedDetail(forms.ModelForm):
     researchField = ___FIELD___RESEARCH_FIELD___
     researchGroup = ___FIELD___RESEARCH_GROUP___
     userProfile = ___FIELD___USER_PROFILE___
+    tutorInstitution = ___FIELD___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___TUTOR_MAIL___
+    tutorName = ___FIELD___TUTOR_NAME___
 
     class Meta:
         model = models.LDAPUserImported
@@ -222,7 +269,7 @@ class LDAPUserImportedUpdate(forms.ModelForm):
 
     class Meta:
         model = models.LDAPUserImported
-        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
+        fields = ['is_active', 'avatar', 'first_name', 'last_name', 'identifier', 'email', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -260,6 +307,12 @@ class LDAPUserImportedUpdate(forms.ModelForm):
         # userProfile
         ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___USER_PROFILE')
         self.fields['userProfile'].widget.attrs['readonly'] = 'readonly'
+        # tutorInstitution
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorInstitution'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_INSTITUTION')
+        # tutorMail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorMail'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_MAIL')
+        # tutorName
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorName'], locale='APPLICATION___ADMINISTRATION___CONTENT___ADMINISTRATION_SECURITY___LDAPUSERIMPORTED___TUTOR_NAME')
 
     def clean_avatar(self):
         avatar = self.cleaned_data.get('avatar')
@@ -303,6 +356,18 @@ class LDAPUserImportedUpdate(forms.ModelForm):
     def clean_userProfile(self):
         userProfile = self.instance_current.userProfile
         return userProfile
+
+    def clean_tutorInstitution(self):
+        tutorInstitution = self.instance_current.tutorInstitution
+        return tutorInstitution
+
+    def clean_tutorMail(self):
+        tutorMail = self.instance_current.tutorMail
+        return tutorMail
+
+    def clean_tutorName(self):
+        tutorName = self.instance_current.tutorName
+        return tutorName
 
     def save(self, commit=True):
         instance = super(LDAPUserImportedUpdate, self).save(commit=False)

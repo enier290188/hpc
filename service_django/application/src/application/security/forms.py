@@ -206,7 +206,7 @@ ___FIELD___LOGIN___REQUEST___INSTITUTE___ = forms.CharField(
     label=_('APPLICATION___SECURITY___LOGIN___REQUEST___INSTITUTE'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     validators=[
         validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
     ],
@@ -223,7 +223,7 @@ ___FIELD___LOGIN___REQUEST___RESEARCH_FIELD___ = forms.CharField(
     label=_('APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_FIELD'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     validators=[
         validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
     ],
@@ -240,7 +240,7 @@ ___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___ = forms.CharField(
     label=_('APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP'),
     required=True,
     min_length=1,
-    max_length=300,
+    max_length=256,
     validators=[
         validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
     ],
@@ -267,10 +267,58 @@ ___FIELD___LOGIN___REQUEST___USER_PROFILE___ = forms.ChoiceField(
     initial='Teacher',
     widget=forms.Select(
         attrs={
-            'id': 'userProfile_register',
+            'id': 'userProfile',
             'class': 'form-control',
             'aria-describedby': 'userProfile_icon',
             'icon': 'glyphicon glyphicon-list',
+        },
+    ),
+)
+___FIELD___LOGIN___REQUEST___TUTOR_INSTITUTION___ = forms.CharField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_INSTITUTION'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    validators=[
+        validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
+    ],
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorInstitution',
+            'class': 'form-control',
+            'aria-describedby': 'tutorInstitution_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___LOGIN___REQUEST___TUTOR_MAIL___ = forms.EmailField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_MAIL'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    widget=forms.EmailInput(
+        attrs={
+            'id': 'tutorMail',
+            'class': 'form-control',
+            'aria-describedby': 'tutorMail_icon',
+            'icon': 'glyphicon glyphicon-globe',
+        },
+    ),
+)
+___FIELD___LOGIN___REQUEST___TUTOR_NAME___ = forms.CharField(
+    label=_('APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_NAME'),
+    required=False,
+    min_length=1,
+    max_length=256,
+    validators=[
+        validators.RegexValidator('^[\w .\-_]+$', message=_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Only letters, numbers and special characters dot, -, _ and space.')),
+    ],
+    widget=forms.TextInput(
+        attrs={
+            'id': 'tutorName',
+            'class': 'form-control',
+            'aria-describedby': 'tutorName_icon',
+            'icon': 'glyphicon glyphicon-globe',
         },
     ),
 )
@@ -890,11 +938,14 @@ class LDAPUserLoginRequest(forms.ModelForm):
     researchField = ___FIELD___LOGIN___REQUEST___RESEARCH_FIELD___
     researchGroup = ___FIELD___LOGIN___REQUEST___RESEARCH_GROUP___
     userProfile = ___FIELD___LOGIN___REQUEST___USER_PROFILE___
+    tutorInstitution = ___FIELD___LOGIN___REQUEST___TUTOR_INSTITUTION___
+    tutorMail = ___FIELD___LOGIN___REQUEST___TUTOR_MAIL___
+    tutorName = ___FIELD___LOGIN___REQUEST___TUTOR_NAME___
     captcha = CaptchaField(label='CAPTCHA')
 
     class Meta:
         model = models.LDAPUserRequest
-        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', ]
+        fields = ['first_name', 'last_name', 'identifier', 'email', 'password', 'detail', 'institute', 'researchField', 'researchGroup', 'userProfile', 'tutorInstitution', 'tutorMail', 'tutorName', ]
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -926,6 +977,12 @@ class LDAPUserLoginRequest(forms.ModelForm):
         ___field___attribute___placeholder___locale___reload__(field=self.fields['researchGroup'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___RESEARCH_GROUP')
         #  userProfile
         ___field___attribute___placeholder___locale___reload__(field=self.fields['userProfile'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___USER_PROFILE')
+        # tutorInstitution
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorInstitution'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_INSTITUTION')
+        # tutorMail
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorMail'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_MAIL')
+        # tutorName
+        ___field___attribute___placeholder___locale___reload__(field=self.fields['tutorName'], locale='APPLICATION___SECURITY___LOGIN___REQUEST___TUTOR_NAME')
 
     def clean_identifier(self):
         identifier = self.cleaned_data.get('identifier')
@@ -948,6 +1005,30 @@ class LDAPUserLoginRequest(forms.ModelForm):
             except models.LDAPUserRequest.DoesNotExist:
                 return email
         raise forms.ValidationError(_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION This email has already been chosen.'))
+
+    def clean_tutorInstitution(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorInstitution = self.cleaned_data.get('tutorInstitution')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorInstitution is None or tutorInstitution == '':
+                raise forms.ValidationError(_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor\'s institution.'))
+        return tutorInstitution
+
+    def clean_tutorMail(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorMail = self.cleaned_data.get('tutorMail')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorMail is None or tutorMail == '':
+                raise forms.ValidationError(_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor\'s mail.'))
+        return tutorMail
+
+    def clean_tutorName(self):
+        userProfile = self.cleaned_data.get('userProfile')
+        tutorName = self.cleaned_data.get('tutorName')
+        if userProfile in ['Undergraduate student', "Master's student", 'PhD student']:
+            if tutorName is None or tutorName == '':
+                raise forms.ValidationError(_('APPLICATION___SECURITY___LOGIN___REQUEST___VALIDATION Specify the tutor\'s name.'))
+        return tutorName
 
     def clean(self):
         ___clean___ = super(LDAPUserLoginRequest, self).clean()

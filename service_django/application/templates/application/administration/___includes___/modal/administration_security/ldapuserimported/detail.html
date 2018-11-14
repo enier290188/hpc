@@ -83,6 +83,21 @@
                             <td>{{ ctx___form.instance.userProfile }}</td>
                         </tr>
                         <tr>
+                            <th><span class="{{ ctx___form.tutorName.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.tutorName.field.label }}</td>
+                            <td>{{ ctx___form.instance.tutorName }}</td>
+                        </tr>
+                        <tr>
+                            <th><span class="{{ ctx___form.tutorMail.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.tutorMail.field.label }}</td>
+                            <td>{{ ctx___form.instance.tutorMail }}</td>
+                        </tr>
+                        <tr>
+                            <th><span class="{{ ctx___form.tutorInstitution.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
+                            <td>{{ ctx___form.tutorInstitution.field.label }}</td>
+                            <td>{{ ctx___form.instance.tutorInstitution }}</td>
+                        </tr>
+                        <tr>
                             <th><span class="{{ ctx___form.is_active.field.widget.attrs.icon }}" aria-hidden="true"></span></th>
                             <td>{{ ctx___form.is_active.field.label }}</td>
                             <td>{% if ctx___form.instance.is_active == True %}{% trans "APPLICATION___ADMINISTRATION___CONTENT___OPTION_YES" %}{% else %}{% trans "APPLICATION___ADMINISTRATION___CONTENT___OPTION_NO" %}{% endif %}</td>

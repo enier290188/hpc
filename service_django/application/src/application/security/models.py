@@ -575,6 +575,24 @@ class LDAPUser(models.Model):
         null=False,
         blank=False,
     )
+    tutorInstitution = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorMail = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorName = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
     groups = models.ManyToManyField(
         'Group',
         related_name='ldapuser_groups_set',
@@ -794,6 +812,24 @@ class LDAPUserImported(models.Model):
         null=False,
         blank=False,
     )
+    tutorInstitution = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorMail = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorName = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
     locale = models.CharField(
         default='',
         max_length=10,
@@ -1005,6 +1041,24 @@ class LDAPUserRequest(models.Model):
         max_length=256,
         null=False,
         blank=False,
+    )
+    tutorInstitution = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorMail = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
+    )
+    tutorName = models.CharField(
+        default='',
+        max_length=256,
+        null=True,
+        blank=True,
     )
     objects = LDAPUserRequestManager()
 

@@ -59,6 +59,15 @@
                     {% with ctx___field=ctx___form.userProfile %}
                         {% include "application/administration/___includes___/modal/___includes___/form/select/select.html" %}
                     {% endwith %}
+                    {% with ctx___field=ctx___form.tutorName %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.tutorMail %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
+                    {% with ctx___field=ctx___form.tutorInstitution %}
+                        {% include "application/administration/___includes___/modal/___includes___/form/textfield/textfield.html" %}
+                    {% endwith %}
 
                     <div class="divider___transparent"></div>
                     {% with ctx___field=ctx___form.captcha %}
@@ -80,3 +89,30 @@
         </form>
     </div>
 </div>
+<script>
+    var $userProfile = $( "#userProfile" );
+    var value = $userProfile.val();
+    if(value === 'Investigator' || value === 'Teacher' || value === 'Other') {
+        $('#tutorName').parent().parent().css('display', 'none');
+        $('#tutorMail').parent().parent().css('display', 'none');
+        $('#tutorInstitution').parent().parent().css('display', 'none');
+    }
+    else {
+        $('#tutorName').parent().parent().css('display', 'block');
+        $('#tutorMail').parent().parent().css('display', 'block');
+        $('#tutorInstitution').parent().parent().css('display', 'block');
+    }
+    $userProfile.on('change', function() {
+        var value = $( "#userProfile" ).val();
+        if(value === 'Investigator' || value === 'Teacher' || value === 'Other') {
+            $('#tutorName').parent().parent().css('display', 'none');
+            $('#tutorMail').parent().parent().css('display', 'none');
+            $('#tutorInstitution').parent().parent().css('display', 'none');
+        }
+        else {
+            $('#tutorName').parent().parent().css('display', 'block');
+            $('#tutorMail').parent().parent().css('display', 'block');
+            $('#tutorInstitution').parent().parent().css('display', 'block');
+        }
+    });
+</script>

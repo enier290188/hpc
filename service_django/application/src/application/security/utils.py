@@ -538,6 +538,9 @@ def ___jsonresponse___login___request___(request, ___application___security___fr
                     'string___research_field': instance.researchField,
                     'string___research_group': instance.researchGroup,
                     'string___user_profile': instance.userProfile,
+                    'string___tutor_institution': instance.tutorInstitution,
+                    'string___tutor_mail': instance.tutorMail,
+                    'string___tutor_name': instance.tutorName,
                 },
                 serializer='json'
             )

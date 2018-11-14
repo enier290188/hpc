@@ -99,8 +99,9 @@
 
 #application___bigdata___header .header___links > li:nth-child(2) > a > img
 {
-    width         :40px;
-    border-radius: 5px;
+    width        :30px;
+    height       :20px;
+    border-radius:5px;
 }
 
 #application___bigdata___header .header___links > li > a > span.badge
